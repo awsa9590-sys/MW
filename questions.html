@@ -1,43 +1,134 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>بنك الأسئلة</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+<head><meta charset="UTF-8"><title>BANK</title><link rel="stylesheet" href="style.css"></head>
 <body>
-
-<header>
-    <h1>بنك الأسئلة</h1>
-    <nav>
-        <a href="index.html">الرئيسية</a>
-        <a href="lessons.html">الدروس</a>
-        <a href="questions.html">الأسئلة</a>
-    </nav>
-</header>
-
+<header><h1>بنك الأسئلة</h1><nav><a href="index.html">الرئيسية</a><a href="lessons.html">الدروس</a><a href="questions.html">الأسئلة</a></nav></header>
 <section class="container">
-
-    <div class="question-box">
-        <h3>سؤال 1: ما هي أهمية الخلية؟</h3>
-        <button onclick="toggleAnswer(1)">إظهار الإجابة</button>
-        <p id="ans1" class="answer">الخلية هي الوحدة الأساسية للكائنات الحية.</p>
-    </div>
-
-    <div class="question-box">
-        <h3>سؤال 2: ما الفرق بين المادة والعنصر؟</h3>
-        <button onclick="toggleAnswer(2)">إظهار الإجابة</button>
-        <p id="ans2" class="answer">العنصر مادة لا يمكن تحليلها إلى مواد أبسط.</p>
-    </div>
-
+<div class="question-box"><h3>سؤال 1: ما هي أهمية الخلية؟</h3><button onclick="toggleAnswer(1)">إظهار الإجابة</button><p id="ans1" class="answer">الخلية هي الوحدة الأساسية للكائنات الحية.</p></div>
+<div class="question-box"><h3>سؤال 2: ما الفرق بين المادة والعنصر؟</h3><button onclick="toggleAnswer(2)">إظهار الإجابة</button><p id="ans2" class="answer">العنصر مادة لا يمكن تحليلها إلى مواد أبسط.</p></div>
 </section>
-
 <script>
-function toggleAnswer(n) {
-    let ans = document.getElementById("ans" + n);
-    ans.style.display = ans.style.display === "block" ? "none" : "block";
-}
+function toggleAnswer(n){let ans=document.getElementById("ans"+n);ans.style.display=ans.style.display==="block"?"none":"block";}
 </script>
+</body></html>
+<div class="question-box">
+    <h3>سؤال 1: التعريف القانوني لعقد التأمين هو عقد يلتزم بمقتضاه المُؤمِّن أن يؤدي عوضاً مالياً في حالة تحقق الخطر، وذلك مقابل:</h3>
+    <ul>
+        <li>أ- مساهمة سنوية من الدولة.</li>
+        <li>ب- قسط يؤديه المُؤمَّن له.</li>
+        <li>ج- مبلغ التعويض المدفوع للمتضررين.</li>
+        <li>د- هامش الربح للشركة.</li>
+    </ul>
+    <button onclick="toggleAnswer(1)">إظهار الإجابة الصحيحة</button>
+    <p id="ans1" class="answer">الإجابة الصحيحة: ب</p>
+</div>
 
-</body>
-</html>
+<div class="question-box">
+    <h3>سؤال 2: أي خاصية من خصائص عقد التأمين تعني أن أحد الطرفين (شركة التأمين) ينفرد بوضع شروط العقد، ولا يملك الطرف الآخر سوى القبول أو الرفض؟</h3>
+    <ul>
+        <li>أ- عقد رضائي.</li>
+        <li>ب- عقد معاوضة.</li>
+        <li>ج- عقد إذعان.</li>
+        <li>د- عقد احتمالي.</li>
+    </ul>
+    <button onclick="toggleAnswer(2)">إظهار الإجابة الصحيحة</button>
+    <p id="ans2" class="answer">الإجابة الصحيحة: ج</p>
+</div>
+
+<div class="question-box">
+    <h3>سؤال 3: الخطر الذي تتغير درجة احتمالية وقوعه بالزيادة أو النقصان بمرور الزمن (مثل خطر الوفاة) يسمى:</h3>
+    <ul>
+        <li>أ- الخطر الثابت.</li>
+        <li>ب- الخطر المتغير.</li>
+        <li>ج- الخطر البحت.</li>
+        <li>د- الخطر المضارب.</li>
+    </ul>
+    <button onclick="toggleAnswer(3)">إظهار الإجابة الصحيحة</button>
+    <p id="ans3" class="answer">الإجابة الصحيحة: ب</p>
+</div>
+
+<div class="question-box">
+    <h3>سؤال 4: التوزيع الاحتمالي الذي يستخدم في حالات الحوادث النادرة أو الظواهر التي تقع بمعدل زمني معين (مثل عدد الحوادث في منطقة ما) هو:</h3>
+    <ul>
+        <li>أ- التوزيع الطبيعي.</li>
+        <li>ب- توزيع ثنائي الحدين.</li>
+        <li>ج- توزيع بواسون.</li>
+        <li>د- التوزيع الهندسي.</li>
+    </ul>
+    <button onclick="toggleAnswer(4)">إظهار الإجابة الصحيحة</button>
+    <p id="ans4" class="answer">الإجابة الصحيحة: ج</p>
+</div>
+
+<div class="question-box">
+    <h3>سؤال 5: احتمال أن شخصاً سنه (x) سيعيش حتى وصوله إلى السن (x+1) يرمز له بالرمز:</h3>
+    <ul>
+        <li>أ- q_x</li>
+        <li>ب- p_x</li>
+        <li>ج- d_x</li>
+        <li>د- L_x</li>
+    </ul>
+    <button onclick="toggleAnswer(5)">إظهار الإجابة الصحيحة</button>
+    <p id="ans5" class="answer">الإجابة الصحيحة: ب</p>
+</div>
+<h2>ثانياً: أسئلة صح وخطأ</h2>
+
+<div class="question-box">
+    <h3>1. ظهرت أول شركة تأمين مصرية عام 1900 تحت اسم "شركة مصر للتأمين".</h3>
+    <button onclick="toggleAnswer(6)">إظهار القرار والتصحيح</button>
+    <p id="ans6" class="answer">القرار والتصحيح: خطأ. ظهرت تحت اسم "شركة التأمين الأهلية".</p>
+</div>
+
+<div class="question-box">
+    <h3>2. يُعتبر عقد التأمين "عقد حسن نية" لأنه يجب على المُؤمَّن له الإفصاح الكامل والصادق عن كافة البيانات الجوهرية.</h3>
+    <button onclick="toggleAnswer(7)">إظهار القرار والتصحيح</button>
+    <p id="ans7" class="answer">القرار والتصحيح: صح.</p>
+</div>
+
+<div class="question-box">
+    <h3>3. وفقاً لجداول الحياة، فإن مجموع احتمال الحياة ($p_x$) واحتمال الوفاة ($q_x$) لشخص في نفس العمر هو أقل من الواحد الصحيح.</h3>
+    <button onclick="toggleAnswer(8)">إظهار القرار والتصحيح</button>
+    <p id="ans8" class="answer">القرار والتصحيح: خطأ. مجموع احتمال الحياة واحتمال الوفاة يساوي الواحد الصحيح ($p_x + q_x = 1$).</p>
+</div>
+
+<div class="question-box">
+    <h3>4. القسط التجاري للتأمين يكون أقل من القسط الصافي.</h3>
+    <button onclick="toggleAnswer(9)">إظهار القرار والتصحيح</button>
+    <p id="ans9" class="answer">القرار والتصحيح: خطأ. القسط التجاري أكبر من القسط الصافي لأنه يشمل التحميلات (المصاريف الإدارية، العمولة، هامش الربح).</p>
+</div>
+
+<div class="question-box">
+    <h3>5. التأمين التكافلي يختلف عن التأمين التجاري في أنه يقوم على مبدأ التعاون والتكافل.</h3>
+    <button onclick="toggleAnswer(10)">إظهار القرار والتصحيح</button>
+    <p id="ans10" class="answer">القرار والتصحيح: صح. يتم توزيع الفائض التأميني على المشتركين وفقاً للنظام الأساسي.</p>
+</div>
+<h2>ثالثاً: أسئلة أكمل العبارات</h2>
+
+<div class="question-box">
+    <h3>1. يمكن القول بأن التأمين نظام اجتماعي يهدف إلى نقل عبء الخطر من شخص واحد إلى …</h3>
+    <button onclick="toggleAnswer(11)">إظهار الإجابة</button>
+    <p id="ans11" class="answer">الإجابة: مجموعة</p>
+</div>
+
+<div class="question-box">
+    <h3>2. يُعد عقد التأمين … لأنه يلزم كلاً من المؤمن والمؤمن له بتنفيذ التزاماتهما.</h3>
+    <button onclick="toggleAnswer(12)">إظهار الإجابة</button>
+    <p id="ans12" class="answer">الإجابة: ملزم للجانبين</p>
+</div>
+
+<div class="question-box">
+    <h3>3. عدد الوفيات التي تحدث بين السن (x) والسن (x+1) يُرمز له بالرمز … في جداول الحياة.</h3>
+    <button onclick="toggleAnswer(13)">إظهار الإجابة</button>
+    <p id="ans13" class="answer">الإجابة: d_x</p>
+</div>
+
+<div class="question-box">
+    <h3>4. يتكون قسط التأمين التجاري من القسط الصافي مضافاً إليه … والتي تشمل المصاريف الإدارية والعمولة وهامش الربح.</h3>
+    <button onclick="toggleAnswer(14)">إظهار الإجابة</button>
+    <p id="ans14" class="answer">الإجابة: التحميلات</p>
+</div>
+
+<div class="question-box">
+    <h3>5. ظهر التأمين البحري لأول مرة بشكل تجاري في القرن … الميلادي.</h3>
+    <button onclick="toggleAnswer(15)">إظهار الإجابة</button>
+    <p id="ans15" class="answer">الإجابة: الثاني عشر</p>
+</div>
