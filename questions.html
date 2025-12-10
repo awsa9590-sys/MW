@@ -3,89 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أسئلة وأجوبة حول التأمين - وضع الاختبار</title>
+    <title>اختبار شامل: أساسيات وتاريخ التأمين</title>
     <style>
+        /* الأنماط الأساسية والاحترافية */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Tahoma', 'Arial', sans-serif;
             line-height: 1.6;
-            margin: 20px;
-            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5; /* خلفية فاتحة وهادئة */
             color: #333;
         }
         .container {
-            max-width: 900px;
-            margin: auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 950px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
         h1 {
             text-align: center;
-            color: #0056b3;
-            border-bottom: 3px solid #0056b3;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
+            color: #004d99; /* أزرق داكن احترافي */
+            border-bottom: 4px solid #004d99;
+            padding-bottom: 15px;
+            margin-bottom: 40px;
+            font-size: 2em;
         }
         h2 {
-            color: #28a745;
-            border-bottom: 2px solid #28a745;
-            padding-bottom: 5px;
-            margin-top: 25px;
+            color: #1a7541; /* أخضر داكن */
+            border-bottom: 2px solid #1a7541;
+            padding-bottom: 8px;
+            margin-top: 35px;
+            font-size: 1.5em;
         }
-        .question-item {
-            margin-bottom: 20px;
-            padding: 10px;
-            border-bottom: 1px dashed #ccc;
-        }
-        .question-content {
-            font-weight: bold;
-            color: #007bff;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .answer-container {
-            margin-top: 5px;
-            padding: 10px;
-            border-right: 4px solid #ffc107;
-            background-color: #fff9e6;
-            border-radius: 4px;
-            display: none; /* مخفي في البداية */
-        }
-        .answer-container span, .correction span {
-            font-weight: bold;
-            color: #d63384;
-        }
-        .correction {
-            margin-top: 5px;
-            padding: 5px 10px;
-            border-right: 4px solid #dc3545;
-            background-color: #f8d7da;
-            color: #721c24;
-            border-radius: 4px;
-        }
-        ol, ul {
+        ol {
             padding: 0;
             list-style-type: none;
         }
+        .question-item {
+            margin-bottom: 25px;
+            padding: 15px 0;
+            border-bottom: 1px dashed #ccc;
+        }
+        .question-content {
+            font-weight: 600;
+            color: #1f3a93; /* أزرق متوسط للأسئلة */
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            font-size: 1.1em;
+        }
+        .question-text {
+            flex-grow: 1;
+        }
+        .answer-container {
+            margin-top: 10px;
+            padding: 12px 15px;
+            border-right: 5px solid #ffc107; /* شريط جانبي أصفر/ذهبي */
+            background-color: #fff8e1; /* خلفية الإجابة */
+            border-radius: 6px;
+            display: none;
+            color: #333;
+            font-weight: normal;
+        }
+        .answer-container span, .correction span {
+            font-weight: bold;
+            color: #b30059; /* لون مميز للإجابة داخل النص */
+        }
+        .correction {
+            margin-top: 8px;
+            padding: 10px;
+            border-right: 5px solid #cc0000; /* شريط جانبي أحمر للتصحيح */
+            background-color: #ffe0e6;
+            color: #800020;
+            border-radius: 6px;
+        }
+        /* تصميم الزر */
         button {
-            background-color: #28a745;
+            background-color: #007bff; /* أزرق قياسي */
             color: white;
             border: none;
-            padding: 8px 15px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
+            padding: 10px 18px;
             font-size: 14px;
-            margin-left: 10px;
             cursor: pointer;
             border-radius: 5px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
+            white-space: nowrap; /* يمنع انقسام النص */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         button:hover {
-            background-color: #218838;
+            background-color: #0056b3;
+            transform: translateY(-1px);
         }
     </style>
     <script>
@@ -94,11 +104,11 @@
             if (answer.style.display === "none" || answer.style.display === "") {
                 answer.style.display = "block";
                 buttonElement.textContent = "إخفاء الإجابة";
-                buttonElement.style.backgroundColor = "#dc3545"; // لون أحمر عند الإظهار
+                buttonElement.style.backgroundColor = "#dc3545"; /* أحمر للإخفاء */
             } else {
                 answer.style.display = "none";
                 buttonElement.textContent = "إظهار الإجابة";
-                buttonElement.style.backgroundColor = "#28a745"; // لون أخضر عند الإخفاء
+                buttonElement.style.backgroundColor = "#007bff"; /* أزرق للإظهار */
             }
         }
     </script>
@@ -106,146 +116,120 @@
 <body>
 
 <div class="container">
-    <h1>📝 أسئلة وأجوبة شاملة حول التأمين</h1>
-    <p style="text-align: center; color: #dc3545;">(اضغط على زر **"إظهار الإجابة"** لرؤية الحل)</p>
+    <h1>اختبار شامل: أساسيات وتاريخ التأمين</h1>
+    <p style="text-align: center; color: #555; font-style: italic; margin-bottom: 30px;">
+        (اضغط على زر الإجابة لعرض أو إخفاء الحل لكل سؤال)
+    </p>
 
-    <h2>✅ أولاً: اختر الإجابة الصحيحة</h2>
+    <h2><span style="color: #004d99;">&#9679;</span> أولاً: اختيار من متعدد</h2>
     <ol>
         <li class="question-item">
             <div class="question-content">
-                <span>1. يرى الباحثون أن أول نظام يتعلق "بالخسارة العامة" ظهر في جزيرة رودس عام: (916 ق.م - 1666 م - 1182 م - 1900 م)</span>
+                <span class="question-text">1. يرى الباحثون أن أول نظام يتعلق "بالخسارة العامة" ظهر في جزيرة رودس عام: (916 ق.م - 1666 م - 1182 م - 1900 م)</span>
                 <button onclick="toggleAnswer('q1_ans', this)">إظهار الإجابة</button>
             </div>
-            <div id="q1_ans" class="answer-container">الإجابة: <span>916 ق.م</span></div>
+            <div id="q1_ans" class="answer-container">الإجابة الصحيحة: <span>916 ق.م</span></div>
         </li>
         <li class="question-item">
             <div class="question-content">
-                <span>2. أول أنواع التأمين ظهوراً بشكل تجاري عملي هو: (التأمين على الحياة - التأمين البحري - التأمين ضد الحريق - تأمين السيارات)</span>
+                <span class="question-text">2. أول أنواع التأمين ظهوراً بشكل تجاري عملي هو: (التأمين على الحياة - التأمين البحري - التأمين ضد الحريق - تأمين السيارات)</span>
                 <button onclick="toggleAnswer('q2_ans', this)">إظهار الإجابة</button>
             </div>
-            <div id="q2_ans" class="answer-container">الإجابة: <span>التأمين البحري</span></div>
+            <div id="q2_ans" class="answer-container">الإجابة الصحيحة: <span>التأمين البحري</span></div>
         </li>
         <li class="question-item">
             <div class="question-content">
-                <span>3. ظهرت التأمينات البرية (ضد الحريق) لأول مرة في بريطانيا عقب: (حرب أكتوبر - الثورة الصناعية - حريق لندن الهائل - الحرب العالمية الثانية)</span>
+                <span class="question-text">3. ظهرت التأمينات البرية (ضد الحريق) لأول مرة في بريطانيا عقب: (حرب أكتوبر - الثورة الصناعية - حريق لندن الهائل - الحرب العالمية الثانية)</span>
                 <button onclick="toggleAnswer('q3_ans', this)">إظهار الإجابة</button>
             </div>
-            <div id="q3_ans" class="answer-container">الإجابة: <span>حريق لندن الهائل</span> (عام 1666م)</div>
+            <div id="q3_ans" class="answer-container">الإجابة الصحيحة: <span>حريق لندن الهائل</span> (عام 1666م)</div>
         </li>
         <li class="question-item">
             <div class="question-content">
-                <span>4. تأسست أول شركة تأمين مصرية عام 1900م وهي شركة: (مصر للتأمين - الشرق للتأمين - التأمين الأهلية - قناة السويس للتأمين)</span>
+                <span class="question-text">4. تأسست أول شركة تأمين مصرية عام 1900م وهي شركة: (مصر للتأمين - الشرق للتأمين - التأمين الأهلية - قناة السويس للتأمين)</span>
                 <button onclick="toggleAnswer('q4_ans', this)">إظهار الإجابة</button>
             </div>
-            <div id="q4_ans" class="answer-container">الإجابة: <span>التأمين الأهلية</span></div>
+            <div id="q4_ans" class="answer-container">الإجابة الصحيحة: <span>التأمين الأهلية</span></div>
         </li>
         <li class="question-item">
             <div class="question-content">
-                <span>5. القانون الذي ألزم شركات التأمين في مصر بالفصل بين نشاطي "الحياة" و"الممتلكات" هو قانون رقم 118 لسنة: (1939 - 1981 - 1995 - 2008)</span>
+                <span class="question-text">5. القانون الذي ألزم شركات التأمين في مصر بالفصل بين نشاطي "الحياة" و"الممتلكات" هو قانون رقم 118 لسنة: (1939 - 1981 - 1995 - 2008)</span>
                 <button onclick="toggleAnswer('q5_ans', this)">إظهار الإجابة</button>
             </div>
-            <div id="q5_ans" class="answer-container">الإجابة: <span>2008</span></div>
-        </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span>6. ظهر التأمين على الحياة في بدايته في شمال إيطاليا على شكل: (تكافل اجتماعي - مراهنة على حياة الأشخاص - جمعيات تعاونية - نظام حكومي)</span>
-                <button onclick="toggleAnswer('q6_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q6_ans" class="answer-container">الإجابة: <span>مراهنة على حياة الأشخاص</span></div>
+            <div id="q5_ans" class="answer-container">الإجابة الصحيحة: <span>2008</span></div>
         </li>
     </ol>
 
-    <h2>❌ ثانياً: صواب وخطأ مع التصحيح</h2>
-    <ol start="7">
+    <h2><span style="color: #004d99;">&#9679;</span> ثانياً: صواب وخطأ مع التصحيح</h2>
+    <ol start="6">
         <li class="question-item">
             <div class="question-content">
-                <span>7. عرف قدماء المصريين شكلًا من أشكال التأمين من خلال جمعيات دفن الموتى.</span>
-                <button onclick="toggleAnswer('q7_ans', this)">إظهار الإجابة</button>
+                <span class="question-text">6. عرف قدماء المصريين شكلًا من أشكال التأمين من خلال جمعيات دفن الموتى.</span>
+                <button onclick="toggleAnswer('q6_ans', this)">إظهار الإجابة</button>
             </div>
-            <div id="q7_ans" class="answer-container">الإجابة: <span>صحيحة (✔)</span></div>
+            <div id="q6_ans" class="answer-container">الإجابة: <span>صحيحة (✔)</span></div>
         </li>
         <li class="question-item">
             <div class="question-content">
-                <span>8. أدى ظهور الثورة الصناعية واستعمال الآلات إلى اختفاء الحاجة للتأمين.</span>
-                <button onclick="toggleAnswer('q8_ans', this)">إظهار الإجابة</button>
+                <span class="question-text">7. أدى ظهور الثورة الصناعية واستعمال الآلات إلى اختفاء الحاجة للتأمين.</span>
+                <button onclick="toggleAnswer('q7_ans', this)">إظهار الإجابة</button>
             </div>
-            <div id="q8_ans" class="answer-container">
+            <div id="q7_ans" class="answer-container">
                 الإجابة: <span>خاطئة (✖)</span>
                 <div class="correction">التصحيح: بل أدى إلى **إيجاد أخطار جديدة** (مثل إصابات العمل) وبالتالي **زيادة** الحاجة لأنواع جديدة مثل تأمين المسؤولية المدنية.</div>
             </div>
         </li>
         <li class="question-item">
             <div class="question-content">
-                <span>9. صدر أول قانون لتنظيم أعمال التأمين في مصر (القانون 92) عام 1939 بعد إلغاء الامتيازات الأجنبية.</span>
-                <button onclick="toggleAnswer('q9_ans', this)">إظهار الإجابة</button>
+                <span class="question-text">8. يعتبر التأمين ضد الحريق أقدم أنواع التأمين ظهوراً على الإطلاق.</span>
+                <button onclick="toggleAnswer('q8_ans', this)">إظهار الإجابة</button>
             </div>
-            <div id="q9_ans" class="answer-container">الإجابة: <span>صحيحة (✔)</span></div>
-        </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span>10. يعتبر التأمين ضد الحريق أقدم أنواع التأمين ظهوراً على الإطلاق.</span>
-                <button onclick="toggleAnswer('q10_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q10_ans" class="answer-container">
+            <div id="q8_ans" class="answer-container">
                 الإجابة: <span>خاطئة (✖)</span>
                 <div class="correction">التصحيح: **التأمين البحري** هو أقدم الأنواع ظهوراً بشكل تجاري.</div>
             </div>
         </li>
         <li class="question-item">
             <div class="question-content">
-                <span>11. كانت قرارات التأميم التي حولت شركات التأمين لملكية الدولة في مصر خلال فترة التسعينات.</span>
-                <button onclick="toggleAnswer('q11_ans', this)">إظهار الإجابة</button>
+                <span class="question-text">9. كانت قرارات التأميم التي حولت شركات التأمين لملكية الدولة في مصر خلال فترة التسعينات.</span>
+                <button onclick="toggleAnswer('q9_ans', this)">إظهار الإجابة</button>
             </div>
-            <div id="q11_ans" class="answer-container">
+            <div id="q9_ans" class="answer-container">
                 الإجابة: <span>خاطئة (✖)</span>
                 <div class="correction">التصحيح: كانت في فترة **الستينات** (تحديداً 1961م).</div>
             </div>
         </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span>12. كان التجار الصينيون يوزعون بضائعهم على عدة سفن لتقليل المخاطر، وهي النواة الأولى للتأمين البحري.</span>
-                <button onclick="toggleAnswer('q12_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q12_ans" class="answer-container">الإجابة: <span>صحيحة (✔)</span></div>
-        </li>
     </ol>
 
-    <h2>🖊️ ثالثاً: أكمل العبارات التالية</h2>
-    <ol start="13">
+    <h2><span style="color: #004d99;">&#9679;</span> ثالثاً: أكمل الفراغات</h2>
+    <ol start="10">
         <li class="question-item">
             <div class="question-content">
-                <span>13. **لغوياً:** كلمة التأمين مأخوذة من مادة (أ م ن) وهي ضد ................... وتعني ....................</span>
+                <span class="question-text">10. **لغوياً:** كلمة التأمين مأخوذة من مادة (أ م ن) وهي ضد ................... وتعني ....................</span>
+                <button onclick="toggleAnswer('q10_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q10_ans" class="answer-container">الإجابة: ضد <span>الخوف</span> وتعني <span>الطمأنينة (أو الأمان)</span>.</div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span class="question-text">11. **اصطلاحاً:** التأمين هو عقد بين طرفين هما ................... و ...................، يلتزم فيه الأول بدفع تعويض مالي عند وقوع الخطر مقابل قسط.</span>
+                <button onclick="toggleAnswer('q11_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q11_ans" class="answer-container">الإجابة: الطرفان هما <span>المُؤمِّن (الشركة)</span> و <span>المُؤمَّن له (المستأمن)</span>.</div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span class="question-text">12. تأسست أول شركة للتأمين ضد الحريق عام 1694م تحت عنوان ....................</span>
+                <button onclick="toggleAnswer('q12_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q12_ans" class="answer-container">الإجابة: تحت عنوان <span>"اليد في اليد" (HAND IN HAND)</span>.</div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span class="question-text">13. بموجب القانون رقم 91 لسنة 1995 في مصر، سُمح بمشاركة الشركات ................... في سوق التأمين المصري بنسبة تصل إلى 100% لاحقاً.</span>
                 <button onclick="toggleAnswer('q13_ans', this)">إظهار الإجابة</button>
             </div>
-            <div id="q13_ans" class="answer-container">الإجابة: ضد <span>الخوف</span> وتعني <span>الطمأنينة (أو الأمان)</span>.</div>
-        </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span>14. **اصطلاحاً:** التأمين هو عقد بين طرفين هما ................... و ...................، يلتزم فيه الأول بدفع تعويض مالي عند وقوع الخطر مقابل قسط.</span>
-                <button onclick="toggleAnswer('q14_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q14_ans" class="answer-container">الإجابة: الطرفان هما <span>المُؤمِّن (الشركة)</span> و <span>المُؤمَّن له (المستأمن)</span>.</div>
-        </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span>15. تأسست أول شركة للتأمين ضد الحريق عام 1694م تحت عنوان ....................</span>
-                <button onclick="toggleAnswer('q15_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q15_ans" class="answer-container">الإجابة: تحت عنوان <span>"اليد في اليد" (HAND IN HAND)</span>.</div>
-        </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span>16. بعد الحرب العالمية الثانية، شهدت صناعة ................... تطوراً هائلاً مما جعل التأمين عليها إجبارياً في كثير من الدول.</span>
-                <button onclick="toggleAnswer('q16_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q16_ans" class="answer-container">الإجابة: صناعة <span>الطيران</span>.</div>
-        </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span>17. بموجب القانون رقم 91 لسنة 1995 في مصر، سُمح بمشاركة الشركات ................... في سوق التأمين المصري بنسبة تصل إلى 100% لاحقاً.</span>
-                <button onclick="toggleAnswer('q17_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q17_ans" class="answer-container">الإجابة: الشركات <span>الأجنبية</span>.</div>
+            <div id="q13_ans" class="answer-container">الإجابة: الشركات <span>الأجنبية</span>.</div>
         </li>
     </ol>
 </div>
