@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أسئلة وأجوبة حول التأمين</title>
+    <title>أسئلة وأجوبة حول التأمين - وضع الاختبار</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -33,139 +33,221 @@
             padding-bottom: 5px;
             margin-top: 25px;
         }
-        .question-group {
+        .question-item {
             margin-bottom: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #fafafa;
+            padding: 10px;
+            border-bottom: 1px dashed #ccc;
         }
-        .question {
+        .question-content {
             font-weight: bold;
             color: #007bff;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .answer, .correction {
+        .answer-container {
             margin-top: 5px;
-            padding: 5px 10px;
+            padding: 10px;
             border-right: 4px solid #ffc107;
             background-color: #fff9e6;
             border-radius: 4px;
+            display: none; /* مخفي في البداية */
         }
-        .answer span, .correction span {
+        .answer-container span, .correction span {
             font-weight: bold;
             color: #d63384;
         }
         .correction {
+            margin-top: 5px;
+            padding: 5px 10px;
             border-right: 4px solid #dc3545;
             background-color: #f8d7da;
             color: #721c24;
+            border-radius: 4px;
         }
         ol, ul {
-            padding-right: 20px;
+            padding: 0;
+            list-style-type: none;
         }
-        li {
-            margin-bottom: 15px;
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
-        .multiple-choice span {
-            color: #28a745;
-            font-weight: bold;
+        button:hover {
+            background-color: #218838;
         }
     </style>
+    <script>
+        function toggleAnswer(elementId, buttonElement) {
+            var answer = document.getElementById(elementId);
+            if (answer.style.display === "none" || answer.style.display === "") {
+                answer.style.display = "block";
+                buttonElement.textContent = "إخفاء الإجابة";
+                buttonElement.style.backgroundColor = "#dc3545"; // لون أحمر عند الإظهار
+            } else {
+                answer.style.display = "none";
+                buttonElement.textContent = "إظهار الإجابة";
+                buttonElement.style.backgroundColor = "#28a745"; // لون أخضر عند الإخفاء
+            }
+        }
+    </script>
 </head>
 <body>
 
 <div class="container">
     <h1>📝 أسئلة وأجوبة شاملة حول التأمين</h1>
+    <p style="text-align: center; color: #dc3545;">(اضغط على زر **"إظهار الإجابة"** لرؤية الحل)</p>
 
     <h2>✅ أولاً: اختر الإجابة الصحيحة</h2>
-    <div class="question-group">
-        <ol>
-            <li>
-                <div class="question">يرى الباحثون أن أول نظام يتعلق "بالخسارة العامة" ظهر في جزيرة رودس عام: (916 ق.م - 1666 م - 1182 م - 1900 م)</div>
-                <div class="answer multiple-choice">الإجابة: <span>916 ق.م</span></div>
-            </li>
-            <li>
-                <div class="question">أول أنواع التأمين ظهوراً بشكل تجاري عملي هو: (التأمين على الحياة - التأمين البحري - التأمين ضد الحريق - تأمين السيارات)</div>
-                <div class="answer multiple-choice">الإجابة: <span>التأمين البحري</span></div>
-            </li>
-            <li>
-                <div class="question">ظهرت التأمينات البرية (ضد الحريق) لأول مرة في بريطانيا عقب: (حرب أكتوبر - الثورة الصناعية - حريق لندن الهائل - الحرب العالمية الثانية)</div>
-                <div class="answer multiple-choice">الإجابة: <span>حريق لندن الهائل</span> (عام 1666م)</div>
-            </li>
-            <li>
-                <div class="question">تأسست أول شركة تأمين مصرية عام 1900م وهي شركة: (مصر للتأمين - الشرق للتأمين - التأمين الأهلية - قناة السويس للتأمين)</div>
-                <div class="answer multiple-choice">الإجابة: <span>التأمين الأهلية</span></div>
-            </li>
-            <li>
-                <div class="question">القانون الذي ألزم شركات التأمين في مصر بالفصل بين نشاطي "الحياة" و"الممتلكات" هو قانون رقم 118 لسنة: (1939 - 1981 - 1995 - 2008)</div>
-                <div class="answer multiple-choice">الإجابة: <span>2008</span></div>
-            </li>
-            <li>
-                <div class="question">ظهر التأمين على الحياة في بدايته في شمال إيطاليا على شكل: (تكافل اجتماعي - مراهنة على حياة الأشخاص - جمعيات تعاونية - نظام حكومي)</div>
-                <div class="answer multiple-choice">الإجابة: <span>مراهنة على حياة الأشخاص</span></div>
-            </li>
-        </ol>
-    </div>
+    <ol>
+        <li class="question-item">
+            <div class="question-content">
+                <span>1. يرى الباحثون أن أول نظام يتعلق "بالخسارة العامة" ظهر في جزيرة رودس عام: (916 ق.م - 1666 م - 1182 م - 1900 م)</span>
+                <button onclick="toggleAnswer('q1_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q1_ans" class="answer-container">الإجابة: <span>916 ق.م</span></div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span>2. أول أنواع التأمين ظهوراً بشكل تجاري عملي هو: (التأمين على الحياة - التأمين البحري - التأمين ضد الحريق - تأمين السيارات)</span>
+                <button onclick="toggleAnswer('q2_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q2_ans" class="answer-container">الإجابة: <span>التأمين البحري</span></div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span>3. ظهرت التأمينات البرية (ضد الحريق) لأول مرة في بريطانيا عقب: (حرب أكتوبر - الثورة الصناعية - حريق لندن الهائل - الحرب العالمية الثانية)</span>
+                <button onclick="toggleAnswer('q3_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q3_ans" class="answer-container">الإجابة: <span>حريق لندن الهائل</span> (عام 1666م)</div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span>4. تأسست أول شركة تأمين مصرية عام 1900م وهي شركة: (مصر للتأمين - الشرق للتأمين - التأمين الأهلية - قناة السويس للتأمين)</span>
+                <button onclick="toggleAnswer('q4_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q4_ans" class="answer-container">الإجابة: <span>التأمين الأهلية</span></div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span>5. القانون الذي ألزم شركات التأمين في مصر بالفصل بين نشاطي "الحياة" و"الممتلكات" هو قانون رقم 118 لسنة: (1939 - 1981 - 1995 - 2008)</span>
+                <button onclick="toggleAnswer('q5_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q5_ans" class="answer-container">الإجابة: <span>2008</span></div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span>6. ظهر التأمين على الحياة في بدايته في شمال إيطاليا على شكل: (تكافل اجتماعي - مراهنة على حياة الأشخاص - جمعيات تعاونية - نظام حكومي)</span>
+                <button onclick="toggleAnswer('q6_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q6_ans" class="answer-container">الإجابة: <span>مراهنة على حياة الأشخاص</span></div>
+        </li>
+    </ol>
 
     <h2>❌ ثانياً: صواب وخطأ مع التصحيح</h2>
-    <div class="question-group">
-        <ol>
-            <li>
-                <div class="question">عرف قدماء المصريين شكلًا من أشكال التأمين من خلال جمعيات دفن الموتى.</div>
-                <div class="answer">الإجابة: <span>صحيحة (✔)</span></div>
-            </li>
-            <li>
-                <div class="question">أدى ظهور الثورة الصناعية واستعمال الآلات إلى اختفاء الحاجة للتأمين.</div>
-                <div class="answer">الإجابة: <span>خاطئة (✖)</span></div>
+    <ol start="7">
+        <li class="question-item">
+            <div class="question-content">
+                <span>7. عرف قدماء المصريين شكلًا من أشكال التأمين من خلال جمعيات دفن الموتى.</span>
+                <button onclick="toggleAnswer('q7_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q7_ans" class="answer-container">الإجابة: <span>صحيحة (✔)</span></div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span>8. أدى ظهور الثورة الصناعية واستعمال الآلات إلى اختفاء الحاجة للتأمين.</span>
+                <button onclick="toggleAnswer('q8_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q8_ans" class="answer-container">
+                الإجابة: <span>خاطئة (✖)</span>
                 <div class="correction">التصحيح: بل أدى إلى **إيجاد أخطار جديدة** (مثل إصابات العمل) وبالتالي **زيادة** الحاجة لأنواع جديدة مثل تأمين المسؤولية المدنية.</div>
-            </li>
-            <li>
-                <div class="question">صدر أول قانون لتنظيم أعمال التأمين في مصر (القانون 92) عام 1939 بعد إلغاء الامتيازات الأجنبية.</div>
-                <div class="answer">الإجابة: <span>صحيحة (✔)</span></div>
-            </li>
-            <li>
-                <div class="question">يعتبر التأمين ضد الحريق أقدم أنواع التأمين ظهوراً على الإطلاق.</div>
-                <div class="answer">الإجابة: <span>خاطئة (✖)</span></div>
+            </div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span>9. صدر أول قانون لتنظيم أعمال التأمين في مصر (القانون 92) عام 1939 بعد إلغاء الامتيازات الأجنبية.</span>
+                <button onclick="toggleAnswer('q9_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q9_ans" class="answer-container">الإجابة: <span>صحيحة (✔)</span></div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span>10. يعتبر التأمين ضد الحريق أقدم أنواع التأمين ظهوراً على الإطلاق.</span>
+                <button onclick="toggleAnswer('q10_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q10_ans" class="answer-container">
+                الإجابة: <span>خاطئة (✖)</span>
                 <div class="correction">التصحيح: **التأمين البحري** هو أقدم الأنواع ظهوراً بشكل تجاري.</div>
-            </li>
-            <li>
-                <div class="question">كانت قرارات التأميم التي حولت شركات التأمين لملكية الدولة في مصر خلال فترة التسعينات.</div>
-                <div class="answer">الإجابة: <span>خاطئة (✖)</span></div>
-                <div class="correction">التصحيح: كانت في فترة **الستينات** (تحديداً عام 1961م).</div>
-            </li>
-            <li>
-                <div class="question">كان التجار الصينيون يوزعون بضائعهم على عدة سفن لتقليل المخاطر، وهي النواة الأولى للتأمين البحري.</div>
-                <div class="answer">الإجابة: <span>صحيحة (✔)</span></div>
-            </li>
-        </ol>
-    </div>
+            </div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span>11. كانت قرارات التأميم التي حولت شركات التأمين لملكية الدولة في مصر خلال فترة التسعينات.</span>
+                <button onclick="toggleAnswer('q11_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q11_ans" class="answer-container">
+                الإجابة: <span>خاطئة (✖)</span>
+                <div class="correction">التصحيح: كانت في فترة **الستينات** (تحديداً 1961م).</div>
+            </div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span>12. كان التجار الصينيون يوزعون بضائعهم على عدة سفن لتقليل المخاطر، وهي النواة الأولى للتأمين البحري.</span>
+                <button onclick="toggleAnswer('q12_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q12_ans" class="answer-container">الإجابة: <span>صحيحة (✔)</span></div>
+        </li>
+    </ol>
 
     <h2>🖊️ ثالثاً: أكمل العبارات التالية</h2>
-    <div class="question-group">
-        <ul>
-            <li>
-                <div class="question">**لغوياً:** كلمة التأمين مأخوذة من مادة (أ م ن) وهي ضد ................... وتعني ....................</div>
-                <div class="answer">الإجابة: ضد <span>الخوف</span> وتعني <span>الطمأنينة (أو الأمان)</span>.</div>
-            </li>
-            <li>
-                <div class="question">**اصطلاحاً:** التأمين هو عقد بين طرفين هما ................... و ...................، يلتزم فيه الأول بدفع تعويض مالي عند وقوع الخطر مقابل قسط.</div>
-                <div class="answer">الإجابة: الطرفان هما <span>المُؤمِّن (الشركة)</span> و <span>المُؤمَّن له (المستأمن)</span>.</div>
-            </li>
-            <li>
-                <div class="question">تأسست أول شركة للتأمين ضد الحريق عام 1694م تحت عنوان ....................</div>
-                <div class="answer">الإجابة: تحت عنوان <span>"اليد في اليد" (HAND IN HAND)</span>.</div>
-            </li>
-            <li>
-                <div class="question">بعد الحرب العالمية الثانية، شهدت صناعة ................... تطوراً هائلاً مما جعل التأمين عليها إجبارياً في كثير من الدول.</div>
-                <div class="answer">الإجابة: صناعة <span>الطيران</span>.</div>
-            </li>
-            <li>
-                <div class="question">بموجب القانون رقم 91 لسنة 1995 في مصر، سُمح بمشاركة الشركات ................... في سوق التأمين المصري بنسبة تصل إلى 100% لاحقاً.</div>
-                <div class="answer">الإجابة: الشركات <span>الأجنبية</span>.</div>
-            </li>
-        </ul>
-    </div>
+    <ol start="13">
+        <li class="question-item">
+            <div class="question-content">
+                <span>13. **لغوياً:** كلمة التأمين مأخوذة من مادة (أ م ن) وهي ضد ................... وتعني ....................</span>
+                <button onclick="toggleAnswer('q13_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q13_ans" class="answer-container">الإجابة: ضد <span>الخوف</span> وتعني <span>الطمأنينة (أو الأمان)</span>.</div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span>14. **اصطلاحاً:** التأمين هو عقد بين طرفين هما ................... و ...................، يلتزم فيه الأول بدفع تعويض مالي عند وقوع الخطر مقابل قسط.</span>
+                <button onclick="toggleAnswer('q14_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q14_ans" class="answer-container">الإجابة: الطرفان هما <span>المُؤمِّن (الشركة)</span> و <span>المُؤمَّن له (المستأمن)</span>.</div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span>15. تأسست أول شركة للتأمين ضد الحريق عام 1694م تحت عنوان ....................</span>
+                <button onclick="toggleAnswer('q15_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q15_ans" class="answer-container">الإجابة: تحت عنوان <span>"اليد في اليد" (HAND IN HAND)</span>.</div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span>16. بعد الحرب العالمية الثانية، شهدت صناعة ................... تطوراً هائلاً مما جعل التأمين عليها إجبارياً في كثير من الدول.</span>
+                <button onclick="toggleAnswer('q16_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q16_ans" class="answer-container">الإجابة: صناعة <span>الطيران</span>.</div>
+        </li>
+        <li class="question-item">
+            <div class="question-content">
+                <span>17. بموجب القانون رقم 91 لسنة 1995 في مصر، سُمح بمشاركة الشركات ................... في سوق التأمين المصري بنسبة تصل إلى 100% لاحقاً.</span>
+                <button onclick="toggleAnswer('q17_ans', this)">إظهار الإجابة</button>
+            </div>
+            <div id="q17_ans" class="answer-container">الإجابة: الشركات <span>الأجنبية</span>.</div>
+        </li>
+    </ol>
 </div>
 
 </body>
