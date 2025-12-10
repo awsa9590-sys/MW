@@ -1,394 +1,56 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار التأمين وإدارة المخاطر</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --success-color: #27ae60;
-            --error-color: #c0392b;
-            --bg-color: #f4f6f7;
-            --card-bg: #ffffff;
-        }
+body {
+    font-family: Tahoma;
+    margin: 0;
+    background: #f4f4f4;
+}
 
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: var(--bg-color);
-            color: #333;
-            margin: 0;
-            padding: 0;
-            line-height: 1.8;
-        }
+header {
+    background: #005aaa;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
 
-        /* تنسيق الهيدر */
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
+nav a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
 
-        header h1 {
-            margin: 0;
-            font-weight: 900;
-            font-size: 2.5em;
-        }
+.hero {
+    background: #e8f3ff;
+    padding: 40px;
+    text-align: center;
+}
 
-        header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-            margin-top: 10px;
-        }
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
 
-        /* الحاوية الرئيسية */
-        .container {
-            max-width: 800px;
-            margin: -30px auto 50px;
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
-        }
+.card, .lesson, .question-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
 
-        /* عناوين الأقسام */
-        .section-title {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            margin: 30px 0 20px;
-            display: inline-block;
-            font-size: 1.1em;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background: #005aaa;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+}
 
-        /* بطاقة السؤال */
-        .question-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-right: 5px solid var(--accent-color);
-            transition: transform 0.3s ease;
-        }
-
-        .question-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .question-text {
-            font-weight: 700;
-            font-size: 1.1em;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
-
-        /* خيارات الإجابة (أزرار) */
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .option-btn {
-            background-color: #f8f9fa;
-            border: 2px solid #e9ecef;
-            padding: 12px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: right;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 1em;
-            transition: all 0.2s;
-            position: relative;
-        }
-
-        .option-btn:hover {
-            background-color: #e2e6ea;
-            border-color: #adb5bd;
-        }
-
-        /* تنسيقات الإجابة الصحيحة والخاطئة */
-        .option-btn.correct {
-            background-color: #d4edda;
-            border-color: var(--success-color);
-            color: var(--success-color);
-            font-weight: bold;
-        }
-
-        .option-btn.wrong {
-            background-color: #f8d7da;
-            border-color: var(--error-color);
-            color: var(--error-color);
-        }
-
-        .option-btn.correct::after {
-            content: "✔ إجابة صحيحة";
-            position: absolute;
-            left: 15px;
-            font-size: 0.8em;
-        }
-
-        .option-btn.wrong::after {
-            content: "✖ إجابة خاطئة";
-            position: absolute;
-            left: 15px;
-            font-size: 0.8em;
-        }
-
-        /* منطقة التغذية الراجعة (الشرح) */
-        .feedback {
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #e8f4fd;
-            border-radius: 6px;
-            font-size: 0.9em;
-            color: #2c3e50;
-            display: none; /* مخفي افتراضياً */
-            border-right: 3px solid var(--accent-color);
-        }
-
-        /* تنسيق أسئلة أكمل */
-        .fill-blank-container {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin-top: 10px;
-        }
-        
-        .fill-input {
-            padding: 8px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-family: 'Tajawal', sans-serif;
-            flex-grow: 1;
-        }
-
-        .check-btn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 9px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: 'Tajawal', sans-serif;
-        }
-
-        .check-btn:hover {
-            background-color: #2980b9;
-        }
-
-        /* الفوتر */
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #777;
-            font-size: 0.9em;
-            margin-top: 40px;
-        }
-
-    </style>
-</head>
-<body>
-
-<header>
-    <h1>بنك الأسئلة التفاعلي</h1>
-    <p>مادة التأمين وإدارة المخاطر</p>
-</header>
-
-<div class="container">
-
-    <div class="section-title">أولاً: أسئلة الاختيار من متعدد</div>
-
-    <div class="question-card">
-        <div class="question-text">1. التعريف القانوني لعقد التأمين هو عقد يلتزم بمقتضاه المُؤمِّن أن يؤدي عوضاً مالياً مقابل:</div>
-        <div class="options">
-            <button class="option-btn" onclick="checkMCQ(this, false)">أ- مساهمة سنوية من الدولة</button>
-            <button class="option-btn" onclick="checkMCQ(this, true)">ب- قسط يؤديه المُؤمَّن له</button>
-            <button class="option-btn" onclick="checkMCQ(this, false)">ج- مبلغ التعويض</button>
-            <button class="option-btn" onclick="checkMCQ(this, false)">د- هامش الربح</button>
-        </div>
-        <div class="feedback">الإجابة الصحيحة هي (ب): قسط يؤديه المؤمن له هو المقابل المالي للتغطية.</div>
-    </div>
-
-    <div class="question-card">
-        <div class="question-text">2. أي خاصية تعني أن أحد الطرفين ينفرد بوضع الشروط ولا يملك الآخر سوى القبول أو الرفض؟</div>
-        <div class="options">
-            <button class="option-btn" onclick="checkMCQ(this, false)">أ- عقد رضائي</button>
-            <button class="option-btn" onclick="checkMCQ(this, false)">ب- عقد معاوضة</button>
-            <button class="option-btn" onclick="checkMCQ(this, true)">ج- عقد إذعان</button>
-            <button class="option-btn" onclick="checkMCQ(this, false)">د- عقد احتمالي</button>
-        </div>
-        <div class="feedback">الإجابة الصحيحة هي (ج): عقد الإذعان هو الذي يضع شروطه الطرف القوي (الشركة).</div>
-    </div>
-
-    <div class="question-card">
-        <div class="question-text">3. الخطر الذي تتغير درجة احتمالية وقوعه بالزيادة أو النقصان بمرور الزمن يسمى:</div>
-        <div class="options">
-            <button class="option-btn" onclick="checkMCQ(this, false)">أ- الخطر الثابت</button>
-            <button class="option-btn" onclick="checkMCQ(this, true)">ب- الخطر المتغير</button>
-            <button class="option-btn" onclick="checkMCQ(this, false)">ج- الخطر البحت</button>
-            <button class="option-btn" onclick="checkMCQ(this, false)">د- الخطر المضارب</button>
-        </div>
-        <div class="feedback">الإجابة الصحيحة هي (ب): الخطر المتغير مثل خطر الوفاة الذي يزداد بتقدم العمر.</div>
-    </div>
-
-    <div class="question-card">
-        <div class="question-text">4. التوزيع الاحتمالي المستخدم في حالات الحوادث النادرة هو:</div>
-        <div class="options">
-            <button class="option-btn" onclick="checkMCQ(this, false)">أ- التوزيع الطبيعي</button>
-            <button class="option-btn" onclick="checkMCQ(this, false)">ب- توزيع ثنائي الحدين</button>
-            <button class="option-btn" onclick="checkMCQ(this, true)">ج- توزيع بواسون</button>
-            <button class="option-btn" onclick="checkMCQ(this, false)">د- التوزيع الهندسي</button>
-        </div>
-        <div class="feedback">الإجابة الصحيحة هي (ج): توزيع بواسون يستخدم للحوادث النادرة خلال فترة زمنية.</div>
-    </div>
-
-    <div class="question-card">
-        <div class="question-text">5. في جداول الحياة، يرمز لاحتمال الحياة بالرمز:</div>
-        <div class="options">
-            <button class="option-btn" onclick="checkMCQ(this, false)">أ- qx</button>
-            <button class="option-btn" onclick="checkMCQ(this, true)">ب- px</button>
-            <button class="option-btn" onclick="checkMCQ(this, false)">ج- dx</button>
-            <button class="option-btn" onclick="checkMCQ(this, false)">د- Lx</button>
-        </div>
-        <div class="feedback">الإجابة الصحيحة هي (ب): px هو رمز احتمال الحياة، بينما qx هو احتمال الوفاة.</div>
-    </div>
-
-
-    <div class="section-title">ثانياً: أسئلة الصواب والخطأ</div>
-
-    <div class="question-card">
-        <div class="question-text">1. ظهرت أول شركة تأمين مصرية عام 1900 تحت اسم "شركة مصر للتأمين".</div>
-        <div class="options">
-            <button class="option-btn" onclick="checkTF(this, false)">صح</button>
-            <button class="option-btn" onclick="checkTF(this, true)">خطأ</button>
-        </div>
-        <div class="feedback">التصحيح: ظهرت تحت اسم "شركة التأمين الأهلية".</div>
-    </div>
-
-    <div class="question-card">
-        <div class="question-text">2. يُعتبر عقد التأمين "عقد حسن نية" لأنه يتطلب الإفصاح الكامل عن البيانات.</div>
-        <div class="options">
-            <button class="option-btn" onclick="checkTF(this, true)">صح</button>
-            <button class="option-btn" onclick="checkTF(this, false)">خطأ</button>
-        </div>
-        <div class="feedback">إجابة صحيحة. حسن النية ركن أساسي في عقود التأمين.</div>
-    </div>
-
-    <div class="question-card">
-        <div class="question-text">3. مجموع احتمال الحياة واحتمال الوفاة لنفس الشخص يساوي أقل من واحد صحيح.</div>
-        <div class="options">
-            <button class="option-btn" onclick="checkTF(this, false)">صح</button>
-            <button class="option-btn" onclick="checkTF(this, true)">خطأ</button>
-        </div>
-        <div class="feedback">التصحيح: المجموع يساوي دائماً الواحد الصحيح (1).</div>
-    </div>
-
-    <div class="question-card">
-        <div class="question-text">4. القسط التجاري يكون أقل من القسط الصافي.</div>
-        <div class="options">
-            <button class="option-btn" onclick="checkTF(this, false)">صح</button>
-            <button class="option-btn" onclick="checkTF(this, true)">خطأ</button>
-        </div>
-        <div class="feedback">التصحيح: القسط التجاري أكبر لأنه يضاف إليه التحميلات.</div>
-    </div>
-
-
-    <div class="section-title">ثالثاً: أكمل العبارات</div>
-
-    <div class="question-card">
-        <div class="question-text">1. يهدف التأمين إلى نقل عبء الخطر من شخص واحد إلى ....... من الأشخاص.</div>
-        <div class="fill-blank-container">
-            <input type="text" class="fill-input" placeholder="اكتب الإجابة هنا..." id="fill1">
-            <button class="check-btn" onclick="checkFill('fill1', 'مجموعة', this)">تحقق</button>
-        </div>
-        <div class="feedback">الإجابة: مجموعة</div>
-    </div>
-
-    <div class="question-card">
-        <div class="question-text">2. يُعد عقد التأمين ....... للجانبين لأنه يلزم الطرفين.</div>
-        <div class="fill-blank-container">
-            <input type="text" class="fill-input" placeholder="اكتب الإجابة هنا..." id="fill2">
-            <button class="check-btn" onclick="checkFill('fill2', 'ملزم', this)">تحقق</button>
-        </div>
-        <div class="feedback">الإجابة: ملزم (أو ملزم للجانبين)</div>
-    </div>
-
-    <div class="question-card">
-        <div class="question-text">3. ظهر التأمين البحري لأول مرة بشكل تجاري في القرن ....... الميلادي.</div>
-        <div class="fill-blank-container">
-            <input type="text" class="fill-input" placeholder="اكتب الإجابة هنا..." id="fill3">
-            <button class="check-btn" onclick="checkFill('fill3', 'الثاني عشر', this)">تحقق</button>
-        </div>
-        <div class="feedback">الإجابة: الثاني عشر (أو 12)</div>
-    </div>
-
-</div>
-
-<footer>
-    تم التصميم للمساعدة في مراجعة مادة التأمين وإدارة المخاطر &copy; 2024
-</footer>
-
-<script>
-    // دالة التحقق من الاختيار من متعدد
-    function checkMCQ(btn, isCorrect) {
-        // إيقاف النقر المتكرر
-        const parent = btn.parentElement;
-        const buttons = parent.querySelectorAll('.option-btn');
-        buttons.forEach(b => b.disabled = true); // تعطيل باقي الأزرار
-
-        // إظهار النتيجة
-        if (isCorrect) {
-            btn.classList.add('correct');
-        } else {
-            btn.classList.add('wrong');
-            // البحث عن الإجابة الصحيحة وتمييزها
-            // (هذه الخطوة تتطلب منطقاً أعقد قليلاً في كود الإنتاج، هنا سنكتفي بإظهار الشرح)
-        }
-        
-        // إظهار الشرح
-        const card = parent.parentElement;
-        const feedback = card.querySelector('.feedback');
-        if(feedback) {
-            feedback.style.display = 'block';
-        }
-    }
-
-    // دالة التحقق من الصح والخطأ (نفس منطق MCQ تقريباً)
-    function checkTF(btn, isCorrect) {
-        checkMCQ(btn, isCorrect);
-    }
-
-    // دالة التحقق من الأسئلة المقالية (أكمل)
-    function checkFill(inputId, correctAnswer, btn) {
-        const input = document.getElementById(inputId);
-        const userAnswer = input.value.trim();
-        const feedback = btn.parentElement.parentElement.querySelector('.feedback');
-        
-        // تحقق بسيط (يحتوي على الكلمة المفتاحية)
-        if (userAnswer.includes(correctAnswer) || userAnswer == correctAnswer) {
-            input.style.borderColor = 'var(--success-color)';
-            input.style.backgroundColor = '#d4edda';
-            btn.textContent = "صحيح ✔";
-            btn.style.backgroundColor = 'var(--success-color)';
-        } else {
-            input.style.borderColor = 'var(--error-color)';
-            input.style.backgroundColor = '#f8d7da';
-            btn.textContent = "حاول مرة أخرى";
-            btn.style.backgroundColor = 'var(--error-color)';
-        }
-        
-        feedback.style.display = 'block';
-    }
-</script>
-
-</body>
-</html>
+.answer {
+    display: none;
+    background: #f0f0f0;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+}
