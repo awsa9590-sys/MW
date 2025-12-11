@@ -1,74 +1,174 @@
-// 1. تعريف الأسئلة (بيانات الاختبار)
-const myQuestions = [
-  {
-    question: "السؤال الأول: ما هو النهر الأطول في العالم؟",
-    answers: {
-      a: "نهر الأمازون",
-      b: "نهر النيل",
-      c: "نهر اليانغتسي"
-    },
-    correctAnswer: "b"
-  },
-  {
-    question: "السؤال الثاني: ما هي عاصمة كندا؟",
-    answers: {
-      a: "تورنتو",
-      b: "مونتريال",
-      c: "أوتاوا"
-    },
-    correctAnswer: "c"
-  }
-];
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ابدأالامتحان التجريبى الان | منصة التفوق</title>
+    <link rel="stylesheet" href="style.css"> 
+    
+    <style>
+        /* * يمكنك إضافة تنسيقات CSS بسيطة هنا لتظهر الأسئلة بشكل أفضل حتى لو لم يكن لديك ملف style.css 
+         * هذا التنسيق المقترح يضمن قراءة جيدة للامتحان.
+        */
+        .quiz-card {
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            background-color: #ffffff;
+            margin-top: 20px;
+        }
+        .question {
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 1.1em;
+            color: #333;
+        }
+        .answers label {
+            display: block;
+            margin: 8px 0;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .answers input[type="radio"] {
+            margin-left: 10px;
+        }
+        #submit-quiz {
+            margin-top: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff; /* لون الزر */
+            color: white;
+            font-size: 1em;
+        }
+        #results {
+            margin-top: 25px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <h1>⚔️ منطقة التحدي: الامتحان</h1>
+        <nav>
+            <a href="index.html">الرئيسية</a>
+        </nav>
+    </header>
 
-// 2. الحصول على العناصر من HTML
-const quizContainer = document.getElementById('questions');
-const resultsContainer = document.getElementById('results');
-const submitButton = document.getElementById('submit-quiz');
+    <section class="container">
+        <div class="card quiz-card">
+            
+            <h2>ابدأ التحدي الآن!</h2>
+
+            <div id="quiz-container">
+                <div id="questions">
+                    <p>جارٍ تحميل الأسئلة...</p>
+                </div>
+            
+                <button id="submit-quiz">إنهاء الاختبار وحساب النتيجة</button>
+            
+                <div id="results"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        // 1. تعريف الأسئلة (بيانات الاختبار)
+        const myQuestions = [
+            {
+                question: "السؤال الأول: ما هو النهر الأطول في العالم؟",
+                answers: {
+                    a: "نهر الأمازون",
+                    b: "نهر النيل",
+                    c: "نهر اليانغتسي"
+                },
+                correctAnswer: "b"
+            },
+            {
+                question: "السؤال الثاني: ما هي عاصمة كندا؟",
+                answers: {
+                    a: "تورنتو",
+                    b: "مونتريال",
+                    c: "أوتاوا"
+                },
+                correctAnswer: "c"
+            },
+            {
+                question: "السؤال الثالث: كم ضلعاً للمربع؟",
+                answers: {
+                    a: "ثلاثة",
+                    b: "أربعة",
+                    c: "خمسة"
+                },
+                correctAnswer: "b"
+            }
+            // يمكنك إضافة المزيد من الأسئلة هنا
+        ];
+
+        // 2. الحصول على العناصر من HTML
+        const quizContainer = document.getElementById('questions');
+        const resultsContainer = document.getElementById('results');
+        const submitButton = document.getElementById('submit-quiz');
 
 
-// 3. دالة بناء وعرض الاختبار
-function buildQuiz(){
-  const output = [];
-  myQuestions.forEach( (currentQuestion, questionNumber) => {
-    const answers = [];
-    for(letter in currentQuestion.answers){
-      answers.push(
-        `<label>
-          <input type="radio" name="question${questionNumber}" value="${letter}">
-          ${letter} : ${currentQuestion.answers[letter]}
-        </label>`
-      );
-    }
-    output.push(
-      `<div class="question">${currentQuestion.question}</div>
-      <div class="answers">${answers.join('')}</div>`
-    );
-  });
-  quizContainer.innerHTML = output.join('');
-}
+        // 3. دالة بناء وعرض الاختبار
+        function buildQuiz(){
+            const output = [];
+            myQuestions.forEach( (currentQuestion, questionNumber) => {
+                const answers = [];
+                for(letter in currentQuestion.answers){
+                    answers.push(
+                        `<label>
+                            <input type="radio" name="question${questionNumber}" value="${letter}">
+                            ${letter} : ${currentQuestion.answers[letter]}
+                        </label>`
+                    );
+                }
+                output.push(
+                    `<div class="question">${currentQuestion.question}</div>
+                    <div class="answers">${answers.join('')}</div>`
+                );
+            });
+            quizContainer.innerHTML = output.join('');
+        }
 
 
-// 4. دالة عرض النتائج وحساب الدرجات
-function showResults(){
-  const answerContainers = quizContainer.querySelectorAll('.answers');
-  let numCorrect = 0;
+        // 4. دالة عرض النتائج وحساب الدرجات
+        function showResults(){
+            const answerContainers = quizContainer.querySelectorAll('.answers');
+            let numCorrect = 0;
 
-  myQuestions.forEach( (currentQuestion, questionNumber) => {
-    const answerContainer = answerContainers[questionNumber];
-    const selector = `input[name=question${questionNumber}]:checked`;
-    const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+            myQuestions.forEach( (currentQuestion, questionNumber) => {
+                const answerContainer = answerContainers[questionNumber];
+                const selector = `input[name=question${questionNumber}]:checked`;
+                const userAnswer = (answerContainer.querySelector(selector) || {}).value;
 
-    if(userAnswer === currentQuestquiz.html ion.correctAnswer){
-      numCorrect++;
-      answerContainers[questionNumber].style.color = 'green'; // تلوين الإجابة الصحيحة
-    } else {
-      answerContainers[questionNumber].style.color = 'red'; // تلوين الإجابة الخاطئة
-    }
-  });
+                if(userAnswer === currentQuestion.correctAnswer){
+                    numCorrect++;
+                    answerContainers[questionNumber].style.color = 'green'; // تلوين الإجابة الصحيحة
+                } else {
+                    answerContainers[questionNumber].style.color = 'red'; // تلوين الإجابة الخاطئة
+                    // اختيارياً، يمكنك عرض الإجابة الصحيحة
+                    // answerContainers[questionNumber].innerHTML += `<br><small style="color: blue;">الإجابة الصحيحة: ${currentQuestion.correctAnswer}</small>`; 
+                }
+            });
 
-  resultsContainer.innerHTML = `تم إحراز ${numCorrect} إجابة صحيحة من أصل ${myQuestions.length}.`;
-}
+            resultsContainer.innerHTML = `
+                <h3>النتائج النهائية</h3>
+                <p>تم إحراز ${numCorrect} إجابة صحيحة من أصل ${myQuestions.length}.</p>
+            `;
+        }
 
-// 5. تشغيل الدوال
-buildQuiz(); // لعرض الأسئلة فوراً عند تحميل الصفحة
-submitButton.addEventListener('click', showResults); // لربط الزر بالنتائج
+        // 5. تشغيل الدوال عند تحميل الصفحة
+        buildQuiz(); 
+        submitButton.addEventListener('click', showResults); 
+    </script>
+</body>
+</html>
