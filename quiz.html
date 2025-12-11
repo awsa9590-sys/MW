@@ -3,170 +3,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ابدأالامتحان التجريبى الان | منصة التفوق</title>
-    <link rel="stylesheet" href="style.css"> 
+    <title>اختبار شامل في قانون التأمين (15 سؤالاً)</title>
     
     <style>
-        /* * يمكنك إضافة تنسيقات CSS بسيطة هنا لتظهر الأسئلة بشكل أفضل حتى لو لم يكن لديك ملف style.css 
-         * هذا التنسيق المقترح يضمن قراءة جيدة للامتحان.
-        */
-        .quiz-card {
-            padding: 30px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            background-color: #ffffff;
-            margin-top: 20px;
-        }
-        .question {
-            font-weight: bold;
-            margin-top: 15px;
-            font-size: 1.1em;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
             color: #333;
+            margin: 0;
+            padding: 20px;
+            direction: rtl;
+            text-align: right;
         }
-        .answers label {
-            display: block;
-            margin: 8px 0;
-            padding: 5px;
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #0056b3;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #0056b3;
+            text-align: right;
+            margin: 0;
+            font-size: 1.8em;
+        }
+        #admin-icon {
             cursor: pointer;
+            font-size: 1.5em;
+            color: #d9534f;
+            text-decoration: none;
+            padding: 8px 12px;
+            border: 1px solid #d9534f;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
-        .answers input[type="radio"] {
-            margin-left: 10px;
+        #admin-icon:hover {
+            background-color: #d9534f;
+            color: white;
+        }
+        .name-input-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #0056b3;
+            border-radius: 8px;
+            background-color: #e9f5ff;
+        }
+        .name-input-container label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: #0056b3;
+        }
+        .name-input-container input[type="text"] {
+            width: 98%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
         }
         #submit-quiz {
-            margin-top: 20px;
-            padding: 10px 20px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff; /* لون الزر */
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #28a745;
             color: white;
-            font-size: 1em;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s;
         }
         #results {
             margin-top: 25px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f8f8f8;
+            padding: 20px;
+            border: 2px dashed #007bff;
+            border-radius: 8px;
+            background-color: #e9f5ff;
+            font-size: 1.2em;
             font-weight: bold;
+            text-align: center;
+            display: none;
+        }
+        .correct-answer { background-color: #d4edda !important; color: #155724 !important; font-weight: bold !important; }
+        .incorrect-answer { background-color: #f8d7da !important; color: #721c24 !important; border: 1px solid #f5c6cb; }
+        
+        /* لوحة المشرف الجديدة */
+        #admin-panel-output {
+            margin-top: 25px;
+            padding: 20px;
+            border: 2px solid #d9534f;
+            border-radius: 8px;
+            background-color: #fff8f8;
+            color: #333;
+            display: none;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     
-    <header>
-        <h1>⚔️ منطقة التحدي: الامتحان</h1>
-        <nav>
-            <a href="index.html">الرئيسية</a>
-        </nav>
-    </header>
-
     <section class="container">
-        <div class="card quiz-card">
-            
-            <h2>ابدأ التحدي الآن!</h2>
+        
+        <header>
+            <h1>اختبار شامل في قانون التأمين</h1>
+            <a id="admin-icon" onclick="showAdminPanel()" title="لوحة تحكم النتائج">🔑 لوحة المشرف</a>
+        </header>
 
-            <div id="quiz-container">
-                <div id="questions">
-                    <p>جارٍ تحميل الأسئلة...</p>
-                </div>
-            
-                <button id="submit-quiz">إنهاء الاختبار وحساب النتيجة</button>
-            
-                <div id="results"></div>
+        <div class="name-input-container">
+            <label for="student-name">الرجاء إدخال اسم الطالب:</label>
+            <input type="text" id="student-name" placeholder="أدخل اسمك الكامل هنا">
+            <div id="name-error" class="error-message" style="display: none;">الاسم مطلوب للمتابعة.</div>
+        </div>
+
+        <div id="quiz-container">
+            <div id="questions">
+                <p>جارٍ تحميل الأسئلة...</p>
             </div>
+        
+            <button id="submit-quiz">إنهاء الاختبار وحساب النتيجة</button>
+        
+            <div id="results"></div>
 
+            <div id="admin-panel-output"></div>
         </div>
     </section>
 
     <script>
-        // 1. تعريف الأسئلة (بيانات الاختبار)
-        const myQuestions = [
-            {
-                question: "السؤال الأول: ما هو النهر الأطول في العالم؟",
-                answers: {
-                    a: "نهر الأمازون",
-                    b: "نهر النيل",
-                    c: "نهر اليانغتسي"
-                },
-                correctAnswer: "b"
-            },
-            {
-                question: "السؤال الثاني: ما هي عاصمة كندا؟",
-                answers: {
-                    a: "تورنتو",
-                    b: "مونتريال",
-                    c: "أوتاوا"
-                },
-                correctAnswer: "c"
-            },
-            {
-                question: "السؤال الثالث: كم ضلعاً للمربع؟",
-                answers: {
-                    a: "ثلاثة",
-                    b: "أربعة",
-                    c: "خمسة"
-                },
-                correctAnswer: "b"
-            }
-            // يمكنك إضافة المزيد من الأسئلة هنا
-        ];
+        // **********************************************
+        // 🚨 يجب تغيير هذه القيم إلى قيمك الحقيقية والاحتفاظ بها سراً!
+        const ADMIN_PASSWORD = "123"; // 🔑 كلمة مرور المشرف (يجب تغييرها)
+        
+        // 🔴 الروابط ومعرفات الحقول الخاصة بجوجل فورمز - يجب تغييرها!
+        // يجب استبدال قيم "YOUR_FORM_ID", "entry.XXX" بالقيم التي تحصل عليها من Google Forms.
+        const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse"; 
+        const ENTRY_NAME_ID = "entry.123456789"; // معرف حقل الاسم
+        const ENTRY_SCORE_ID = "entry.987654321"; // معرف حقل الدرجة (الصحيح/الكلي)
+        const ENTRY_PERCENT_ID = "entry.112233445"; // معرف حقل النسبة المئوية
+        const GOOGLE_SHEET_LINK = "https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/edit"; // رابط ملف النتائج (Sheet)
+        // **********************************************
 
+        // 1. تعريف الأسئلة (لم تتغير)
+        const myQuestions = [
+            { question: "1. أي من الخصائص التالية تُعد صفة جوهرية لعقد التأمين وتجعل الزمن عنصرًا أساسيًا فيه؟", answers: { a: "عقد إذعان", b: "عقد رضائي", c: "عقد زمني", d: "عقد ملزم للجانبين" }, correctAnswer: "c" },
+            { question: "2. الهدف الأساسي من التأمين التعاوني هو:", answers: { a: "تحقيق الربح للمساهمين.", b: "تحقيق التضامن بين الأعضاء لتغطية الخسائر.", c: "دفع قسط ثابت مسبقًا.", d: "عدم وجود علاقة بين الاشتراكات والتعويضات." }, correctAnswer: "b" },
+            { question: "3. العقد الذي لا يعرف فيه الطرفان وقت إبرامه مقدار ما سيأخذه أو ما سيتحمله، يُسمى:", answers: { a: "عقد إذعان", b: "عقد ملزم للجانبين", c: "عقد رضائي", d: "عقد احتمالي" }, correctAnswer: "d" },
+            { question: "4. التأمين الذي يلتزم فيه المؤمن بدفع مبلغ في تاريخ معين للمؤمن له إن ظل حيًا، وإلا إلى المستفيد إذا مات قبل التاريخ، يسمى تأمين:", answers: { a: "لحالة الوفاة المؤقت.", b: "التأمين المختلط البسيط.", c: "لحال البقاء.", d: "من الحوادث الجسمانية." }, correctAnswer: "b" },
+            { question: "5. تظهر صفة حسن النية في عقد التأمين بناءً على:", answers: { a: "إلزامية الكتابة للانعقاد.", b: "اعتماد المؤمن على صحة البيانات المحيطة بالخطر.", c: "أن العقد زمني.", d: "أن العقد يتم بالإذعان للشروط العامة." }, correctAnswer: "b" },
+            { question: "6. يُعرف التأمين فنيًا بأنه توزيع الخسارة المالية على مجموعة كبيرة من الأفراد يكون جميعهم معرضين لـ:", answers: { a: "مسؤولية المؤمن", b: "الخطر المشترك", c: "القسط الثابت", d: "الصالح الشخصي" }, correctAnswer: "b" },
+            { question: "7. يتميز عقد التأمين بصفة 'ملزم للجانبين' لأنه:", answers: { a: "يجب كتابته للإثبات.", b: "ينشئ التزامات متقابلة بين الطرفين.", c: "يقبل فيه طرف بشروط الآخر.", d: "مقدار ما يأخذه الطرفان غير معروف." }, correctAnswer: "b" },
+            { question: "8. التأمين ضد السرقة والتأمين ضد الحريق يندرجان تحت أي قسم رئيسي للتأمين من حيث موضوعه؟", answers: { a: "تأمين الأشخاص", b: "التأمين التعاوني", c: "تأمين الأضرار (التأمين على الأشياء)", d: "التأمين الاجتماعي" }, correctAnswer: "c" },
+            { question: "9. في عقد الإذعان، تكمن صفة الإذعان في الشروط التي تعدها شركات التأمين مسبقاً وتُعرف باسم:", answers: { a: "الشروط الخاصة", b: "الشروط الرضائية", c: "الشروط العادلة", d: "الشروط العامة" }, correctAnswer: "d" },
+            { question: "10. الدافع الأساسي وراء إبرام عقد التأمين الخاص هو:", answers: { a: "تحقيق التضامن الاجتماعي", b: "الصالح الشخصي", c: "رعاية الدولة", d: "تجنب البطالة" }, correctAnswer: "b" },
+            { question: "11. ما هو الهدف الأساسي الذي يسعى إليه التأمين التجاري ذو القسط الثابت؟", answers: { a: "التضامن الاجتماعي", b: "تحقيق الربح", c: "مساعدة الدولة", d: "تبادل الاشتراكات" }, correctAnswer: "b" },
+            { question: "12. ما هي الصفة الصحيحة لعقد التأمين من حيث إلزامية الطرفين؟", answers: { a: "غير ملزم", b: "ملزم لطرف واحد", c: "ملزم للجانبين", d: "إذعان" }, correctAnswer: "c" },
+            { question: "13. ما هو الغرض الأساسي من الكتابة في عقد التأمين الرضائي؟", answers: { a: "صحة الانعقاد", b: "الإثبات", c: "توضيح القسط فقط", d: "اشتراط قانوني للبدء" }, correctAnswer: "b" },
+            { question: "14. ينقسم التأمين من حيث موضوعه (الشيء المؤمّن عليه) إلى قسمين رئيسيين هما:", answers: { a: "تجاري وتعاوني", b: "خاص واجتماعي", c: "إجباري واختياري", d: "تأمين الأضرار وتأمين الأشخاص" }, correctAnswer: "d" },
+            { question: "15. مبدأ التعويض يطبق على عقود تأمين الممتلكات (الأضرار)، بينما لا يطبق على عقود التأمين على:", answers: { a: "المسؤولية", b: "الحريق", c: "الحياة", d: "السرقة" }, correctAnswer: "c" }
+        ];
+        
         // 2. الحصول على العناصر من HTML
         const quizContainer = document.getElementById('questions');
         const resultsContainer = document.getElementById('results');
         const submitButton = document.getElementById('submit-quiz');
+        const studentNameInput = document.getElementById('student-name');
+        const nameError = document.getElementById('name-error');
+        const adminPanelOutput = document.getElementById('admin-panel-output');
 
 
-        // 3. دالة بناء وعرض الاختبار
+        // 3. دالة بناء وعرض الاختبار (لم تتغير)
         function buildQuiz(){
             const output = [];
             myQuestions.forEach( (currentQuestion, questionNumber) => {
                 const answers = [];
-                for(letter in currentQuestion.answers){
+                const options = ['أ', 'ب', 'ج', 'د']; 
+                let optionIndex = 0;
+                
+                for(let letter in currentQuestion.answers){
                     answers.push(
-                        `<label>
-                            <input type="radio" name="question${questionNumber}" value="${letter}">
-                            ${letter} : ${currentQuestion.answers[letter]}
-                        </label>`
+                        `<div class="answers">
+                            <label>
+                                <input type="radio" name="question${questionNumber}" value="${letter}">
+                                <span style="font-weight: normal;">${options[optionIndex++]} : ${currentQuestion.answers[letter]}</span>
+                            </label>
+                        </div>`
                     );
                 }
                 output.push(
-                    `<div class="question">${currentQuestion.question}</div>
-                    <div class="answers">${answers.join('')}</div>`
+                    `<div class="question-block">
+                        <div class="question">${currentQuestion.question}</div>
+                        ${answers.join('')}
+                    </div>`
                 );
             });
             quizContainer.innerHTML = output.join('');
         }
 
 
-        // 4. دالة عرض النتائج وحساب الدرجات
+        // 4. دالة عرض النتائج وحساب الدرجات وإرسالها إلى Google Forms (مُحدثة)
         function showResults(){
-            const answerContainers = quizContainer.querySelectorAll('.answers');
+            // التحقق من الاسم أولاً
+            const studentName = studentNameInput.value.trim();
+            if (studentName === "") {
+                nameError.style.display = 'block';
+                studentNameInput.focus();
+                resultsContainer.style.display = 'none';
+                return; 
+            }
+            nameError.style.display = 'none';
+
+            const questionBlocks = quizContainer.querySelectorAll('.question-block');
             let numCorrect = 0;
+            const totalQuestions = myQuestions.length;
+            
+            resultsContainer.style.display = 'block';
 
+            // حساب الدرجة والتلوين
             myQuestions.forEach( (currentQuestion, questionNumber) => {
-                const answerContainer = answerContainers[questionNumber];
+                const questionBlock = questionBlocks[questionNumber];
                 const selector = `input[name=question${questionNumber}]:checked`;
-                const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+                const inputElement = questionBlock.querySelector(selector);
+                const userAnswer = (inputElement || {}).value;
 
+                Array.from(questionBlock.querySelectorAll('label')).forEach(label => {
+                    label.classList.remove('correct-answer', 'incorrect-answer');
+                });
+                
+                const correctLabel = questionBlock.querySelector(`input[value="${currentQuestion.correctAnswer}"]`).parentNode;
+                
                 if(userAnswer === currentQuestion.correctAnswer){
                     numCorrect++;
-                    answerContainers[questionNumber].style.color = 'green'; // تلوين الإجابة الصحيحة
+                    correctLabel.classList.add('correct-answer');
                 } else {
-                    answerContainers[questionNumber].style.color = 'red'; // تلوين الإجابة الخاطئة
-                    // اختيارياً، يمكنك عرض الإجابة الصحيحة
-                    // answerContainers[questionNumber].innerHTML += `<br><small style="color: blue;">الإجابة الصحيحة: ${currentQuestion.correctAnswer}</small>`; 
+                    if(inputElement) {
+                        inputElement.parentNode.classList.add('incorrect-answer');
+                    }
+                    correctLabel.classList.add('correct-answer');
                 }
             });
+            
+            const percentage = ((numCorrect / totalQuestions) * 100).toFixed(2);
+            
+            // **********************************
+            // ⭐️ الخطوة الجديدة: إرسال النتيجة إلى Google Form
+            const formData = new FormData();
+            formData.append(ENTRY_NAME_ID, studentName);
+            formData.append(ENTRY_SCORE_ID, `${numCorrect} / ${totalQuestions}`);
+            formData.append(ENTRY_PERCENT_ID, percentage);
 
+            fetch(GOOGLE_FORM_URL, {
+                method: 'POST',
+                mode: 'no-cors', // لتمكين الإرسال العابر للنطاقات
+                body: formData
+            }).then(() => {
+                console.log("تم إرسال النتيجة إلى Google Sheets بنجاح.");
+            }).catch(error => {
+                console.error("حدث خطأ أثناء إرسال النتيجة:", error);
+            });
+            // **********************************
+
+            // عرض الإجمالي للطالب (بدون زر الإيميل)
             resultsContainer.innerHTML = `
-                <h3>النتائج النهائية</h3>
-                <p>تم إحراز ${numCorrect} إجابة صحيحة من أصل ${myQuestions.length}.</p>
+                <h2>النتائج النهائية للطالب/ة: ${studentName}</h2>
+                <p style="color: green;">✅ تم تسجيل نتيجتك بنجاح في سجل النتائج المركزي.</p>
+                <p>عدد الإجابات الصحيحة: **${numCorrect}** من أصل ${totalQuestions}</p>
+                <p>نسبة النجاح: **${percentage}%**</p>
             `;
+            
+            resultsContainer.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // 5. تشغيل الدوال عند تحميل الصفحة
+
+        // 5. دالة لوحة تحكم المشرف الجديدة (لعرض رابط سجل النتائج المركزي)
+        function showAdminPanel() {
+            const userPassword = prompt("الرجاء إدخال كلمة مرور المشرف لعرض لوحة التحكم:");
+
+            if (userPassword === ADMIN_PASSWORD) {
+                adminPanelOutput.style.display = 'block';
+                adminPanelOutput.innerHTML = `
+                    <h3>🎉 لوحة تحكم المشرف (كلمة المرور صحيحة)</h3>
+                    <p style="color: #0056b3; font-weight: bold;">✅ جميع النتائج يتم تسجيلها حالياً في ملف نتائج مركزي عبر الإنترنت.</p>
+                    <p>للاطلاع على سجل نتائج الطلاب المحدث فوراً، يرجى الضغط على الرابط التالي:</p>
+                    <a href="${GOOGLE_SHEET_LINK}" target="_blank" style="display: block; margin: 20px auto; padding: 15px 30px; background-color: #33a16d; color: white; text-decoration: none; border-radius: 8px; font-weight: bold;">فتح سجل نتائج الطلاب (Google Sheets)</a>
+                    <p style="font-size: 0.8em; margin-top: 10px; color: #777;">*ملاحظة: هذا الرابط سيوجهك مباشرة إلى الجدول حيث يتم تجميع نتائج الطلاب.</p>
+                `;
+                adminPanelOutput.scrollIntoView({ behavior: 'smooth' });
+            } else if (userPassword !== null) {
+                alert("كلمة مرور المشرف غير صحيحة. لا يمكن الوصول.");
+                adminPanelOutput.style.display = 'none';
+            }
+        }
+
+        // 6. تشغيل الدوال عند تحميل الصفحة
         buildQuiz(); 
         submitButton.addEventListener('click', showResults); 
     </script>
