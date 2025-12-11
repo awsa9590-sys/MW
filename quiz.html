@@ -1,0 +1,74 @@
+// 1. تعريف الأسئلة (بيانات الاختبار)
+const myQuestions = [
+  {
+    question: "السؤال الأول: ما هو النهر الأطول في العالم؟",
+    answers: {
+      a: "نهر الأمازون",
+      b: "نهر النيل",
+      c: "نهر اليانغتسي"
+    },
+    correctAnswer: "b"
+  },
+  {
+    question: "السؤال الثاني: ما هي عاصمة كندا؟",
+    answers: {
+      a: "تورنتو",
+      b: "مونتريال",
+      c: "أوتاوا"
+    },
+    correctAnswer: "c"
+  }
+];
+
+// 2. الحصول على العناصر من HTML
+const quizContainer = document.getElementById('questions');
+const resultsContainer = document.getElementById('results');
+const submitButton = document.getElementById('submit-quiz');
+
+
+// 3. دالة بناء وعرض الاختبار
+function buildQuiz(){
+  const output = [];
+  myQuestions.forEach( (currentQuestion, questionNumber) => {
+    const answers = [];
+    for(letter in currentQuestion.answers){
+      answers.push(
+        `<label>
+          <input type="radio" name="question${questionNumber}" value="${letter}">
+          ${letter} : ${currentQuestion.answers[letter]}
+        </label>`
+      );
+    }
+    output.push(
+      `<div class="question">${currentQuestion.question}</div>
+      <div class="answers">${answers.join('')}</div>`
+    );
+  });
+  quizContainer.innerHTML = output.join('');
+}
+
+
+// 4. دالة عرض النتائج وحساب الدرجات
+function showResults(){
+  const answerContainers = quizContainer.querySelectorAll('.answers');
+  let numCorrect = 0;
+
+  myQuestions.forEach( (currentQuestion, questionNumber) => {
+    const answerContainer = answerContainers[questionNumber];
+    const selector = `input[name=question${questionNumber}]:checked`;
+    const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+    if(userAnswer === currentQuestquiz.html ion.correctAnswer){
+      numCorrect++;
+      answerContainers[questionNumber].style.color = 'green'; // تلوين الإجابة الصحيحة
+    } else {
+      answerContainers[questionNumber].style.color = 'red'; // تلوين الإجابة الخاطئة
+    }
+  });
+
+  resultsContainer.innerHTML = `تم إحراز ${numCorrect} إجابة صحيحة من أصل ${myQuestions.length}.`;
+}
+
+// 5. تشغيل الدوال
+buildQuiz(); // لعرض الأسئلة فوراً عند تحميل الصفحة
+submitButton.addEventListener('click', showResults); // لربط الزر بالنتائج
