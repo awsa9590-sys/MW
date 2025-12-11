@@ -1,39 +1,84 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة عرض الفيديو الخاص بي</title>
+    <title>درس الإحصاء: جداول الحياة</title>
     <style>
-        /* تنسيقات بسيطة لمنتصف الصفحة */
+        /* تنسيقات بسيطة لتحسين شكل الصفحة ووضوحها */
         body {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-            text-align: center;
-            font-family: Arial, sans-serif;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: right; /* محاذاة النص لليمين للغة العربية */
+        }
+        .content-box {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
         }
         h1 {
-            color: #333;
-            margin-bottom: 30px;
+            color: #1a73e8;
+            border-bottom: 3px solid #1a73e8;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .video-description {
+            background-color: #e8f0fe;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .formula {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #e37400;
+            text-align: center;
+            direction: ltr; /* لعرض المعادلات الرياضية بشكل صحيح */
         }
     </style>
 </head>
 <body>
+    <div class="content-box">
+        <h1>📚 شرح جداول الحياة: حساب الوفيات (d_x)</h1>
 
-    <h1>📚 درس الفيديو الأول</h1>
-    <video width="640" height="360" controls>
-        <source src="WhatsApp Video 2025-12-11 at 9.48.02 PM.mp4" type="video/mp4">
-        
-        عذراً، متصفحك لا يدعم وسم الفيديو HTML5.
-    </video>
+        <video controls>
+            <source src="WhatsApp Video 2025-12-11 at 9.48.02 PM.mp4" type="video/mp4">
+            عذراً، متصفحك لا يدعم وسم الفيديو HTML5.
+        </video>
 
-    <br>
-    <p>هذا المكان مخصص لوصف الدرس أو ملاحظاته.</p>
-
+        <div class="video-description">
+            <h3>شرح الدرس:</h3>
+            <p>يتمحور هذا الدرس حول كيفية استخدام جدول الحياة (Life Table) لحساب عدد الوفيات (dx) بين عمر x وعمر x+1.</p>
+            <p>البيانات المعروضة في الفيديو:</p>
+            <ul>
+                <li>X: العمر.</li>
+                <li>Lx: عدد الأحياء الذين وصلوا إلى العمر x.</li>
+                <li>dx: عدد الوفيات بين العمر x والعمر x+1.</li>
+            </ul>
+            <p><strong>الصيغة المستخدمة في الفيديو:</strong></p>
+            <div class="formula">
+                dx = Lx - L{x+1}///
+                d{92} = L{92} - L{93}///
+                d{92} = 1000 - 500 = 500
+            </div>
+        </div>
+    </div>
 </body>
 </html>
