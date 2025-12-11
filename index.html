@@ -1,23 +1,177 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head><meta charset="UTF-8"><title>⚔️ انطلق نحو التميز! منصة التفوق التعليمية</title><link rel="stylesheet" href="style.css"></head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚔️ انطلق نحو التميز! منصة التفوق التعليمية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            text-align: right;
+        }
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        .hero {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .hero h2 {
+            font-size: 2.5em;
+            margin-top: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: wrap; /* للسماح للبطاقات بالنزول في سطر جديد على الشاشات الصغيرة */
+        }
+        .card {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            width: calc(33% - 20px); /* ثلاث بطاقات في الصف */
+            min-width: 280px; /* للتحكم في الحجم الأدنى */
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .card h3 {
+            color: #d9534f;
+            font-size: 1.5em;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .card i {
+            margin-left: 10px;
+            color: #0056b3;
+        }
+        .card p {
+            color: #555;
+            flex-grow: 1;
+            margin-bottom: 25px;
+        }
+        .btn {
+            display: block;
+            padding: 12px 20px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .btn-primary {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #1e7e34;
+        }
+        .btn-secondary {
+            background-color: #f0ad4e;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #ec971f;
+        }
+        .btn-default {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-default:hover {
+            background-color: #0056b3;
+        }
+
+        /* تنسيق الأيقونات */
+        .card h3:first-child i {
+            color: #28a745; 
+        }
+        .card:nth-child(2) h3 i {
+            color: #f0ad4e; 
+        }
+        .card:nth-child(3) h3 i {
+            color: #007bff; 
+        }
+
+        /* Media Queries for responsiveness */
+        @media (max-width: 900px) {
+            .container {
+                justify-content: center;
+            }
+            .card {
+                width: calc(50% - 20px);
+                margin-bottom: 20px;
+            }
+        }
+        @media (max-width: 600px) {
+            .card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
 <body>
-<header><h1></h1>⚔️ انطلق نحو التميز! منصة التفوق التعليمية<nav><a href="index.html">الرئيسية</a><a href="lessons.html"></a><a href="questions.html"></a></nav></header>
-<section class="hero"><h2>⚔️ انطلق نحو التميز! منصة التفوق التعليمية</h2><p>لا تضيّع دقيقة! حوّل مراجعتك إلى سلاحك الأقوى. انطلق الآن وتحدَ مستواك لتحقيق القمة!</p></section>
-<section class="container">
-<div class="card"><h3>🚀 غرفة العمليات: الدروس المركزة</h3><p>جولات سريعة ومكثفة على أهم الشروحات والملخصات. جهّز ذخيرتك المعرفية وانطلق للاختبار.</p><a href="lessons.html" class="btn">استعرض قوة الشرح</a></div>
-<div class="card"><h3>🎯 منطقة التحدي: بنك الأسئلة</h3><p>>لا تتوقف عند المراجعة النظرية! اختبر معلوماتك الآن في سباق مع الزمن. الإنجاز يبدأ من هنا.</p><a href="questions.html" class="btn">انقر هنا ابدأ التحدي الآن</a></div>
-</section>
-</body></html>
-<div class="feature-box exam-section">
-    <h2>
-        <i class="fa-solid fa-file-pen"></i> نظام الامتحانات الجديدة
-    </h2>
-    
-    <p>
-        اختبر معلوماتك في بيئة تحاكي الاختبار النهائي. أسئلة مركزة ومحددة بوقت لقياس مدى استعدادك.
-    </p>
-    
-    <a href="quiz.html" class="btn btn-primary">ابدأ الامتحان التجريبي الآن</a>
-</div>
+    <header>
+        <h1>⚔️ انطلق نحو التميز! منصة التفوق التعليمية</h1>
+    </header>
+
+    <section class="hero">
+        <h2>⚔️ جاهز للانطلاق؟ ابدأ رحلة التميز الآن!</h2>
+        <p>لا تضيّع دقيقة! حوّل مراجعتك إلى سلاحك الأقوى. انطلق الآن وتحدَ مستواك لتحقيق القمة!</p>
+    </section>
+
+    <section class="container">
+        
+        <div class="card">
+            <h3><i class="fa-solid fa-book"></i> غرفة العمليات: الدروس المركزة</h3>
+            <p>جولات سريعة ومكثفة على أهم الشروحات والملخصات. جهّز ذخيرتك المعرفية وانطلق للاختبار. هنا تكتسب الأساس المتين لمادة قانون التأمين.</p>
+            <a href="lessons.html" class="btn btn-default">استعرض قوة الشرح</a>
+        </div>
+
+        <div class="card">
+            <h3><i class="fa-solid fa-question-circle"></i> منطقة التحدي: بنك الأسئلة</h3>
+            <p>لا تتوقف عند المراجعة النظرية! اختبر معلوماتك الآن في سباق مع الزمن باستخدام بنك الأسئلة العام. الإنجاز يبدأ من هنا لاختبار المفاهيم العامة.</p>
+            <a href="questions.html" class="btn btn-secondary">انقر هنا ابدأ التحدي الآن</a>
+        </div>
+        
+        <div class="card">
+            <h3><i class="fa-solid fa-file-pen"></i> نظام الامتحانات الجديدة</h3>
+            <p>اختبر معلوماتك في بيئة تحاكي الاختبار النهائي. أسئلة قانون التأمين الـ 15 مركّزة ومحددة لقياس مدى استعدادك للدرجة الكاملة.</p>
+            <a href="quiz.html" class="btn btn-primary">ابدأ الامتحان التجريبي الآن</a>
+        </div>
+        
+    </section>
+
+</body>
+</html>
