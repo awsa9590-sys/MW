@@ -128,6 +128,14 @@
         .btn-default:hover {
             background-color: #0056b3;
         }
+        /* تعريف زر جديد للبطاقة الجديدة */
+        .btn-info {
+            background-color: #17a2b8; /* لون سماوي/معلوماتي */
+            color: white;
+        }
+        .btn-info:hover {
+            background-color: #138496;
+        }
 
         /* تنسيق الأيقونات */
         .card h3:first-child i {
@@ -138,6 +146,9 @@
         }
         .card:nth-child(3) h3 i {
             color: #007bff; 
+        }
+        .card:nth-child(4) h3 i { /* أيقونة البطاقة الجديدة */
+            color: #17a2b8; 
         }
 
         /* Media Queries for responsiveness */
@@ -180,13 +191,19 @@
         <div class="card">
             <h3><i class="fa-solid fa-question-circle"></i> منطقة التحدي: بنك الأسئلة</h3>
             <p>لا تتوقف عند المراجعة النظرية! اختبر معلوماتك الآن في سباق مع الزمن باستخدام بنك الأسئلة العام. الإنجاز يبدأ من هنا لاختبار المفاهيم العامة.</p>
-            <a href="questions.html" class="btn btn-secondary">انقر هنا ابدأ التحدي الآن</a>
+            <a href="questions.html" class="btn btn-secondary">  ابدأ التحدي الآن</a>
         </div>
         
         <div class="card">
-            <h3><i class="fa-solid fa-file-pen"></i> نظام الامتحانات الجديدة</h3>
-            <p>اختبر معلوماتك في بيئة تحاكي الاختبار النهائي. أسئلة قانون التأمين الـ 15 مركّزة ومحددة لقياس مدى استعدادك للدرجة الكاملة.</p>
-            <a href="quiz.html" class="btn btn-primary">ابدأ الامتحان التجريبي الآن</a>
+            <h3><i class="fa-solid fa-file-pen"></i> الامتحانات العملى</h3>
+            <p>اختبر معلوماتك في بيئة تحاكي الاختبار النهائي. أسئلة مركّزة ومحددة لقياس مدى استعدادك للدرجة الكاملة.</p>
+            <a href="quiz.html" class="btn btn-primary">ابدأ الامتحان  </a>
+        </div>
+
+        <div class="card">
+            <h3><i class="fa-solid fa-clipboard-check"></i> الامتحانات النظري</h3>
+            <p>امتحانات محاكاة شاملة لكامل المنهج لقياس جاهزيتك النهائية. في بيئة مطابقة للاختبارات الحقيقية.</p>
+            <a href="final_exam.html" class="btn btn-info">ابدأالامتحان</a> </a>
         </div>
         
     </section>
