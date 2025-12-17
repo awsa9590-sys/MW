@@ -3,137 +3,400 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار جدول الحياة الشامل (الأعمار 70-79)</title>
-    
+    <title>الاختبار الشامل - رياضيات التأمين (31 سؤال)</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #eef2f7; color: #333; margin: 0; padding: 20px; direction: rtl; text-align: right; }
-        .container { max-width: 900px; margin: 0 auto; background-color: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); }
-        header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 3px solid #0056b3; margin-bottom: 30px; }
-        h1 { color: #0056b3; margin: 0; font-size: 1.8em; }
-        #admin-icon { cursor: pointer; font-size: 1.1em; color: #d9534f; text-decoration: none; padding: 10px 15px; border: 2px solid #d9534f; border-radius: 6px; transition: background-color 0.3s, color 0.3s; font-weight: bold; }
-        #admin-icon:hover { background-color: #d9534f; color: white; }
-        .name-input-container { margin-bottom: 25px; padding: 20px; border: 1px solid #007bff; border-radius: 8px; background-color: #f0f7ff; }
-        .name-input-container label { font-weight: bold; display: block; margin-bottom: 10px; color: #007bff; font-size: 1.1em; }
-        .name-input-container input[type="text"] { width: 98%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 1em; }
-        .question-block { margin-bottom: 25px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9; }
-        .question { font-weight: bold; margin-bottom: 15px; font-size: 1.1em; color: #2c3e50; }
-        .answers label { display: block; margin: 8px 0; padding: 10px; cursor: pointer; border-radius: 5px; transition: background-color 0.2s; }
-        .answers label:hover { background-color: #e0e0e0; }
-        #submit-quiz { display: block; width: 100%; padding: 18px; background-color: #28a745; color: white; border: none; border-radius: 10px; font-size: 1.3em; cursor: pointer; margin-top: 40px; transition: background-color 0.3s; }
-        #submit-quiz:hover { background-color: #1e7e34; }
-        #results { margin-top: 30px; padding: 25px; border: 2px solid #0056b3; border-radius: 10px; background-color: #f0f7ff; font-size: 1.2em; font-weight: bold; text-align: center; display: none; }
-        .correct-answer { background-color: #d4edda !important; color: #155724 !important; font-weight: bold !important; border: 1px solid #c3e6cb; }
-        .incorrect-answer { background-color: #f8d7da !important; color: #721c24 !important; border: 1px solid #f5c6cb; }
-        .life-table { width: 100%; border-collapse: collapse; margin: 25px 0; text-align: center; font-size: 0.9em; }
-        .life-table th, .life-table td { border: 1px solid #ddd; padding: 8px; }
-        .life-table th { background-color: #e9ecef; color: #495057; }
+        :root { --primary: #2c3e50; --secondary: #2980b9; --success: #27ae60; --error: #c0392b; --bg: #ecf0f1; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); color: var(--primary); margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: var(--secondary); margin-bottom: 30px; border-bottom: 3px solid var(--secondary); padding-bottom: 10px; }
+        h2 { background-color: var(--primary); color: #fff; padding: 12px; border-radius: 6px; margin-top: 40px; font-size: 1.2rem; }
+        .question-block { margin-bottom: 25px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #fff; transition: transform 0.2s; }
+        .question-block:hover { border-color: var(--secondary); }
+        .q-text { font-weight: bold; font-size: 1.05rem; margin-bottom: 15px; display: block; }
+        .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        label { display: block; padding: 12px; background: #f9f9f9; border: 1px solid #eee; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
+        label:hover { background: #eef6fb; }
+        input[type="radio"] { margin-left: 10px; }
+        
+        /* فئات التصحيح */
+        .correct-answer { background-color: #d4edda !important; border-color: #c3e6cb !important; color: #155724; font-weight: bold; }
+        .wrong-answer { background-color: #f8d7da !important; border-color: #f5c6cb !important; color: #721c24; }
+        
+        button { display: block; width: 100%; padding: 15px; background-color: var(--success); color: white; border: none; border-radius: 8px; font-size: 1.2rem; font-weight: bold; cursor: pointer; margin-top: 40px; }
+        button:hover { background-color: #219150; }
+        #result { text-align: center; font-size: 1.8rem; font-weight: bold; margin-top: 25px; padding: 15px; border-radius: 8px; display: none; }
     </style>
 </head>
 <body>
+
+<div class="container">
+    <h1>اختبار رياضيات التأمين (31 سؤال)</h1>
+
+    <h2>أولاً: احتمالات الحياة والوفاة</h2>
     
-    <section class="container">
-        <header>
-            <h1>اختبار جدول الحياة (70-79) - النسخة الكاملة</h1>
-            <a id="admin-icon" onclick="showAdminPanel()" title="لوحة تحكم النتائج">🔑 لوحة المشرف</a>
-        </header>
-
-        <div class="name-input-container">
-            <label for="student-name">الرجاء إدخال اسم الطالب:</label>
-            <input type="text" id="student-name" placeholder="أدخل اسمك الكامل هنا">
+    <div class="question-block" data-correct="b">
+        <span class="q-text">1- يرمز لاحتمال أن شخصاً عمره x سوف يعيش لمدة n من السنوات على الأقل بالرمز:</span>
+        <div class="options">
+            <label><input type="radio" name="q1" value="a"> n qx</label>
+            <label><input type="radio" name="q1" value="b"> n px</label>
+            <label><input type="radio" name="q1" value="c"> px+n</label>
+            <label><input type="radio" name="q1" value="d"> m n qx</label>
         </div>
+    </div>
 
-        <div id="quiz-container">
-            <table class="life-table">
-                <thead>
-                    <tr>
-                        <th>X (العمر)</th>
-                        <th>lx (الأحياء)</th>
-                        <th>dx (الوفيات)</th>
-                        <th>qx (معدل الوفاة)</th>
-                        <th>px (معدل الحياة)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>70</td><td>636,776</td><td></td><td>0.044422</td><td></td></tr>
-                    <tr><td>71</td><td></td><td>29,598</td><td></td><td>0.951358</td></tr>
-                    <tr><td>72</td><td>578,891</td><td></td><td>0.053263</td><td></td></tr>
-                    <tr><td>73</td><td></td><td>31,964</td><td></td><td>0.941677</td></tr>
-                    <tr><td>74</td><td>516,094</td><td></td><td>0.063863</td><td></td></tr>
-                    <tr><td>75</td><td></td><td>33,786</td><td></td><td>0.930070</td></tr>
-                    <tr><td>76</td><td>449,349</td><td></td><td>0.076574</td><td></td></tr>
-                    <tr><td>77</td><td></td><td>34,792</td><td></td><td>0.916152</td></tr>
-                    <tr><td>78</td><td>380,149</td><td></td><td>0.091814</td><td></td></tr>
-                    <tr><td>79</td><td></td><td>34,710</td><td></td><td>0.899464</td></tr>
-                </tbody>
-            </table>
-
-            <div id="questions"></div>
-            <button id="submit-quiz">إنهاء الاختبار وحساب النتيجة</button>
-            <div id="results"></div>
+    <div class="question-block" data-correct="a">
+        <span class="q-text">2- المعادلة الرياضية الصحيحة لحساب احتمال الحياة لمدة n سنة (n px) هي:</span>
+        <div class="options">
+            <label><input type="radio" name="q2" value="a"> lx+n ÷ lx</label>
+            <label><input type="radio" name="q2" value="b"> lx ÷ lx+n</label>
+            <label><input type="radio" name="q2" value="c"> (lx - lx+n) ÷ lx</label>
+            <label><input type="radio" name="q2" value="d"> lx+n - lx</label>
         </div>
-    </section>
+    </div>
 
-    <script>
-        const ADMIN_PASSWORD = "123"; 
+    <div class="question-block" data-correct="c">
+        <span class="q-text">3- احتمال أن شخصاً عمره x سوف يموت قبل بلوغه السن x+n (احتمال الوفاة خلال n سنة) يحسب بـ:</span>
+        <div class="options">
+            <label><input type="radio" name="q3" value="a"> 1 - n px</label>
+            <label><input type="radio" name="q3" value="b"> (lx - lx+n) ÷ lx</label>
+            <label><input type="radio" name="q3" value="c"> الخياران (أ) و (ب) صحيحان</label>
+            <label><input type="radio" name="q3" value="d"> lx+n ÷ lx</label>
+        </div>
+    </div>
+
+    <h2>ثانياً: الوفاة المؤجلة</h2>
+
+    <div class="question-block" data-correct="b">
+        <span class="q-text">4- احتمال أن شخصاً سنه x سيعيش m سنة ثم يموت خلال السنة التالية مباشرة (m qx) يسمى:</span>
+        <div class="options">
+            <label><input type="radio" name="q4" value="a"> احتمال الوفاة المؤكد</label>
+            <label><input type="radio" name="q4" value="b"> احتمال الوفاة المؤجل لمدة m سنة</label>
+            <label><input type="radio" name="q4" value="c"> احتمال الحياة المؤقت</label>
+            <label><input type="radio" name="q4" value="d"> احتمال الوفاة خلال m سنة</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="a">
+        <span class="q-text">5- الرمز m n qx يعبر عن احتمال أن شخصاً عمره x سوف:</span>
+        <div class="options">
+            <label><input type="radio" name="q5" value="a"> يعيش m سنة ثم يموت خلال n من السنوات التالية لها</label>
+            <label><input type="radio" name="q5" value="b"> يموت خلال m+n سنة القادمة</label>
+            <label><input type="radio" name="q5" value="c"> يعيش n سنة بعد m سنة من الآن</label>
+            <label><input type="radio" name="q5" value="d"> يموت في تمام السن m+n</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="c">
+        <span class="q-text">6- لحساب احتمال الوفاة المؤجل لمدة m سنة والمحدد بـ n سنة (m n qx)، نستخدم العلاقة:</span>
+        <div class="options">
+            <label><input type="radio" name="q6" value="a"> (lx+m - lx+m+n) ÷ lx</label>
+            <label><input type="radio" name="q6" value="b"> m px - m+n px</label>
+            <label><input type="radio" name="q6" value="c"> الخياران (أ) و (ب) صحيحان</label>
+            <label><input type="radio" name="q6" value="d"> lx+m ÷ lx+m+n</label>
+        </div>
+    </div>
+
+    <h2>ثالثاً: تطبيقات حسابية ورموز</h2>
+
+    <div class="question-block" data-correct="b">
+        <span class="q-text">7- إذا كان l40 = 90,000 و l50 = 80,000، فإن احتمال أن شخصاً عمره 40 سنة سيعيش حتى سن 50 هو:</span>
+        <div class="options">
+            <label><input type="radio" name="q7" value="a"> 0.111</label>
+            <label><input type="radio" name="q7" value="b"> 0.888</label>
+            <label><input type="radio" name="q7" value="c"> 0.125</label>
+            <label><input type="radio" name="q7" value="d"> 0.900</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="a">
+        <span class="q-text">8- إذا كان احتمال أن يعيش شخص لمدة 5 سنوات هو 0.90، فإن احتمال وفاته خلال هذه السنوات الخمس هو:</span>
+        <div class="options">
+            <label><input type="radio" name="q8" value="a"> 0.10</label>
+            <label><input type="radio" name="q8" value="b"> 0.05</label>
+            <label><input type="radio" name="q8" value="c"> 0.95</label>
+            <label><input type="radio" name="q8" value="d"> 1.90</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="b">
+        <span class="q-text">9- احتمال الوفاة المؤجل لمدة 10 سنوات لشخص عمره 30 سنة يعني أنه:</span>
+        <div class="options">
+            <label><input type="radio" name="q9" value="a"> سيموت بين السن 30 والسن 40</label>
+            <label><input type="radio" name="q9" value="b"> سيعيش حتى السن 40 ثم يموت في السنة بين 40 و 41</label>
+            <label><input type="radio" name="q9" value="c"> سيعيش حتى السن 40 فقط</label>
+            <label><input type="radio" name="q9" value="d"> سيموت قبل السن 30</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="c">
+        <span class="q-text">10- أي من الرموز التالية يمثل "العدد الكلي للسنوات التي سيحياها الأشخاص الذين بقوا أحياء حتى السن x":</span>
+        <div class="options">
+            <label><input type="radio" name="q10" value="a"> dx</label>
+            <label><input type="radio" name="q10" value="b"> qx</label>
+            <label><input type="radio" name="q10" value="c"> Tx</label>
+            <label><input type="radio" name="q10" value="d"> Mx</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="b">
+        <span class="q-text">11- المطلوب حساب احتمال أن يعيش شخص عمره 30 سنة حتى يصل إلى سن 35، الرمز المناسب هو:</span>
+        <div class="options">
+            <label><input type="radio" name="q11" value="a"> 30 p35</label>
+            <label><input type="radio" name="q11" value="b"> 5 p30</label>
+            <label><input type="radio" name="q11" value="c"> 35 q30</label>
+            <label><input type="radio" name="q11" value="d"> 5 q35</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="a">
+        <span class="q-text">12- تحسب قيمة 5 p30 عن طريق:</span>
+        <div class="options">
+            <label><input type="radio" name="q12" value="a"> l35 ÷ l30</label>
+            <label><input type="radio" name="q12" value="b"> l30 ÷ l35</label>
+            <label><input type="radio" name="q12" value="c"> l35 - l30</label>
+            <label><input type="radio" name="q12" value="d"> l30 × l35</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="b">
+        <span class="q-text">13- إذا كان l30 = 952030 و l35 = 941524، فإن احتمال وفاة هذا الشخص قبل بلوغه سن 35 (5 q30) هو:</span>
+        <div class="options">
+            <label><input type="radio" name="q13" value="a"> 0.98896</label>
+            <label><input type="radio" name="q13" value="b"> 0.01104</label>
+            <label><input type="radio" name="q13" value="c"> 0.05520</label>
+            <label><input type="radio" name="q13" value="d"> 0.11040</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="c">
+        <span class="q-text">14- النتيجة النهائية لاحتمال الحياة لمدة 5 سنوات لشخص عمره 30 عاماً هي:</span>
+        <div class="options">
+            <label><input type="radio" name="q14" value="a"> 0.88964</label>
+            <label><input type="radio" name="q14" value="b"> 0.94152</label>
+            <label><input type="radio" name="q14" value="c"> 0.98896</label>
+            <label><input type="radio" name="q14" value="d"> 0.95203</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="c">
+        <span class="q-text">15- ماذا يمثل الفرق بين (l30 - l35)؟</span>
+        <div class="options">
+            <label><input type="radio" name="q15" value="a"> عدد الأحياء عند سن 35</label>
+            <label><input type="radio" name="q15" value="b"> احتمال الحياة لمدة 5 سنوات</label>
+            <label><input type="radio" name="q15" value="c"> عدد الوفيات الإجمالي بين السن 30 والسن 35</label>
+            <label><input type="radio" name="q15" value="d"> احتمال الوفاة عند سن 30 فقط</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="a">
+        <span class="q-text">16- أي من العلاقات التالية استخدمها المثال للتحقق من صحة الحل (علاقة المكمل)؟</span>
+        <div class="options">
+            <label><input type="radio" name="q16" value="a"> n px + n qx = 1</label>
+            <label><input type="radio" name="q16" value="b"> px × qx = 1</label>
+            <label><input type="radio" name="q16" value="c"> lx + dx = 1</label>
+            <label><input type="radio" name="q16" value="d"> n px ÷ n qx = 1</label>
+        </div>
+    </div>
+
+    <h2>رابعاً: تفسير الرموز</h2>
+
+    <div class="question-block" data-correct="b">
+        <span class="q-text">17- ماذا يمثل الرمز الاكتواري 5 p20؟</span>
+        <div class="options">
+            <label><input type="radio" name="q17" value="a"> احتمال وفاة شخص عمره 20 خلال 5 سنوات</label>
+            <label><input type="radio" name="q17" value="b"> احتمال أن يعيش شخص عمره 20 سنة لمدة 5 سنوات على الأقل</label>
+            <label><input type="radio" name="q17" value="c"> احتمال أن يعيش شخص عمره 5 سنوات بعد بلوغه سن 20</label>
+            <label><input type="radio" name="q17" value="d"> عدد الأحياء عند سن 25</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="a">
+        <span class="q-text">18- ما هو التفسير الصحيح للرمز 5 q20؟</span>
+        <div class="options">
+            <label><input type="radio" name="q18" value="a"> احتمال أن شخصاً عمره 20 سنة سيموت قبل بلوغه سن 25</label>
+            <label><input type="radio" name="q18" value="b"> احتمال أن شخصاً عمره 5 سنوات سيعيش حتى سن 20</label>
+            <label><input type="radio" name="q18" value="c"> احتمال وفاة شخص عمره 20 سنة بعد سن 25</label>
+            <label><input type="radio" name="q18" value="d"> معدل الوفاة السنوي عند سن 20</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="b">
+        <span class="q-text">19- ماذا يعني وجود علامة التأجيل في الرمز 5 q20؟</span>
+        <div class="options">
+            <label><input type="radio" name="q19" value="a"> الشخص سيموت فوراً عند سن 20</label>
+            <label><input type="radio" name="q19" value="b"> الشخص سيعيش 5 سنوات ثم يموت خلال السنة التالية مباشرة (بين 25 و26)</label>
+            <label><input type="radio" name="q19" value="c"> الشخص سيموت خلال 5 سنوات قادمة</label>
+            <label><input type="radio" name="q19" value="d"> تأجيل دفع القسط لمدة 5 سنوات</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="c">
+        <span class="q-text">20- فسر الرمز 5 5 q20 (الوفاة المؤجلة والمحددة):</span>
+        <div class="options">
+            <label><input type="radio" name="q20" value="a"> احتمال الوفاة بين سن 20 و 25</label>
+            <label><input type="radio" name="q20" value="b"> احتمال الوفاة بين سن 20 و 30</label>
+            <label><input type="radio" name="q20" value="c"> احتمال أن يعيش الشخص حتى سن 25 ثم يموت خلال الخمس سنوات التالية</label>
+            <label><input type="radio" name="q20" value="d"> احتمال أن يعيش الشخص 20 سنة إضافية</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="b">
+        <span class="q-text">21- الرمز 10 5 q50 يعني أن الشخص الذي عمره 50 سنة:</span>
+        <div class="options">
+            <label><input type="radio" name="q21" value="a"> سيموت قبل سن 60</label>
+            <label><input type="radio" name="q21" value="b"> سيعيش حتى سن 60 ثم يموت خلال الخمس سنوات التالية (60-65)</label>
+            <label><input type="radio" name="q21" value="c"> سيموت خلال 10 سنوات من الآن</label>
+            <label><input type="radio" name="q21" value="d"> سيعيش 50 سنة إضافية</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="b">
+        <span class="q-text">22- الرمز الاكتواري الصحيح لـ "احتمال حياة شخص عمره 30 سنة لمدة 30 سنة" هو:</span>
+        <div class="options">
+            <label><input type="radio" name="q22" value="a"> 30 q30</label>
+            <label><input type="radio" name="q22" value="b"> 30 p30</label>
+            <label><input type="radio" name="q22" value="c"> 60 p30</label>
+            <label><input type="radio" name="q22" value="d"> p60</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="a">
+        <span class="q-text">23- "احتمال حياة شخص عمره 30 سنة حتى بلوغه تمام السن 60 ثم وفاته قبل بلوغه تمام السن 65" يعبر عنه بالرمز:</span>
+        <div class="options">
+            <label><input type="radio" name="q23" value="a"> 30 5 q30</label>
+            <label><input type="radio" name="q23" value="b"> 30 65 q30</label>
+            <label><input type="radio" name="q23" value="c"> 60 5 q30</label>
+            <label><input type="radio" name="q23" value="d"> 5 30 q30</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="c">
+        <span class="q-text">24- ما هو الرمز الذي يمثل "احتمال وفاة شخص عمره 40 سنة خلال 20 سنة"؟</span>
+        <div class="options">
+            <label><input type="radio" name="q24" value="a"> 20 p40</label>
+            <label><input type="radio" name="q24" value="b"> 40 q20</label>
+            <label><input type="radio" name="q24" value="c"> 20 q40</label>
+            <label><input type="radio" name="q24" value="d"> 60 q40</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="b">
+        <span class="q-text">25- "احتمال وفاة شخص عمره 40 سنة خلال العام الـ 60 من عمره" (أي سيعيش حتى سن 59 ثم يموت خلال سنة) يرمز له بـ:</span>
+        <div class="options">
+            <label><input type="radio" name="q25" value="a"> 20 q40</label>
+            <label><input type="radio" name="q25" value="b"> 19 q40</label>
+            <label><input type="radio" name="q25" value="c"> 60 q40</label>
+            <label><input type="radio" name="q25" value="d"> q60</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="a">
+        <span class="q-text">26- الرمز الذي يعبر عن "احتمال وفاة شخص عمره 50 سنة بين بلوغه تمام السن 60 وتمام السن 70" هو:</span>
+        <div class="options">
+            <label><input type="radio" name="q26" value="a"> 10 10 q50</label>
+            <label><input type="radio" name="q26" value="b"> 10 20 q50</label>
+            <label><input type="radio" name="q26" value="c"> 60 70 q50</label>
+            <label><input type="radio" name="q26" value="d"> 10 50 q10</label>
+        </div>
+    </div>
+
+    <h2>خامساً: احتمالات حياة شخصين</h2>
+    <p style="background:#eef; padding:10px; border-radius:5px;">بفرض احتمال حياة الأول 0.8 والثاني 0.7</p>
+
+    <div class="question-block" data-correct="b">
+        <span class="q-text">27- إذا كان احتمال حياة شخصين (أ، ب) هو 0.8 و 0.7 على الترتيب، فإن احتمال حياتهما معاً هو:</span>
+        <div class="options">
+            <label><input type="radio" name="q27" value="a"> 1.50</label>
+            <label><input type="radio" name="q27" value="b"> 0.56</label>
+            <label><input type="radio" name="q27" value="c"> 0.15</label>
+            <label><input type="radio" name="q27" value="d"> 0.10</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="a">
+        <span class="q-text">28- احتمال وفاتهما معاً (وفاة الشخصين في نفس الوقت) يساوي:</span>
+        <div class="options">
+            <label><input type="radio" name="q28" value="a"> 0.06</label>
+            <label><input type="radio" name="q28" value="b"> 0.50</label>
+            <label><input type="radio" name="q28" value="c"> 0.24</label>
+            <label><input type="radio" name="q28" value="d"> 0.14</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="c">
+        <span class="q-text">29- احتمال "حياة واحد فقط" من الشخصين يبلغ:</span>
+        <div class="options">
+            <label><input type="radio" name="q29" value="a"> 0.56</label>
+            <label><input type="radio" name="q29" value="b"> 0.06</label>
+            <label><input type="radio" name="q29" value="c"> 0.38</label>
+            <label><input type="radio" name="q29" value="d"> 0.94</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="c">
+        <span class="q-text">30- ما هو احتمال حياة "واحد على الأقل" من الشخصين؟</span>
+        <div class="options">
+            <label><input type="radio" name="q30" value="a"> 0.06</label>
+            <label><input type="radio" name="q30" value="b"> 0.38</label>
+            <label><input type="radio" name="q30" value="c"> 0.94</label>
+            <label><input type="radio" name="q30" value="d"> 0.44</label>
+        </div>
+    </div>
+
+    <div class="question-block" data-correct="b">
+        <span class="q-text">31- احتمال حياة "واحد على الأكثر" من الشخصين هو:</span>
+        <div class="options">
+            <label><input type="radio" name="q31" value="a"> 0.56</label>
+            <label><input type="radio" name="q31" value="b"> 0.44</label>
+            <label><input type="radio" name="q31" value="c"> 0.94</label>
+            <label><input type="radio" name="q31" value="d"> 0.10</label>
+        </div>
+    </div>
+
+    <button onclick="calculateScore()">تصحيح الاختبار وعرض النتيجة</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    function calculateScore() {
+        let score = 0;
+        const questions = document.querySelectorAll('.question-block');
         
-        const myQuestions = [
-            { question: "١- احسب عدد الوفيات عند العمر 70 (d70):", answers: { a: "28,287", b: "29,120", c: "27,500", d: "26,450" }, correctAnswer: "a" },
-            { question: "٢- احسب احتمال الحياة عند العمر 70 (p70):", answers: { a: "0.944422", b: "0.955578", c: "0.965578", d: "0.975578" }, correctAnswer: "b" },
-            { question: "٣- احسب عدد الأحياء عند بداية العمر 71 (l71):", answers: { a: "612,489", b: "600,489", c: "608,489", d: "598,489" }, correctAnswer: "c" },
-            { question: "٤- احسب احتمال الوفاة عند العمر 71 (q71):", answers: { a: "0.048642", b: "0.052142", c: "0.039642", d: "0.058642" }, correctAnswer: "a" },
-            { question: "٥- احسب عدد الوفيات عند العمر 72 (d72):", answers: { a: "31,835", b: "30,835", c: "29,835", d: "32,835" }, correctAnswer: "b" },
-            { question: "٦- احسب احتمال الحياة عند العمر 72 (p72):", answers: { a: "0.956737", b: "0.946737", c: "0.936737", d: "0.926737" }, correctAnswer: "b" },
-            { question: "٧- احسب عدد الأحياء عند بداية العمر 73 (l73):", answers: { a: "548,056", b: "558,056", c: "538,056", d: "540,056" }, correctAnswer: "a" },
-            { question: "٨- احسب احتمال الوفاة عند العمر 73 (q73):", answers: { a: "0.068323", b: "0.048323", c: "0.058323", d: "0.078323" }, correctAnswer: "c" },
-            { question: "٩- احسب عدد الوفيات عند العمر 74 (d74):", answers: { a: "33,960", b: "32,960", c: "31,960", d: "30,960" }, correctAnswer: "b" },
-            { question: "١٠- احسب احتمال الحياة عند العمر 74 (p74):", answers: { a: "0.926137", b: "0.936137", c: "0.946137", d: "0.916137" }, correctAnswer: "b" },
-            { question: "١١- احسب عدد الأحياء عند بداية العمر 75 (l75):", answers: { a: "473,134", b: "493,134", c: "483,134", d: "480,134" }, correctAnswer: "c" },
-            { question: "١٢- احسب احتمال الوفاة عند العمر 75 (q75):", answers: { a: "0.069930", b: "0.079930", c: "0.059930", d: "0.089930" }, correctAnswer: "a" },
-            { question: "١٣- احسب عدد الوفيات عند العمر 76 (d76):", answers: { a: "35,409", b: "34,409", c: "33,409", d: "32,409" }, correctAnswer: "b" },
-            { question: "١٤- احسب احتمال الحياة عند العمر 76 (p76):", answers: { a: "0.933426", b: "0.913426", c: "0.923426", d: "0.903426" }, correctAnswer: "c" },
-            { question: "١٥- احسب عدد الأحياء عند بداية العمر 79 (l79):", answers: { a: "345,246", b: "350,246", c: "340,246", d: "335,246" }, correctAnswer: "a" },
-            { question: "١٦- احسب احتمال الوفاة عند العمر 79 (q79):", answers: { a: "0.090536", b: "0.100536", c: "0.110536", d: "0.120536" }, correctAnswer: "b" }
-        ];
+        questions.forEach(q => {
+            const correctValue = q.getAttribute('data-correct');
+            const inputs = q.querySelectorAll('input[type="radio"]');
+            let answered = false;
+            
+            // Reset styles
+            q.querySelectorAll('label').forEach(l => {
+                l.classList.remove('correct-answer', 'wrong-answer');
+            });
 
-        function buildQuiz(){
-            const output = [];
-            myQuestions.forEach((q, i) => {
-                const answers = [];
-                const options = ['أ', 'ب', 'ج', 'د'];
-                let idx = 0;
-                for(let letter in q.answers){
-                    answers.push(`<div class="answers"><label><input type="radio" name="q${i}" value="${letter}"> ${options[idx++]}: ${q.answers[letter]}</label></div>`);
+            inputs.forEach(input => {
+                if (input.checked) {
+                    answered = true;
+                    if (input.value === correctValue) {
+                        score++;
+                        input.parentElement.classList.add('correct-answer');
+                    } else {
+                        input.parentElement.classList.add('wrong-answer');
+                    }
                 }
-                output.push(`<div class="question-block"><div class="question">${q.question}</div>${answers.join('')}</div>`);
             });
-            document.getElementById('questions').innerHTML = output.join('');
-        }
 
-        function showResults(){
-            const name = document.getElementById('student-name').value.trim();
-            if(!name){ alert("الرجاء إدخال الاسم"); return; }
-            let score = 0;
-            myQuestions.forEach((q, i) => {
-                const selected = document.querySelector(`input[name=q${i}]:checked`);
-                const qBlock = document.querySelectorAll('.question-block')[i];
-                Array.from(qBlock.querySelectorAll('label')).forEach(l => l.className = '');
-                const correctLabel = qBlock.querySelector(`input[value="${q.correctAnswer}"]`).parentNode;
-                correctLabel.classList.add('correct-answer');
-                if(selected && selected.value === q.correctAnswer){ score++; } 
-                else if(selected){ selected.parentNode.classList.add('incorrect-answer'); }
-            });
-            const res = document.getElementById('results');
-            res.style.display = 'block';
-            res.innerHTML = `<h2>الطالب: ${name}</h2><p>النتيجة النهائية: ${score} من ${myQuestions.length}</p>`;
-            res.scrollIntoView({ behavior: 'smooth' });
-        }
+            // Highlight correct answer anyway
+            if (answered || !answered) {
+                 const correctInput = q.querySelector(`input[value="${correctValue}"]`);
+                 if(correctInput) correctInput.parentElement.classList.add('correct-answer');
+            }
+        });
 
-        function showAdminPanel(){ 
-            if(prompt("كلمة المرور:") === ADMIN_PASSWORD) alert("تم تفعيل لوحة التحكم (تجريبي)"); 
-        }
+        const resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+        resultDiv.innerText = `النتيجة النهائية: ${score} من ${questions.length}`;
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+</script>
 
-        buildQuiz();
-        document.getElementById('submit-quiz').addEventListener('click', showResults);
-    </script>
 </body>
 </html>
