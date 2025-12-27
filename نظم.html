@@ -3,236 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار شامل: أساسيات وتاريخ التأمين</title>
+    <title>اختبار التأمين وإدارة المخاطر - النسخة الكاملة</title>
     <style>
-        /* الأنماط الأساسية والاحترافية */
-        body {
-            font-family: 'Tahoma', 'Arial', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #f0f2f5; /* خلفية فاتحة وهادئة */
-            color: #333;
-        }
-        .container {
-            max-width: 950px;
-            margin: 30px auto;
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #004d99; /* أزرق داكن احترافي */
-            border-bottom: 4px solid #004d99;
-            padding-bottom: 15px;
-            margin-bottom: 40px;
-            font-size: 2em;
-        }
-        h2 {
-            color: #1a7541; /* أخضر داكن */
-            border-bottom: 2px solid #1a7541;
-            padding-bottom: 8px;
-            margin-top: 35px;
-            font-size: 1.5em;
-        }
-        ol {
-            padding: 0;
-            list-style-type: none;
-        }
-        .question-item {
-            margin-bottom: 25px;
-            padding: 15px 0;
-            border-bottom: 1px dashed #ccc;
-        }
-        .question-content {
-            font-weight: 600;
-            color: #1f3a93; /* أزرق متوسط للأسئلة */
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            font-size: 1.1em;
-        }
-        .question-text {
-            flex-grow: 1;
-        }
-        .answer-container {
-            margin-top: 10px;
-            padding: 12px 15px;
-            border-right: 5px solid #ffc107; /* شريط جانبي أصفر/ذهبي */
-            background-color: #fff8e1; /* خلفية الإجابة */
-            border-radius: 6px;
-            display: none;
-            color: #333;
-            font-weight: normal;
-        }
-        .answer-container span, .correction span {
-            font-weight: bold;
-            color: #b30059; /* لون مميز للإجابة داخل النص */
-        }
-        .correction {
-            margin-top: 8px;
-            padding: 10px;
-            border-right: 5px solid #cc0000; /* شريط جانبي أحمر للتصحيح */
-            background-color: #ffe0e6;
-            color: #800020;
-            border-radius: 6px;
-        }
-        /* تصميم الزر */
-        button {
-            background-color: #007bff; /* أزرق قياسي */
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.2s;
-            white-space: nowrap; /* يمنع انقسام النص */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        button:hover {
-            background-color: #0056b3;
-            transform: translateY(-1px);
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; margin: 0; padding: 20px; direction: rtl; }
+        .container { max-width: 900px; margin: 0 auto; background-color: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        header { text-align: center; border-bottom: 4px solid #007bff; margin-bottom: 30px; padding-bottom: 20px; }
+        
+        /* تنسيق خانة اسم الطالب */
+        .student-info { background: #e7f1ff; padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px dashed #007bff; text-align: center; }
+        .student-info label { font-size: 1.2em; font-weight: bold; color: #0056b3; margin-left: 10px; }
+        .student-info input { padding: 10px; font-size: 1.1em; border-radius: 5px; border: 1px solid #ccc; width: 60%; max-width: 300px; }
+
+        .question { background: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #e1e1e1; margin-bottom: 20px; }
+        .question-text { font-size: 1.15em; font-weight: bold; margin-bottom: 15px; display: block; color: #2c3e50; }
+        .answers label { display: block; background: #fff; padding: 12px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #ddd; cursor: pointer; transition: 0.3s; }
+        .answers label:hover { background: #e9ecef; }
+        .correct-answer { background-color: #d4edda !important; border-color: #c3e6cb !important; color: #155724; }
+        .incorrect-answer { background-color: #f8d7da !important; border-color: #f5c6cb !important; color: #721c24; }
+        
+        #submit { width: 100%; padding: 15px; background: #28a745; color: white; border: none; border-radius: 8px; font-size: 1.2em; cursor: pointer; font-weight: bold; }
+        #submit:hover { background: #218838; }
+        #results { margin-top: 30px; padding: 25px; border-radius: 10px; text-align: center; background: #fff; border: 2px solid #007bff; font-size: 1.3em; display: none; }
+        .student-name-result { color: #007bff; font-size: 1.4em; font-weight: bold; text-decoration: underline; }
     </style>
-    <script>
-        function toggleAnswer(elementId, buttonElement) {
-            var answer = document.getElementById(elementId);
-            if (answer.style.display === "none" || answer.style.display === "") {
-                answer.style.display = "block";
-                buttonElement.textContent = "إخفاء الإجابة";
-                buttonElement.style.backgroundColor = "#dc3545"; /* أحمر للإخفاء */
-            } else {
-                answer.style.display = "none";
-                buttonElement.textContent = "إظهار الإجابة";
-                buttonElement.style.backgroundColor = "#007bff"; /* أزرق للإظهار */
-            }
-        }
-    </script>
 </head>
 <body>
+    <div class="container">
+        <header>
+            <h1>اختبار التأمين وإدارة المخاطر الشامل</h1>
+            <p>جميع الأسئلة الـ 58 من الصفحات الأخيرة</p>
+        </header>
 
-<div class="container">
-    <h1>اختبار شامل: أساسيات وتاريخ التأمين</h1>
-    <p style="text-align: center; color: #555; font-style: italic; margin-bottom: 30px;">
-        (اضغط على زر الإجابة لعرض أو إخفاء الحل لكل سؤال)
-    </p>
+        <div class="student-info">
+            <label for="studentName">اسم الطالب:</label>
+            <input type="text" id="studentName" placeholder="أدخل اسمك هنا...">
+        </div>
 
-    <h2><span style="color: #004d99;">&#9679;</span> أولاً: اختيار من متعدد</h2>
-    <ol>
-        <li class="question-item">
-            <div class="question-content">
-                <span class="question-text">1. يرى الباحثون أن أول نظام يتعلق "بالخسارة العامة" ظهر في جزيرة رودس عام: (916 ق.م - 1666 م - 1182 م - 1900 م)</span>
-                <button onclick="toggleAnswer('q1_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q1_ans" class="answer-container">الإجابة الصحيحة: <span>916 ق.م</span></div>
-        </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span class="question-text">2. أول أنواع التأمين ظهوراً بشكل تجاري عملي هو: (التأمين على الحياة - التأمين البحري - التأمين ضد الحريق - تأمين السيارات)</span>
-                <button onclick="toggleAnswer('q2_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q2_ans" class="answer-container">الإجابة الصحيحة: <span>التأمين البحري</span></div>
-        </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span class="question-text">3. ظهرت التأمينات البرية (ضد الحريق) لأول مرة في بريطانيا عقب: (حرب أكتوبر - الثورة الصناعية - حريق لندن الهائل - الحرب العالمية الثانية)</span>
-                <button onclick="toggleAnswer('q3_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q3_ans" class="answer-container">الإجابة الصحيحة: <span>حريق لندن الهائل</span> (عام 1666م)</div>
-        </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span class="question-text">4. تأسست أول شركة تأمين مصرية عام 1900م وهي شركة: (مصر للتأمين - الشرق للتأمين - التأمين الأهلية - قناة السويس للتأمين)</span>
-                <button onclick="toggleAnswer('q4_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q4_ans" class="answer-container">الإجابة الصحيحة: <span>التأمين الأهلية</span></div>
-        </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span class="question-text">5. القانون الذي ألزم شركات التأمين في مصر بالفصل بين نشاطي "الحياة" و"الممتلكات" هو قانون رقم 118 لسنة: (1939 - 1981 - 1995 - 2008)</span>
-                <button onclick="toggleAnswer('q5_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q5_ans" class="answer-container">الإجابة الصحيحة: <span>2008</span></div>
-        </li>
-    </ol>
+        <div id="quiz"></div>
+        <button id="submit">عرض النتيجة النهائية</button>
+        <div id="results"></div>
+    </div>
 
-    <h2><span style="color: #004d99;">&#9679;</span> ثانياً: صواب وخطأ مع التصحيح</h2>
-    <ol start="6">
-        <li class="question-item">
-            <div class="question-content">
-                <span class="question-text">6. عرف قدماء المصريين شكلًا من أشكال التأمين من خلال جمعيات دفن الموتى.</span>
-                <button onclick="toggleAnswer('q6_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q6_ans" class="answer-container">الإجابة: <span>صحيحة (✔)</span></div>
-        </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span class="question-text">7. أدى ظهور الثورة الصناعية واستعمال الآلات إلى اختفاء الحاجة للتأمين.</span>
-                <button onclick="toggleAnswer('q7_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q7_ans" class="answer-container">
-                الإجابة: <span>خاطئة (✖)</span>
-                <div class="correction">التصحيح: بل أدى إلى **إيجاد أخطار جديدة** (مثل إصابات العمل) وبالتالي **زيادة** الحاجة لأنواع جديدة مثل تأمين المسؤولية المدنية.</div>
-            </div>
-        </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span class="question-text">8. يعتبر التأمين ضد الحريق أقدم أنواع التأمين ظهوراً على الإطلاق.</span>
-                <button onclick="toggleAnswer('q8_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q8_ans" class="answer-container">
-                الإجابة: <span>خاطئة (✖)</span>
-                <div class="correction">التصحيح: **التأمين البحري** هو أقدم الأنواع ظهوراً بشكل تجاري.</div>
-            </div>
-        </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span class="question-text">9. كانت قرارات التأميم التي حولت شركات التأمين لملكية الدولة في مصر خلال فترة التسعينات.</span>
-                <button onclick="toggleAnswer('q9_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q9_ans" class="answer-container">
-                الإجابة: <span>خاطئة (✖)</span>
-                <div class="correction">التصحيح: كانت في فترة **الستينات** (تحديداً 1961م).</div>
-            </div>
-        </li>
-    </ol>
+    <script>
+        const myQuestions = [
+            // (تم وضع كافة الـ 58 سؤالاً هنا بدقة)
+            { question: "تقوم فكرة التأمين على أساس توزيع...", answers: { a: "الأرباح", b: "الخسائر", c: "الأسهم" }, correctAnswer: "b" },
+            { question: "تأمين الأشخاص يتناول أنواع التأمين المتعلقة بـ...", answers: { a: "الممتلكات", b: "شخص العميل", c: "المسؤولية" }, correctAnswer: "b" },
+            { question: "المؤمن في وثيقة التأمين هو...", answers: { a: "العميل", b: "الشركة", c: "المستفيد" }, correctAnswer: "b" },
+            { question: "المؤمن له في وثيقة التأمين هو...", answers: { a: "الشركة", b: "العميل", c: "الوسيط" }, correctAnswer: "b" },
+            { question: "التأمين الاجتماعي تلزمه...", answers: { a: "الشركات الخاصة", b: "الدولة", c: "النقابات" }, correctAnswer: "b" },
+            { question: "عقد التأمين ملزم لـ...", answers: { a: "طرف واحد", b: "طرفين", c: "ثلاثة أطراف" }, correctAnswer: "b" },
+            { question: "عقد التأمين هو عقد بين...", answers: { a: "طرف واحد", b: "طرفين", c: "عدة أطراف" }, correctAnswer: "b" },
+            { question: "من سمات عقد التأمين أنه عقد...", answers: { a: "مؤكد", b: "احتمالي", c: "مجاني" }, correctAnswer: "b" },
+            { question: "من شروط الخطر أنه...", answers: { a: "مؤكد الوقوع", b: "احتمالي ومشروع", c: "مستحيل" }, correctAnswer: "b" },
+            { question: "تأمين المؤمن يطلق عليه...", answers: { a: "إعادة التأمين", b: "تأمين شامل", c: "تأمين متبادل" }, correctAnswer: "a" },
+            { question: "يمكن توسيع فكرة التأمين ليشمل أخطار...", answers: { a: "الطبيعة فقط", b: "الحريق والسرقة", c: "المرض فقط" }, correctAnswer: "b" },
+            { question: "التأمين الجوي يغطي المخاطر التي تحدث لـ...", answers: { a: "المطارات", b: "الطائرة", c: "المسافرين فقط" }, correctAnswer: "b" },
+            { question: "عقد التأمين عقد...", answers: { a: "إجباري", b: "رضائي", c: "شفهي" }, correctAnswer: "b" },
+            { question: "عقد التأمين هو عقد...", answers: { a: "مدني فقط", b: "مدني تجاري", c: "إداري" }, correctAnswer: "b" },
+            { question: "أول من عرف التأمين على الحياة هم...", answers: { a: "الصينيون", b: "الرومان", c: "الفراعنة" }, correctAnswer: "b" },
+            { question: "تأمين الحريق لتعويض الخسائر الناشئة عن...", answers: { a: "السرقة", b: "الحريق", c: "الانفجار" }, correctAnswer: "b" },
+            { question: "التأمين الهندسي يتم على...", answers: { a: "المحاصيل", b: "السيارات والسفن", c: "المباني السكنية" }, correctAnswer: "b" },
+            { question: "أسبق أنواع التأمين ظهوراً هو التأمين...", answers: { a: "البري", b: "البحري", c: "الجوي" }, correctAnswer: "b" },
+            { question: "الخطر في عقد التأمين هو حادث...", answers: { a: "مؤكد", b: "محتمل الوقوع", c: "مستحيل" }, correctAnswer: "b" },
+            { question: "إذا كان احتمال A=0.4 و B=0.2 ومعاً 0.08 فإن الحدثين...", answers: { a: "متنافيان", b: "مستقلان", c: "مرتبطان" }, correctAnswer: "b" },
+            { question: "مجموع الاحتمالات يساوي عدد...", answers: { a: "صفر", b: "واحد صحيح", c: "ما لا نهاية" }, correctAnswer: "b" },
+            { question: "في الأحداث المستقلة إذا كان A=0.35 و B=0.45 فإن احتمال (A أو B)...", answers: { a: "0.80", b: "0.64", c: "0.15" }, correctAnswer: "b" },
+            { question: "احتمال الحصول على عدد زوجي من نرد وصورة من عملة...", answers: { a: "0.50", b: "0.25", c: "0.75" }, correctAnswer: "b" },
+            { question: "إذا كان A=0.4 و B=0.2 ومعاً 0.08 فإن احتمال (أحدهما)...", answers: { a: "0.60", b: "0.52", c: "0.48" }, correctAnswer: "b" },
+            { question: "إذا كان A=0.35 و B=0.45 فإن احتمال (A و B) للمستقلة...", answers: { a: "0.80", b: "0.16", c: "0.10" }, correctAnswer: "b" },
+            { question: "تتراوح قيمة الاحتمال بين...", answers: { a: "-1 و 1", b: "0 و 1", c: "0 و 100" }, correctAnswer: "b" },
+            { question: "المجموعات المتساوية هي التي لها...", answers: { a: "نفس العناصر", b: "نفس العدد فقط", c: "عناصر مختلفة" }, correctAnswer: "a" },
+            { question: "الانتماء هو علاقة بين...", answers: { a: "مجموعة ومجموعة", b: "عنصر ومجموعة", c: "عنصر وعنصر" }, correctAnswer: "b" },
+            { question: "التأمين البحري هو أقدم أنواع التأمين ظهوراً.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "a" },
+            { question: "الخطر حادث محتمل الوقوع.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "a" },
+            { question: "عقد التأمين من عقود الإذعان.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "a" },
+            { question: "شركة التأمين الأهلية أول شركة مصرية في التأمين.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "a" },
+            { question: "يقوم عقد التأمين على أساس حسن النية.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "a" },
+            { question: "تجسدت فكرة التأمين من خلال الحضارة الصينية.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "a" },
+            { question: "تأمين المؤمن يطلق عليه إعادة التأمين.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "a" },
+            { question: "في رمي نرد مرتين، (4,3) تعني 4 في الأولى و3 في الثانية.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "a" },
+            { question: "التباديل هي عدد الاحتمالات لتشكيل عناصر مع مراعاة الترتيب.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "a" },
+            { question: "احتمال حدوث حدث + احتمال عدم حدوثه = 1.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "a" },
+            { question: "حدث الحصول على عدد أكبر من 5 في نرد هو حدث بسيط {6}.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "a" },
+            { question: "عقد التأمين ليس له زمن محدد.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "أهم مزايا التأمين أنه يحقق ربحاً للمؤمن له.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "أهم ركن في عقد التأمين هو رضاء المؤمن فقط.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "التأمين يهدف لمواجهة الخسائر المؤكدة للأفراد.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "عقد التأمين ملزم لجانب واحد فقط.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "تعد فكرة التأمين من الأفكار الحديثة.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "أول شركة تأمين في مصر تكونت عام 2020.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "يعد التأمين البري هو الأسبق ظهوراً.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "يقل الإقبال على التأمين في أوقات الازدهار الاقتصادي.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "الخطر حادث مستحيل الوقوع.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "عقد التأمين هو عقد بين ثلاثة أطراف.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "المؤمن هو المستفيد في عقد التأمين.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "عقد التأمين من العقود المدنية فقط.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "عند إلقاء قطعتي نقود يكون فضاء العينة {صورة، كتابة} فقط.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "المجموعات الخالية هي المجموعات وحيدة العنصر.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "التوزيع الطبيعي توزيع غير متماثل.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "احتمال ظهور الصورة عند رمي قطعة نقود هو 0.25.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "عند مستوى ثقة 99% يكون مستوى المعنوية 10%.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" },
+            { question: "تتراوح قيمة الاحتمال بين صفر وخمسة.", answers: { a: "صح", b: "خطأ" }, correctAnswer: "b" }
+        ];
 
-    <h2><span style="color: #004d99;">&#9679;</span> ثالثاً: أكمل الفراغات</h2>
-    <ol start="10">
-        <li class="question-item">
-            <div class="question-content">
-                <span class="question-text">10. **لغوياً:** كلمة التأمين مأخوذة من مادة (أ م ن) وهي ضد ................... وتعني ....................</span>
-                <button onclick="toggleAnswer('q10_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q10_ans" class="answer-container">الإجابة: ضد <span>الخوف</span> وتعني <span>الطمأنينة (أو الأمان)</span>.</div>
-        </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span class="question-text">11. **اصطلاحاً:** التأمين هو عقد بين طرفين هما ................... و ...................، يلتزم فيه الأول بدفع تعويض مالي عند وقوع الخطر مقابل قسط.</span>
-                <button onclick="toggleAnswer('q11_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q11_ans" class="answer-container">الإجابة: الطرفان هما <span>المُؤمِّن (الشركة)</span> و <span>المُؤمَّن له (المستأمن)</span>.</div>
-        </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span class="question-text">12. تأسست أول شركة للتأمين ضد الحريق عام 1694م تحت عنوان ....................</span>
-                <button onclick="toggleAnswer('q12_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q12_ans" class="answer-container">الإجابة: تحت عنوان <span>"اليد في اليد" (HAND IN HAND)</span>.</div>
-        </li>
-        <li class="question-item">
-            <div class="question-content">
-                <span class="question-text">13. بموجب القانون رقم 91 لسنة 1995 في مصر، سُمح بمشاركة الشركات ................... في سوق التأمين المصري بنسبة تصل إلى 100% لاحقاً.</span>
-                <button onclick="toggleAnswer('q13_ans', this)">إظهار الإجابة</button>
-            </div>
-            <div id="q13_ans" class="answer-container">الإجابة: الشركات <span>الأجنبية</span>.</div>
-        </li>
-    </ol>
-</div>
+        function buildQuiz() {
+            const output = [];
+            myQuestions.forEach((currentQuestion, questionNumber) => {
+                const answers = [];
+                for (letter in currentQuestion.answers) {
+                    answers.push(
+                        `<label>
+                            <input type="radio" name="question${questionNumber}" value="${letter}">
+                            ${letter} : ${currentQuestion.answers[letter]}
+                        </label>`
+                    );
+                }
+                output.push(
+                    `<div class="question">
+                        <span class="question-text">${questionNumber + 1}. ${currentQuestion.question}</span>
+                        <div class="answers">${answers.join('')}</div>
+                    </div>`
+                );
+            });
+            document.getElementById('quiz').innerHTML = output.join('');
+        }
 
+        function showResults() {
+            const name = document.getElementById('studentName').value || "طالب زائر";
+            const answerContainers = document.querySelectorAll('.answers');
+            let numCorrect = 0;
+
+            myQuestions.forEach((currentQuestion, questionNumber) => {
+                const answerContainer = answerContainers[questionNumber];
+                const selector = `input[name=question${questionNumber}]:checked`;
+                const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+                const allLabels = answerContainer.querySelectorAll('label');
+                allLabels.forEach(label => label.classList.remove('correct-answer', 'incorrect-answer'));
+
+                if (userAnswer === currentQuestion.correctAnswer) {
+                    numCorrect++;
+                    answerContainer.querySelector(`input[value="${userAnswer}"]`).parentNode.classList.add('correct-answer');
+                } else {
+                    if (userAnswer) {
+                        answerContainer.querySelector(`input[value="${userAnswer}"]`).parentNode.classList.add('incorrect-answer');
+                    }
+                    answerContainer.querySelector(`input[value="${currentQuestion.correctAnswer}"]`).parentNode.classList.add('correct-answer');
+                }
+            });
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.style.display = 'block';
+            const percentage = ((numCorrect / myQuestions.length) * 100).toFixed(2);
+            resultsDiv.innerHTML = `
+                <p>عاشت يدك يا <span class="student-name-result">${name}</span>!</p>
+                <p>لقد أجبت على <strong>${numCorrect}</strong> سؤالاً صحيحاً من أصل ${myQuestions.length}</p>
+                <p>نسبة نجاحك هي: <strong>${percentage}%</strong></p>
+            `;
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        buildQuiz();
+        document.getElementById('submit').addEventListener('click', showResults);
+    </script>
 </body>
 </html>
