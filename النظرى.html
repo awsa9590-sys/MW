@@ -3,128 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار شامل: أساسيات ومبادئ التأمين (60 سؤالاً)</title>
+    <title>اختبار مبادئ الاستثمار</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #eef2f7; 
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            direction: rtl;
-            text-align: right;
-        }
-        .container {
-            max-width: 900px; 
-            margin: 0 auto;
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); 
-        }
-        header {
-            padding-bottom: 20px;
-            border-bottom: 3px solid #0056b3;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        h1 {
-            color: #0056b3;
-            margin: 0;
-            font-size: 2em;
-        }
-        .student-info {
-            margin-bottom: 25px;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-        }
-        .student-info label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 8px;
-        }
-        .student-info input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 1em;
-        }
-        .question {
-            margin-bottom: 25px;
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        .question-text {
-            font-weight: bold;
-            margin-bottom: 12px;
-            display: block;
-            font-size: 1.1em;
-        }
-        .answers-list {
-            list-style: none;
-            padding: 0;
-        }
-        .answers-list li {
-            margin-bottom: 10px;
-        }
-        .answers-list label {
-            cursor: pointer;
-            padding: 8px 12px;
-            display: block;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        .answers-list label:hover {
-            background-color: #f0f0f0;
-        }
-        .correct-answer {
-            background-color: #d4edda !important;
-            color: #155724;
-            font-weight: bold;
-            border: 1px solid #c3e6cb;
-        }
-        .incorrect-answer {
-            background-color: #f8d7da !important;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        #submit-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 20px;
-        }
-        #submit-btn:hover {
-            background-color: #218838;
-        }
-        #results {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #fff3cd;
-            border: 1px solid #ffeeba;
-            border-radius: 8px;
-            text-align: center;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; margin: 0; padding: 20px; direction: rtl; text-align: right; }
+        .container { max-width: 900px; margin: 0 auto; background-color: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); }
+        header { padding-bottom: 20px; border-bottom: 3px solid #0056b3; margin-bottom: 30px; text-align: center; }
+        h1 { color: #0056b3; margin: 0; font-size: 2em; }
+        .student-info { margin-bottom: 25px; padding: 15px; background-color: #f9f9f9; border-radius: 8px; border: 1px solid #ddd; }
+        .student-info input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 1em; }
+        .question { margin-bottom: 25px; padding: 15px; border-bottom: 1px solid #eee; border-right: 5px solid #0056b3; }
+        .question-text { font-weight: bold; margin-bottom: 12px; display: block; font-size: 1.1em; }
+        .answers-list { list-style: none; padding: 0; }
+        .answers-list li { margin-bottom: 10px; }
+        .answers-list label { cursor: pointer; padding: 8px 12px; display: block; border-radius: 5px; transition: background 0.3s; border: 1px solid #eee; }
+        .answers-list label:hover { background-color: #f0f7ff; }
+        .correct-answer { background-color: #d4edda !important; color: #155724; font-weight: bold; border: 1px solid #c3e6cb !important; }
+        .incorrect-answer { background-color: #f8d7da !important; color: #721c24; border: 1px solid #f5c6cb !important; }
+        #submit-btn { display: block; width: 100%; padding: 15px; background-color: #28a745; color: white; border: none; border-radius: 8px; font-size: 1.2em; cursor: pointer; margin-top: 20px; }
+        #results { margin-top: 30px; padding: 20px; background-color: #fff3cd; border: 1px solid #ffeeba; border-radius: 8px; text-align: center; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <header>
-            <h1>اختبار مراجعة الفاينل الشامل</h1>
-            <p>60 سؤالاً تغطي كافة جوانب الملخص النهائي</p>
+            <h1><i class="fas fa-chart-line"></i> اختبار مبادئ الاستثمار</h1>
+            <p>60 سؤالاً شاملة (صح/خطأ واختيار من متعدد) </p>
         </header>
 
         <div class="student-info">
@@ -138,74 +44,76 @@
     </div>
 
     <script>
+        const myQuestions = [
+            // أسئلة الصح والخطأ (30 سؤالاً) [cite: 153, 154, 155, 156, 157, 158, 159, 160, 162, 163, 164, 165, 166, 167, 169, 171, 172]
+            { question: "من أهداف الاستثمار ضمان السيولة اللازمة.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
+            { question: "أهداف الاستثمار تشمل المحافظة على رأس المال الأصلي.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
+            { question: "الأوراق المالية تشمل فقط الأسهم.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "الاستثمار الأجنبي المباشر يعني شراء الأسهم فقط.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "الاستثمار غير المباشر يتضمن السيطرة على إدارة المشروع.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "الاستثمار في العقارات يعتبر استثماراً غير مرغوب فيه.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "الاستثمار في الاقتصاد الإسلامي يتطلب مراعاة الأحكام الشرعية.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
+            { question: "أهداف الاستثمار تشمل تحقيق العائد الملائم.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
+            { question: "مفهوم الاستثمار يشمل جميع الأنشطة التي تزيد من الطاقة الإنتاجية.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
+            { question: "كلمة 'استثمار' تعني فقط توفير المال.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "سوق النقد يتضمن أدوات مالية ذات تاريخ استحقاق أقل من سنة واحدة.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
+            { question: "الأسواق المالية تلعب دوراً في تحديد أسعار الأصول المالية من خلال العرض والطلب.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
+            { question: "سوق الديون يسمح للمستثمرين بالحصول على أموال مقابل حصة في ملكية المنشأة.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "سوق المال هو السوق الذي يتم فيه تداول الأصول المالية.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
+            { question: "المستثمر في سوق الملكية يكون دائناً للمنشأة.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "سوق الملكية يتم فيه تداول الأدوات المالية على أساس الديون.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "السوق الثانوي هو السوق الذي يتم فيه إصدار الأدوات المالية لأول مرة.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "السوق قوي الكفاءة يعكس جميع المعلومات المتاحة للعامة فقط.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "سوق رأس المال يتيح للشركات الحصول على الأموال لفترات زمنية قصيرة لا تتجاوز سنة.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "الهيئة الرقابية في البورصة لا تركز على ضمان تطبيق قوانين السوق.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "لا تقبل البنوك التجارية ودائع من الأفراد.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "يعتبر المساهم دائناً للمنشأة.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "يمكن الحصول على التمويل طويل الأجل من سوق النقد.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "إذا رغب المستثمر في المشاركة في الربح والمخاطرة بقدر استثماراته فإن عليه الاستثمار في السندات.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "يعتبر السهم ورقة مالية ذات عائد ثابت، بينما يعتبر السند ورقة مالية ذات عائد متغير.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "يستطيع العميل السحب في أي وقت يشاء بالنسبة للودائع بالأجل أو بالإخطار.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "الأوراق المالية تشمل فقط الأسهم العادية والسندات.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "من أهداف الاستثمار المحافظة على رأس المال الأصلي.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
+            { question: "إن حامل السهم ليس له الحق في حصة من أرباح المنشأة.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+            { question: "سوق المال هو السوق الذي يتم فيه تبادل السلع والخدمات.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+
+            // أسئلة الاختيار من متعدد (30 سؤالاً) [cite: 174, 178, 182, 187, 191, 194, 198, 201, 205, 209, 212, 219, 223, 227, 231, 235, 239, 244, 248, 253, 257, 261, 265, 270, 274, 278, 283, 287, 291, 295]
+            { question: "وفقاً لموسوعة المصطلحات الاقتصادية الاستثمار هو:", choices: ["تشكيل رأس المال العيني الجديد", "زيادة الضرائب", "تقليل الدخل القومي"], correctAnswer: "تشكيل رأس المال العيني الجديد" },
+            { question: "من مزايا الاستثمار في الأوراق المالية:", choices: ["المخاطرة العالية", "عدم تحقيق عوائد", "المرونة وسهولة التداول"], correctAnswer: "المرونة وسهولة التداول" },
+            { question: "الاستثمار الأجنبي يعرف بأنه:", choices: ["الاستثمار داخل الوطن", "الاستثمار في أسواق المال فقط", "الاستثمار في مشروعات خارج حدود الوطن"], correctAnswer: "الاستثمار في مشروعات خارج حدود الوطن" },
+            { question: "الاستثمار في السلع يتميز بـ:", choices: ["استثمار غير ملموس", "كونه أداة استثمار مهمة", "عدم الحاجة إلى سلع"], correctAnswer: "كونه أداة استثمار مهمة" },
+            { question: "يعرف الاستثمار من وجهة نظر الاقتصاد الكلي بأنه:", choices: ["زيادة في رأس المال الحقيقي للمجتمع", "خفض التكاليف", "تحسين التجارة الداخلية"], correctAnswer: "زيادة في رأس المال الحقيقي للمجتمع" },
+            { question: "ما هو أحد أهداف الاستثمار؟", choices: ["تجميد الأموال", "تحقيق عائد ملائم", "تقليل الإنتاجية"], correctAnswer: "تحقيق عائد ملائم" },
+            { question: "في الاقتصاد الإسلامي، الاستثمار يتطلب:", choices: ["مراعاة الأحكام الشرعية", "تحقيق الأرباح فقط", "المخاطرة العالية"], correctAnswer: "مراعاة الأحكام الشرعية" },
+            { question: "ما هو المعنى الأساسي لكلمة 'استثمار' في اللغة؟", choices: ["الفائدة من المال", "توفير المال", "تنمية المال"], correctAnswer: "تنمية المال" },
+            { question: "يعد الاستثمار في العقارات من:", choices: ["الاستثمار ذات المخاطرة العالية", "أدوات الاستثمار المريحة", "أشكال الإستثمارات غير التقليدية"], correctAnswer: "أشكال الإستثمارات غير التقليدية" },
+            { question: "أحد أهداف الاستثمار هو:", choices: ["الحفاظ على رأس المال الأصلي", "تحقيق العمالة", "زيادة المخاطر المالية"], correctAnswer: "الحفاظ على رأس المال الأصلي" },
+            { question: "أي الأسواق المالية يختص بالأدوات ذات تاريخ استحقاق أقل من سنة؟", choices: ["سوق رأس المال", "سوق النقد", "سوق الديون"], correctAnswer: "سوق النقد" },
+            { question: "أي من هذه الأسواق يتيح للمستثمرين شراء أسهم وسندات لأول مرة؟", choices: ["السوق الثانوي", "السوق الأولي", "سوق النقد"], correctAnswer: "السوق الأولي" },
+            { question: "ما هو الهدف الرئيسي من الأسواق المالية؟", choices: ["تحقيق العوائد الفردية", "زيادة التضخم", "حماية الاقتصاد الوطني والمستثمرين"], correctAnswer: "حماية الاقتصاد الوطني والمستثمرين" },
+            { question: "ما هي الميزة الرئيسية للأسواق المالية؟", choices: ["توفير السيولة للمستثمرين", "توفير فرص العمل", "زيادة حجم الديون"], correctAnswer: "توفير السيولة للمستثمرين" },
+            { question: "من أهم الأشخاص المصرح لهم بالتعامل في بورصة الأوراق المالية؟", choices: ["المستثمرين أنفسهم", "سماسرة البورصة", "الشركات المالية فقط"], correctAnswer: "سماسرة البورصة" },
+            { question: "الجهة التي تشرف على تطبيق قوانين البورصة هي:", choices: ["هيئة الرقابة المالية", "إدارة البورصة المركزية", "هيئة البورصة"], correctAnswer: "هيئة الرقابة المالية" },
+            { question: "من وظائف بورصة الأوراق المالية:", choices: ["بيع الأراضي", "إصدار القوانين", "تحويل المخاطر والملكية"], correctAnswer: "تحويل المخاطر والملكية" },
+            { question: "ما هي وظيفة بورصة الأوراق المالية؟", choices: ["بيع السلع", "صرف العملات", "تداول الأدوات المالية مثل الأسهم والسندات"], correctAnswer: "تداول الأدوات المالية مثل الأسهم والسندات" },
+            { question: "من أين جاء أصل كلمة 'بورصة'؟", choices: ["عائلة بلجيكية", "مدينة فرنسية", "مدينة إيطالية"], correctAnswer: "عائلة بلجيكية" },
+            { question: "أي من الأدوات المالية تتيح للمستثمر ملكية في المنشأة؟", choices: ["السندات", "القروض", "الأسهم"], correctAnswer: "الأسهم" },
+            { question: "ما هي أذون الخزانة؟", choices: ["سندات شركات خاصة", "أوراق مالية يصدرها البنك المركزي", "جميع الاختيارات خاطئة"], correctAnswer: "أوراق مالية يصدرها البنك المركزي" },
+            { question: "ما هي خاصية المشتقات المالية؟", choices: ["قيمتها تعتمد على أصل أساسي", "يمكن تداولها في الأسواق", "جميع الاختيارات خاطئة"], correctAnswer: "قيمتها تعتمد على أصل أساسي" },
+            { question: "الشخص الذي ينفذ عمليات البيع والشراء نيابة عن المستثمر هو:", choices: ["مدير البورصة", "سمسار البورصة", "المحاسب"], correctAnswer: "سمسار البورصة" },
+            { question: "أي الأدوات المالية لا تتيح للمستثمر ملكية في المنشأة؟", choices: ["السندات", "الأسهم", "جميع الاختيارات خاطئة"], correctAnswer: "السندات" },
+            { question: "وظيفة البنوك الإسلامية هي:", choices: ["استثمار الأموال في مشاريع متوافقة مع الشريعة", "اقتراض الأموال بفائدة", "جميع الاختيارات خاطئة"], correctAnswer: "استثمار الأموال في مشاريع متوافقة مع الشريعة" },
+            { question: "الدور الرئيسي للبنوك التجارية في الاقتصاد:", choices: ["بيع الأوراق المالية", "قبول الودائع ومنح القروض", "إصدار العملة"], correctAnswer: "قبول الودائع ومنح القروض" },
+            { question: "السبب الرئيسي وراء الأزمة المالية العالمية 2008:", choices: ["أسعار النفط", "الاستخدام المفرط للمشتقات والديون", "جميع الاختيارات خاطئة"], correctAnswer: "الاستخدام المفرط للمشتقات والديون" },
+            { question: "ما هو الفرق بين السوق الأولي والسوق الثانوي؟", choices: ["الأولي للأسهم والثانوي للسندات", "الأولي للسندات والثانوي للأسهم", "جميع الاختيارات خاطئة"], correctAnswer: "جميع الاختيارات خاطئة" },
+            { question: "من الخصائص المميزة للأسهم الممتازة:", choices: ["عائد ثابت ممتاز", "أولوية في توزيع الأرباح", "جميع الاختيارات خاطئة"], correctAnswer: "أولوية في توزيع الأرباح" },
+            { question: "كيف تحقق البنوك التوازن بين الربحية والسيولة؟", choices: ["قروض بفوائد منخفضة", "تنويع المحفظة الاستثمارية", "جميع الاختيارات خاطئة"], correctAnswer: "تنويع المحفظة الاستثمارية" }
+        ];
+
+        // بقية دوال الجافاسكريبت لبناء الكويز وعرض النتائج
         const quizContainer = document.getElementById('quiz');
         const resultsContainer = document.getElementById('results');
         const submitButton = document.getElementById('submit-btn');
-const myQuestions = [
-            // أسئلة الصح والخطأ (30 سؤالاً) [cite: 10, 25, 26]
-           { question: "يهتم الاقتصاد الجزئي بدراسة الدخل القومي والناتج القومي.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "الثروة هي رصيد من السلع يؤدي إلى الدخل.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "الكساد يعني زيادة القوة الشرائية وزيادة الإنتاج.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "الدخل القومي الاسمي هو الدخل محسوباً بالأسعار السوقية الجارية.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "الاكتناز هو إيداع الأموال في البنوك والمؤسسات المالية.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "تعتبر الصادرات إضافة للدخل القومي بينما الواردات تسرب منه.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "إذا كان التدفق النقدي أكبر من التدفق السلعي، يحدث ركود اقتصادي.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "يتم حساب متوسط نصيب الفرد من الدخل بقسمة الدخل القومي على عدد السكان.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "طريقة الناتج تحسب قيمة السلع النهائية والسلع الوسيطة معاً لتحديد الناتج القومي.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "الناتج القومي الصافي يساوي الناتج القومي الإجمالي مطروحاً منه استهلاك رأس المال.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "عمل ربة المنزل لا يدخل ضمن حسابات الدخل القومي لعدم وجود تقييم سوقي له.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "زيادة الأسعار تؤدي إلى زيادة القوة الشرائية للنقود.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "الرقم القياسي البسيط يميز بين السلع من حيث الأهمية ويعطيها أوزاناً.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "الناتج القومي الإجمالي يركز على جنسية عناصر الإنتاج بغض النظر عن مكان وجودها.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "حسب قانون كينز، عند زيادة الدخل يزداد الاستهلاك بنسبة أكبر من الزيادة في الدخل.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "ترى فرضية دورة الحياة أن الاستهلاك يعتمد على الثروة والدخول المتوقعة مستقبلاً.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "الاستهلاك التلقائي هو الاستهلاك المستقل عن مستوى الدخل.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "الميل الحدي للادخار يعبر عن نسبة التغير في الادخار نتيجة التغير في الدخل بمقدار وحدة.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "على يسار نقطة تعادل الدخل والاستهلاك، يكون الادخار موجباً.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "المجتمعات ذات الدخول المرتفعة تحقق مستويات ادخار عالية مقارنة بالمجتمعات الفقيرة.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "توقعات زيادة الأسعار في المستقبل القريب تؤدي لتقليل الاستهلاك الحالي.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "الاستثمارات المالية مثل شراء الأسهم والسندات تضيف أصولاً إنتاجية حقيقية للمجتمع.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "يجب أن تكون الكفاية الحدية لرأس المال أكبر من سعر الفائدة ليتم قبول المشروع الاستثماري.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "التقدم الفني يساهم في تقليل تكاليف الإنتاج مما يحفز على زيادة الاستثمار.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "يتحقق التوازن الاقتصادي عندما يتساوى الادخار المخطط مع الاستثمار المخطط.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "الاقتصاد المفتوح هو الاقتصاد الذي لا يرتبط بعلاقات تجارية مع العالم الخارجي.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "الحساب الجاري في ميزان المدفوعات يضم ميزان التجارة المنظورة وغير المنظورة.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "النقود السلعية هي نقود لا قيمة لها في حد ذاتها وتستمد قيمتها من القانون فقط.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "من وظائف البنك المركزي القيام بدور بنك الحكومة وبنك البنوك.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "عقد المرابحة في التمويل الإسلامي يعتمد على البيع بربح معلوم يضاف إلى التكلفة الأصلية.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            
-            // أسئلة الاختيار من متعدد (36 سؤالاً) [cite: 27, 28, 41, 55, 70, 85]
-           { question: "ما هو العلم الذي يدرس المتغيرات الكلية مثل التضخم والبطالة والنمو؟", choices: ["الاقتصاد الجزئي", "الاقتصاد الكلي", "الإحصاء", "المحاسبة المالية"], correctAnswer: "الاقتصاد الكلي" },
-            { question: "التغير خلال فترة زمنية محددة (مثل الدخل السنوي) يطلق عليه:", choices: ["الرصيد", "الثروة", "التدفق", "الاحتياطي"], correctAnswer: "التدفق" },
-            { question: "يتحقق التوازن الاقتصادي عندما يتساوى:", choices: ["الادخار مع الضرائب", "الطلب الكلي مع العرض الكلي", "الصادرات مع الواردات فقط", "الاستهلاك مع الدخل دائماً"], correctAnswer: "الطلب الكلي مع العرض الكلي" },
-            { question: "الدخل القومي الحقيقي هو الدخل النقدي مقسوماً على:", choices: ["عدد السكان", "الأرقام القياسية للأسعار", "الضرائب المباشرة", "الإنفاق الحكومي"], correctAnswer: "الأرقام القياسية للأسعار" },
-            { question: "في نموذج التدفق الدائري، تعتبر 'الواردات' من قبيل:", choices: ["الحقن", "الإضافات", "التسربات", "الاستثمارات المخططة"], correctAnswer: "التسربات" },
-            { question: "الهدف من استخدام طريقة 'القيمة المضافة' هو تجنب:", choices: ["البطالة", "الازدواج المحاسبي", "التضخم", "التهرب الضريبي"], correctAnswer: "الازدواج المحاسبي" },
-            { question: "صاحب فرضية 'الدخل النسبي' التي تربط استهلاك الفرد بمحيطه الاجتماعي هو:", choices: ["كينز", "فريدمان", "دوزنبري", "مود جلياني"], correctAnswer: "دوزنبري" },
-            { question: "الميل الحدي للاستهلاك (MPC) هو نسبة التغير في الاستهلاك إلى التغير في:", choices: ["الأسعار", "سعر الفائدة", "الدخل", "الادخار"], correctAnswer: "الدخل" },
-            { question: "مجموع الميل الحدي للاستهلاك والميل الحدي للادخار يساوي دائماً:", choices: ["صفر", "100", "واحد صحيح", "ما لا نهاية"], correctAnswer: "واحد صحيح" },
-            { question: "عندما يتقاطع خط الاستهلاك مع خط الدخل (زاوية 45)، يكون الادخار مساوياً لـ:", choices: ["أقصى قيمة", "واحد صحيح", "صفر", "قيمة سالبة"], correctAnswer: "صفر" },
-            { question: "أي من الدوافع التالية يشجع على الادخار؟", choices: ["الاستهلاك التفاخري", "تأمين مستقبل الأبناء", "توقع انخفاض الأسعار", "زيادة الضرائب"], correctAnswer: "تأمين مستقبل الأبناء" },
-            { question: "العلاقة بين سعر الفائدة وحجم الاستثمار هي علاقة:", choices: ["طردية", "عكسية", "منعدمة", "ثابتة"], correctAnswer: "عكسية" },
-            { question: "معدل الخصم الذي يجعل القيمة الحالية للإيرادات مساوية لتكلفة الأصل يسمى:", choices: ["معدل الفائدة", "الميل الحدي للاستثمار", "الكفاية الحدية لرأس المال", "المضاعف"], correctAnswer: "الكفاية الحدية لرأس المال" },
-            { question: "المضاعف (Multiplier) هو مقلوب:", choices: ["الميل الحدي للاستهلاك", "الميل الحدي للادخار", "سعر الفائدة", "الناتج القومي"], correctAnswer: "الميل الحدي للادخار" },
-            { question: "يؤدي ارتفاع المستوى العام للأسعار إلى:", choices: ["زيادة القيمة الحقيقية للنقود", "انخفاض القوة الشرائية", "زيادة الاستهلاك الحقيقي", "تحسن ميزان المدفوعات"], correctAnswer: "انخفاض القوة الشرائية" },
-            { question: "أي رقم قياسي يستخدم لقياس التغير في تكاليف المعيشة للأفراد؟", choices: ["أسعار الجملة", "مخفض الناتج المحلي", "أسعار المستهلكين", "الرقم البسيط"], correctAnswer: "أسعار المستهلكين" },
-            { question: "الناتج المحلي الإجمالي (GDP) يحسب ما تم إنتاجه:", choices: ["بواسطة المواطنين فقط", "داخل الحدود الجغرافية للدولة", "خارج الدولة فقط", "بواسطة القطاع العام فقط"], correctAnswer: "داخل الحدود الجغرافية للدولة" },
-            { question: "من وظائف النقود أنها 'مخزن للقيمة'، وهذا يتطلب بشكل أساسي:", choices: ["أن تكون من الورق", "ثبات نسبي في قيمتها", "أن تكون سهلة التزوير", "أن يتم تداولها بسرعة"], correctAnswer: "ثبات نسبي في قيمتها" },
-            { question: "عرض النقود بالمعنى الضيق (M1) يشمل النقود الورقية والمعدنية بالإضافة إلى:", choices: ["الودائع الآجلة", "الأسهم", "الودائع الجارية", "العقارات"], correctAnswer: "الودائع الجارية" },
-            { question: "يسمى البنك المركزي بـ 'الملجأ الأخير' لأنه يقرض:", choices: ["الأفراد المحتاجين", "الشركات المتعثرة", "البنوك التجارية عند الأزمات", "الدول المجاورة"], correctAnswer: "البنوك التجارية عند الأزمات" },
-            { question: "عقد التمويل الذي يقوم فيه طرف بالمال والآخر بالجهد والخبرة هو:", choices: ["المرابحة", "المضاربة", "السلم", "الإجارة"], correctAnswer: "المضاربة" },
-            { question: "لمواجهة 'الفجوة التضخمية'، يجب على الدولة اتباع سياسة ماليّة:", choices: ["توسعية (زيادة الإنفاق)", "انكماشية (تقليل الإنفاق)", "محايدة", "زيادة الدعم السلعي"], correctAnswer: "انكماشية (تقليل الإنفاق)" },
-            { question: "التغير غير المخطط في المخزون السلعي هو الفرق بين:", choices: ["الصادرات والواردات", "الادخار والاستثمار المخطط", "الاستهلاك والادخار", "الضرائب والإنفاق الحكومي"], correctAnswer: "الادخار والاستثمار المخطط" },
-            { question: "في اقتصاد مفتوح، معادلة الطلب الكلي هي:", choices: ["C + I", "C + I + G", "C + I + G + (X - M)", "C + S"], correctAnswer: "C + I + G + (X - M)" },
-            { question: "السجل الذي يرصد جميع المعاملات الاقتصادية للدولة مع الخارج يسمى:", choices: ["الموازنة العامة", "ميزان المدفوعات", "الميزان التجاري", "حساب القيمة المضافة"], correctAnswer: "ميزان المدفوعات" },
-            { question: "أي مما يلي يعتبر من 'التسربات' في نموذج التدفق الدائري للدخل؟", choices: ["الاستثمار", "الإنفاق الحكومي", "الادخار", "الصادرات"], correctAnswer: "الادخار" },
-            { question: "البطالة التي تنتج عن عدم استغلال الموارد المتاحة تعبر عن فجوة في:", choices: ["التضخم", "الناتج المحلي", "التوظيف الكامل", "ميزان المدفوعات"], correctAnswer: "التوظيف الكامل" },
-            { question: "النقود التي تستمد قيمتها من مادتها تسمى:", choices: ["نقوداً ورقية", "نقوداً سلعية", "نقوداً قانونية", "نقوداً ائتمانية"], correctAnswer: "نقوداً سلعية" },
-            { question: "الزيادة في الدخل القومي الناتجة عن زيادة الاستثمار بمقدار وحدة تعبر عن:", choices: ["الميل الحدي للاستهلاك", "المضاعف", "الطلب الكلي", "الاستهلاك التابع"], correctAnswer: "المضاعف" },
-            { question: "الناتج القومي الإجمالي ناقصاً الضرائب غير المباشرة يعطينا:", choices: ["الدخل الشخصي", "الدخل القومي بسعر التكلفة", "الناتج المحلي الصافي", "الادخار القومي"], correctAnswer: "الدخل القومي بسعر التكلفة" }
-        ];
 
         function buildQuiz() {
             const output = [];
@@ -213,12 +121,7 @@ const myQuestions = [
                 const choices = [];
                 for (let i = 0; i < currentQuestion.choices.length; i++) {
                     choices.push(
-                        `<li>
-                            <label>
-                                <input type="radio" name="question${questionNumber}" value="${currentQuestion.choices[i]}">
-                                ${currentQuestion.choices[i]}
-                            </label>
-                        </li>`
+                        `<li><label><input type="radio" name="question${questionNumber}" value="${currentQuestion.choices[i]}"> ${currentQuestion.choices[i]}</label></li>`
                     );
                 }
                 output.push(
@@ -233,10 +136,7 @@ const myQuestions = [
 
         function showResults() {
             const studentName = document.getElementById('studentName').value.trim();
-            if (!studentName) {
-                alert("يرجى إدخال اسمك أولاً.");
-                return;
-            }
+            if (!studentName) { alert("يرجى إدخال اسمك أولاً."); return; }
 
             const answerContainers = quizContainer.querySelectorAll('.answers-list');
             let numCorrect = 0;
@@ -247,28 +147,19 @@ const myQuestions = [
                 const userAnswer = (answerContainer.querySelector(selector) || {}).value;
 
                 const allLabels = answerContainer.querySelectorAll('label');
-                allLabels.forEach(label => {
-                    label.classList.remove('correct-answer', 'incorrect-answer');
-                });
+                allLabels.forEach(label => label.classList.remove('correct-answer', 'incorrect-answer'));
 
                 if (userAnswer === currentQuestion.correctAnswer) {
                     numCorrect++;
                     answerContainer.querySelector(`input[value="${userAnswer}"]`).parentNode.classList.add('correct-answer');
                 } else {
-                    if (userAnswer) {
-                        answerContainer.querySelector(`input[value="${userAnswer}"]`).parentNode.classList.add('incorrect-answer');
-                    }
+                    if (userAnswer) answerContainer.querySelector(`input[value="${userAnswer}"]`).parentNode.classList.add('incorrect-answer');
                     answerContainer.querySelector(`input[value="${currentQuestion.correctAnswer}"]`).parentNode.classList.add('correct-answer');
                 }
             });
 
             const percentage = ((numCorrect / myQuestions.length) * 100).toFixed(2);
-            resultsContainer.innerHTML = `
-                <h2>النتيجة النهائية</h2>
-                <p>الطالب: <strong>${studentName}</strong></p>
-                <p>لقد أجبت على <strong>${numCorrect}</strong> سؤالاً صحيحاً من أصل ${myQuestions.length}</p>
-                <p>نسبتك المئوية هي: <strong>${percentage}%</strong></p>
-            `;
+            resultsContainer.innerHTML = `<h2>النتيجة النهائية</h2><p>الطالب: <strong>${studentName}</strong></p><p>صحيح: <strong>${numCorrect}</strong> من ${myQuestions.length}</p><p>النسبة: <strong>${percentage}%</strong></p>`;
             resultsContainer.scrollIntoView({ behavior: 'smooth' });
         }
 
