@@ -3,169 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار مبادئ الاستثمار</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
+    <title>مستعرض المذكرات والملفات</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; margin: 0; padding: 20px; direction: rtl; text-align: right; }
-        .container { max-width: 900px; margin: 0 auto; background-color: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); }
-        header { padding-bottom: 20px; border-bottom: 3px solid #0056b3; margin-bottom: 30px; text-align: center; }
-        h1 { color: #0056b3; margin: 0; font-size: 2em; }
-        .student-info { margin-bottom: 25px; padding: 15px; background-color: #f9f9f9; border-radius: 8px; border: 1px solid #ddd; }
-        .student-info input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 1em; }
-        .question { margin-bottom: 25px; padding: 15px; border-bottom: 1px solid #eee; border-right: 5px solid #0056b3; }
-        .question-text { font-weight: bold; margin-bottom: 12px; display: block; font-size: 1.1em; }
-        .answers-list { list-style: none; padding: 0; }
-        .answers-list li { margin-bottom: 10px; }
-        .answers-list label { cursor: pointer; padding: 8px 12px; display: block; border-radius: 5px; transition: background 0.3s; border: 1px solid #eee; }
-        .answers-list label:hover { background-color: #f0f7ff; }
-        .correct-answer { background-color: #d4edda !important; color: #155724; font-weight: bold; border: 1px solid #c3e6cb !important; }
-        .incorrect-answer { background-color: #f8d7da !important; color: #721c24; border: 1px solid #f5c6cb !important; }
-        #submit-btn { display: block; width: 100%; padding: 15px; background-color: #28a745; color: white; border: none; border-radius: 8px; font-size: 1.2em; cursor: pointer; margin-top: 20px; }
-        #results { margin-top: 30px; padding: 20px; background-color: #fff3cd; border: 1px solid #ffeeba; border-radius: 8px; text-align: center; }
+        :root { --primary: #2c3e50; --accent: #3498db; --bg: #f4f7f6; --white: #ffffff; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; transition: 0.3s; }
+        
+        .container { max-width: 1000px; margin: 0 auto; background: var(--white); padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); min-height: 80vh; display: flex; flex-direction: column; }
+        
+        header { text-align: center; border-bottom: 2px solid #eee; margin-bottom: 25px; padding-bottom: 10px; }
+        h1 { color: var(--primary); margin: 0; font-size: 1.8rem; }
+
+        /* منطقة الرفع */
+        .upload-area { border: 3px dashed var(--accent); background: #f9fbff; padding: 40px; border-radius: 12px; text-align: center; cursor: pointer; transition: 0.3s; position: relative; }
+        .upload-area:hover { background: #f0f7ff; border-color: #2980b9; }
+        .upload-area p { margin: 10px 0 0; color: #666; font-size: 1.1rem; }
+        #fileInput { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; cursor: pointer; }
+
+        /* شريط الأدوات */
+        .toolbar { display: none; background: #f1f1f1; padding: 10px; border-radius: 8px; margin-bottom: 20px; justify-content: center; gap: 15px; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
+        .btn { padding: 8px 15px; border: 1px solid #ccc; background: white; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn:hover { background: #e9e9e9; }
+        .file-name { font-weight: bold; color: var(--accent); margin-bottom: 10px; display: none; text-align: center; }
+
+        /* منطقة القراءة */
+        #viewer { 
+            display: none; 
+            padding: 30px; 
+            border: 1px solid #ddd; 
+            border-radius: 10px; 
+            line-height: 1.8; 
+            font-size: 1.25rem; 
+            white-space: pre-wrap; 
+            text-align: justify;
+            background: #fff;
+            color: #222;
+        }
+
+        /* الوضع الليلي */
+        .dark-mode { background: #1a1a1a !important; color: #eee !important; }
+        .dark-mode #viewer { background: #2c2c2c !important; color: #ddd !important; border-color: #444; }
     </style>
 </head>
-<body>
+<body id="body">
 
-    <div class="container">
-        <header>
-            <h1><i class="fas fa-chart-line"></i> اختبار مبادئ الاستثمار</h1>
-            <p>60 سؤالاً شاملة (صح/خطأ واختيار من متعدد) </p>
-        </header>
+<div class="container">
+    <header>
+        <h1>📚 مستعرض الملفات والمذكرات التعليمية</h1>
+    </header>
 
-        <div class="student-info">
-            <label for="studentName">اسم الطالب بالكامل:</label>
-            <input type="text" id="studentName" placeholder="أدخل اسمك هنا لتوثيق النتيجة...">
-        </div>
-
-        <div id="quiz"></div>
-        <button id="submit-btn">إنهاء الاختبار وعرض النتيجة</button>
-        <div id="results"></div>
+    <div class="upload-area" id="uploadArea">
+        <div style="font-size: 50px;">📄</div>
+        <p>اسحب ملفك هنا أو اضغط للاختيار</p>
+        <input type="file" id="fileInput" accept=".txt,.html,.js,.css,.text,.pdf" onchange="processFile(this.files)">
     </div>
 
-    <script>
-        const myQuestions = [
-            // أسئلة الصح والخطأ (30 سؤالاً) [cite: 153, 154, 155, 156, 157, 158, 159, 160, 162, 163, 164, 165, 166, 167, 169, 171, 172]
-            { question: "من أهداف الاستثمار ضمان السيولة اللازمة.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "أهداف الاستثمار تشمل المحافظة على رأس المال الأصلي.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "الأوراق المالية تشمل فقط الأسهم.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "الاستثمار الأجنبي المباشر يعني شراء الأسهم فقط.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "الاستثمار غير المباشر يتضمن السيطرة على إدارة المشروع.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "الاستثمار في العقارات يعتبر استثماراً غير مرغوب فيه.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "الاستثمار في الاقتصاد الإسلامي يتطلب مراعاة الأحكام الشرعية.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "أهداف الاستثمار تشمل تحقيق العائد الملائم.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "مفهوم الاستثمار يشمل جميع الأنشطة التي تزيد من الطاقة الإنتاجية.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "كلمة 'استثمار' تعني فقط توفير المال.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "سوق النقد يتضمن أدوات مالية ذات تاريخ استحقاق أقل من سنة واحدة.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "الأسواق المالية تلعب دوراً في تحديد أسعار الأصول المالية من خلال العرض والطلب.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "سوق الديون يسمح للمستثمرين بالحصول على أموال مقابل حصة في ملكية المنشأة.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "سوق المال هو السوق الذي يتم فيه تداول الأصول المالية.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "المستثمر في سوق الملكية يكون دائناً للمنشأة.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "سوق الملكية يتم فيه تداول الأدوات المالية على أساس الديون.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "السوق الثانوي هو السوق الذي يتم فيه إصدار الأدوات المالية لأول مرة.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "السوق قوي الكفاءة يعكس جميع المعلومات المتاحة للعامة فقط.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "سوق رأس المال يتيح للشركات الحصول على الأموال لفترات زمنية قصيرة لا تتجاوز سنة.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "الهيئة الرقابية في البورصة لا تركز على ضمان تطبيق قوانين السوق.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "لا تقبل البنوك التجارية ودائع من الأفراد.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "يعتبر المساهم دائناً للمنشأة.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "يمكن الحصول على التمويل طويل الأجل من سوق النقد.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "إذا رغب المستثمر في المشاركة في الربح والمخاطرة بقدر استثماراته فإن عليه الاستثمار في السندات.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "يعتبر السهم ورقة مالية ذات عائد ثابت، بينما يعتبر السند ورقة مالية ذات عائد متغير.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "يستطيع العميل السحب في أي وقت يشاء بالنسبة للودائع بالأجل أو بالإخطار.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "الأوراق المالية تشمل فقط الأسهم العادية والسندات.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "من أهداف الاستثمار المحافظة على رأس المال الأصلي.", choices: ["صح", "خطأ"], correctAnswer: "صح" },
-            { question: "إن حامل السهم ليس له الحق في حصة من أرباح المنشأة.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
-            { question: "سوق المال هو السوق الذي يتم فيه تبادل السلع والخدمات.", choices: ["صح", "خطأ"], correctAnswer: "خطأ" },
+    <div id="fileName" class="file-name"></div>
 
-            // أسئلة الاختيار من متعدد (30 سؤالاً) [cite: 174, 178, 182, 187, 191, 194, 198, 201, 205, 209, 212, 219, 223, 227, 231, 235, 239, 244, 248, 253, 257, 261, 265, 270, 274, 278, 283, 287, 291, 295]
-            { question: "وفقاً لموسوعة المصطلحات الاقتصادية الاستثمار هو:", choices: ["تشكيل رأس المال العيني الجديد", "زيادة الضرائب", "تقليل الدخل القومي"], correctAnswer: "تشكيل رأس المال العيني الجديد" },
-            { question: "من مزايا الاستثمار في الأوراق المالية:", choices: ["المخاطرة العالية", "عدم تحقيق عوائد", "المرونة وسهولة التداول"], correctAnswer: "المرونة وسهولة التداول" },
-            { question: "الاستثمار الأجنبي يعرف بأنه:", choices: ["الاستثمار داخل الوطن", "الاستثمار في أسواق المال فقط", "الاستثمار في مشروعات خارج حدود الوطن"], correctAnswer: "الاستثمار في مشروعات خارج حدود الوطن" },
-            { question: "الاستثمار في السلع يتميز بـ:", choices: ["استثمار غير ملموس", "كونه أداة استثمار مهمة", "عدم الحاجة إلى سلع"], correctAnswer: "كونه أداة استثمار مهمة" },
-            { question: "يعرف الاستثمار من وجهة نظر الاقتصاد الكلي بأنه:", choices: ["زيادة في رأس المال الحقيقي للمجتمع", "خفض التكاليف", "تحسين التجارة الداخلية"], correctAnswer: "زيادة في رأس المال الحقيقي للمجتمع" },
-            { question: "ما هو أحد أهداف الاستثمار؟", choices: ["تجميد الأموال", "تحقيق عائد ملائم", "تقليل الإنتاجية"], correctAnswer: "تحقيق عائد ملائم" },
-            { question: "في الاقتصاد الإسلامي، الاستثمار يتطلب:", choices: ["مراعاة الأحكام الشرعية", "تحقيق الأرباح فقط", "المخاطرة العالية"], correctAnswer: "مراعاة الأحكام الشرعية" },
-            { question: "ما هو المعنى الأساسي لكلمة 'استثمار' في اللغة؟", choices: ["الفائدة من المال", "توفير المال", "تنمية المال"], correctAnswer: "تنمية المال" },
-            { question: "يعد الاستثمار في العقارات من:", choices: ["الاستثمار ذات المخاطرة العالية", "أدوات الاستثمار المريحة", "أشكال الإستثمارات غير التقليدية"], correctAnswer: "أشكال الإستثمارات غير التقليدية" },
-            { question: "أحد أهداف الاستثمار هو:", choices: ["الحفاظ على رأس المال الأصلي", "تحقيق العمالة", "زيادة المخاطر المالية"], correctAnswer: "الحفاظ على رأس المال الأصلي" },
-            { question: "أي الأسواق المالية يختص بالأدوات ذات تاريخ استحقاق أقل من سنة؟", choices: ["سوق رأس المال", "سوق النقد", "سوق الديون"], correctAnswer: "سوق النقد" },
-            { question: "أي من هذه الأسواق يتيح للمستثمرين شراء أسهم وسندات لأول مرة؟", choices: ["السوق الثانوي", "السوق الأولي", "سوق النقد"], correctAnswer: "السوق الأولي" },
-            { question: "ما هو الهدف الرئيسي من الأسواق المالية؟", choices: ["تحقيق العوائد الفردية", "زيادة التضخم", "حماية الاقتصاد الوطني والمستثمرين"], correctAnswer: "حماية الاقتصاد الوطني والمستثمرين" },
-            { question: "ما هي الميزة الرئيسية للأسواق المالية؟", choices: ["توفير السيولة للمستثمرين", "توفير فرص العمل", "زيادة حجم الديون"], correctAnswer: "توفير السيولة للمستثمرين" },
-            { question: "من أهم الأشخاص المصرح لهم بالتعامل في بورصة الأوراق المالية؟", choices: ["المستثمرين أنفسهم", "سماسرة البورصة", "الشركات المالية فقط"], correctAnswer: "سماسرة البورصة" },
-            { question: "الجهة التي تشرف على تطبيق قوانين البورصة هي:", choices: ["هيئة الرقابة المالية", "إدارة البورصة المركزية", "هيئة البورصة"], correctAnswer: "هيئة الرقابة المالية" },
-            { question: "من وظائف بورصة الأوراق المالية:", choices: ["بيع الأراضي", "إصدار القوانين", "تحويل المخاطر والملكية"], correctAnswer: "تحويل المخاطر والملكية" },
-            { question: "ما هي وظيفة بورصة الأوراق المالية؟", choices: ["بيع السلع", "صرف العملات", "تداول الأدوات المالية مثل الأسهم والسندات"], correctAnswer: "تداول الأدوات المالية مثل الأسهم والسندات" },
-            { question: "من أين جاء أصل كلمة 'بورصة'؟", choices: ["عائلة بلجيكية", "مدينة فرنسية", "مدينة إيطالية"], correctAnswer: "عائلة بلجيكية" },
-            { question: "أي من الأدوات المالية تتيح للمستثمر ملكية في المنشأة؟", choices: ["السندات", "القروض", "الأسهم"], correctAnswer: "الأسهم" },
-            { question: "ما هي أذون الخزانة؟", choices: ["سندات شركات خاصة", "أوراق مالية يصدرها البنك المركزي", "جميع الاختيارات خاطئة"], correctAnswer: "أوراق مالية يصدرها البنك المركزي" },
-            { question: "ما هي خاصية المشتقات المالية؟", choices: ["قيمتها تعتمد على أصل أساسي", "يمكن تداولها في الأسواق", "جميع الاختيارات خاطئة"], correctAnswer: "قيمتها تعتمد على أصل أساسي" },
-            { question: "الشخص الذي ينفذ عمليات البيع والشراء نيابة عن المستثمر هو:", choices: ["مدير البورصة", "سمسار البورصة", "المحاسب"], correctAnswer: "سمسار البورصة" },
-            { question: "أي الأدوات المالية لا تتيح للمستثمر ملكية في المنشأة؟", choices: ["السندات", "الأسهم", "جميع الاختيارات خاطئة"], correctAnswer: "السندات" },
-            { question: "وظيفة البنوك الإسلامية هي:", choices: ["استثمار الأموال في مشاريع متوافقة مع الشريعة", "اقتراض الأموال بفائدة", "جميع الاختيارات خاطئة"], correctAnswer: "استثمار الأموال في مشاريع متوافقة مع الشريعة" },
-            { question: "الدور الرئيسي للبنوك التجارية في الاقتصاد:", choices: ["بيع الأوراق المالية", "قبول الودائع ومنح القروض", "إصدار العملة"], correctAnswer: "قبول الودائع ومنح القروض" },
-            { question: "السبب الرئيسي وراء الأزمة المالية العالمية 2008:", choices: ["أسعار النفط", "الاستخدام المفرط للمشتقات والديون", "جميع الاختيارات خاطئة"], correctAnswer: "الاستخدام المفرط للمشتقات والديون" },
-            { question: "ما هو الفرق بين السوق الأولي والسوق الثانوي؟", choices: ["الأولي للأسهم والثانوي للسندات", "الأولي للسندات والثانوي للأسهم", "جميع الاختيارات خاطئة"], correctAnswer: "جميع الاختيارات خاطئة" },
-            { question: "من الخصائص المميزة للأسهم الممتازة:", choices: ["عائد ثابت ممتاز", "أولوية في توزيع الأرباح", "جميع الاختيارات خاطئة"], correctAnswer: "أولوية في توزيع الأرباح" },
-            { question: "كيف تحقق البنوك التوازن بين الربحية والسيولة؟", choices: ["قروض بفوائد منخفضة", "تنويع المحفظة الاستثمارية", "جميع الاختيارات خاطئة"], correctAnswer: "تنويع المحفظة الاستثمارية" }
-        ];
+    <div class="toolbar" id="toolbar">
+        <button class="btn" onclick="adjustFont(2)">تكبير الخط +</button>
+        <button class="btn" onclick="adjustFont(-2)">تصغير الخط -</button>
+        <button class="btn" onclick="toggleDark()">الوضع الليلي 🌙</button>
+        <button class="btn" style="color: #c0392b;" onclick="resetAll()">حذف الملف 🗑️</button>
+    </div>
 
-        // بقية دوال الجافاسكريبت لبناء الكويز وعرض النتائج
-        const quizContainer = document.getElementById('quiz');
-        const resultsContainer = document.getElementById('results');
-        const submitButton = document.getElementById('submit-btn');
+    <div id="viewer"></div>
+</div>
 
-        function buildQuiz() {
-            const output = [];
-            myQuestions.forEach((currentQuestion, questionNumber) => {
-                const choices = [];
-                for (let i = 0; i < currentQuestion.choices.length; i++) {
-                    choices.push(
-                        `<li><label><input type="radio" name="question${questionNumber}" value="${currentQuestion.choices[i]}"> ${currentQuestion.choices[i]}</label></li>`
-                    );
-                }
-                output.push(
-                    `<div class="question">
-                        <span class="question-text">${questionNumber + 1}. ${currentQuestion.question}</span>
-                        <ul class="answers-list">${choices.join('')}</ul>
-                    </div>`
-                );
-            });
-            quizContainer.innerHTML = output.join('');
+<script>
+    const viewer = document.getElementById('viewer');
+    const toolbar = document.getElementById('toolbar');
+    const uploadArea = document.getElementById('uploadArea');
+    const fileNameDiv = document.getElementById('fileName');
+
+    function processFile(files) {
+        const file = files[0];
+        if (!file) return;
+
+        // إخفاء منطقة الرفع وإظهار الأدوات
+        uploadArea.style.display = 'none';
+        toolbar.style.display = 'flex';
+        fileNameDiv.style.display = 'block';
+        fileNameDiv.textContent = "المستند الحالي: " + file.name;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            viewer.textContent = e.target.result;
+            viewer.style.display = 'block';
+        };
+
+        // ملاحظة: قراءة الملفات كنص. لملفات PDF يفضل استخدام مكتبة PDF.js 
+        // ولكن هذا القارئ يدعم الملفات النصية والبرمجية بشكل ممتاز.
+        reader.readAsText(file);
+    }
+
+    function adjustFont(amount) {
+        const style = window.getComputedStyle(viewer, null).getPropertyValue('font-size');
+        const currentSize = parseFloat(style);
+        viewer.style.fontSize = (currentSize + amount) + 'px';
+    }
+
+    function toggleDark() {
+        document.getElementById('body').classList.toggle('dark-mode');
+    }
+
+    function resetAll() {
+        if(confirm("هل تريد إغلاق الملف الحالي؟")) {
+            viewer.style.display = 'none';
+            toolbar.style.display = 'none';
+            fileNameDiv.style.display = 'none';
+            uploadArea.style.display = 'block';
+            document.getElementById('fileInput').value = '';
+            document.getElementById('body').classList.remove('dark-mode');
         }
+    }
 
-        function showResults() {
-            const studentName = document.getElementById('studentName').value.trim();
-            if (!studentName) { alert("يرجى إدخال اسمك أولاً."); return; }
+    // دعم السحب والإفلات
+    uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.style.borderColor = '#27ae60'; });
+    uploadArea.addEventListener('dragleave', () => { uploadArea.style.borderColor = '#3498db'; });
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        processFile(e.dataTransfer.files);
+    });
+</script>
 
-            const answerContainers = quizContainer.querySelectorAll('.answers-list');
-            let numCorrect = 0;
-
-            myQuestions.forEach((currentQuestion, questionNumber) => {
-                const answerContainer = answerContainers[questionNumber];
-                const selector = `input[name=question${questionNumber}]:checked`;
-                const userAnswer = (answerContainer.querySelector(selector) || {}).value;
-
-                const allLabels = answerContainer.querySelectorAll('label');
-                allLabels.forEach(label => label.classList.remove('correct-answer', 'incorrect-answer'));
-
-                if (userAnswer === currentQuestion.correctAnswer) {
-                    numCorrect++;
-                    answerContainer.querySelector(`input[value="${userAnswer}"]`).parentNode.classList.add('correct-answer');
-                } else {
-                    if (userAnswer) answerContainer.querySelector(`input[value="${userAnswer}"]`).parentNode.classList.add('incorrect-answer');
-                    answerContainer.querySelector(`input[value="${currentQuestion.correctAnswer}"]`).parentNode.classList.add('correct-answer');
-                }
-            });
-
-            const percentage = ((numCorrect / myQuestions.length) * 100).toFixed(2);
-            resultsContainer.innerHTML = `<h2>النتيجة النهائية</h2><p>الطالب: <strong>${studentName}</strong></p><p>صحيح: <strong>${numCorrect}</strong> من ${myQuestions.length}</p><p>النسبة: <strong>${percentage}%</strong></p>`;
-            resultsContainer.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        buildQuiz();
-        submitButton.addEventListener('click', showResults);
-    </script>
 </body>
-
 </html>
