@@ -3,398 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الاختبار الشامل - رياضيات التأمين (31 سؤال)</title>
+    <title>بنك أسئلة ريادة الأعمال - الفصل الأول</title>
     <style>
-        :root { --primary: #2c3e50; --secondary: #2980b9; --success: #27ae60; --error: #c0392b; --bg: #ecf0f1; }
+        :root { --primary: #2c3e50; --accent: #e67e22; --success: #27ae60; --error: #c0392b; --bg: #f8f9fa; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); color: var(--primary); margin: 0; padding: 20px; line-height: 1.6; }
-        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: var(--secondary); margin-bottom: 30px; border-bottom: 3px solid var(--secondary); padding-bottom: 10px; }
-        h2 { background-color: var(--primary); color: #fff; padding: 12px; border-radius: 6px; margin-top: 40px; font-size: 1.2rem; }
-        .question-block { margin-bottom: 25px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #fff; transition: transform 0.2s; }
-        .question-block:hover { border-color: var(--secondary); }
-        .q-text { font-weight: bold; font-size: 1.05rem; margin-bottom: 15px; display: block; }
-        .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        label { display: block; padding: 12px; background: #f9f9f9; border: 1px solid #eee; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
-        label:hover { background: #eef6fb; }
-        input[type="radio"] { margin-left: 10px; }
-        
-        /* فئات التصحيح */
-        .correct-answer { background-color: #d4edda !important; border-color: #c3e6cb !important; color: #155724; font-weight: bold; }
-        .wrong-answer { background-color: #f8d7da !important; border-color: #f5c6cb !important; color: #721c24; }
-        
-        button { display: block; width: 100%; padding: 15px; background-color: var(--success); color: white; border: none; border-radius: 8px; font-size: 1.2rem; font-weight: bold; cursor: pointer; margin-top: 40px; }
-        button:hover { background-color: #219150; }
-        #result { text-align: center; font-size: 1.8rem; font-weight: bold; margin-top: 25px; padding: 15px; border-radius: 8px; display: none; }
+        .container { max-width: 1000px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: var(--accent); border-bottom: 3px solid var(--accent); padding-bottom: 10px; }
+        h2 { background: var(--primary); color: #fff; padding: 10px 15px; border-radius: 8px; margin-top: 30px; font-size: 1.2rem; }
+        .question-block { background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 20px; border-right: 6px solid var(--accent); }
+        .question-text { font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; display: block; color: #333; }
+        .options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        label { padding: 12px; border: 1px solid #eee; border-radius: 8px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; background: #fafafa; }
+        label:hover { background: #fff3e0; border-color: var(--accent); }
+        input[type="radio"] { margin-left: 10px; transform: scale(1.2); }
+        .btn-submit { display: block; width: 100%; padding: 20px; background: var(--success); color: white; border: none; border-radius: 10px; font-size: 1.4rem; font-weight: bold; cursor: pointer; margin-top: 40px; }
+        #result { margin-top: 30px; padding: 25px; border-radius: 10px; text-align: center; font-size: 1.8rem; display: none; font-weight: bold; }
+        .correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724; }
+        .wrong { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
+        @media (max-width: 600px) { .options { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>اختبار رياضيات التأمين (31 سؤال)</h1>
+    <h1>بنك الأسئلة الشامل: ريادة الأعمال</h1>
 
-    <h2>أولاً: احتمالات الحياة والوفاة</h2>
-    
-    <div class="question-block" data-correct="b">
-        <span class="q-text">1- يرمز لاحتمال أن شخصاً عمره x سوف يعيش لمدة n من السنوات على الأقل بالرمز:</span>
-        <div class="options">
-            <label><input type="radio" name="q1" value="a"> n qx</label>
-            <label><input type="radio" name="q1" value="b"> n px</label>
-            <label><input type="radio" name="q1" value="c"> px+n</label>
-            <label><input type="radio" name="q1" value="d"> m n qx</label>
+    <form id="quizForm">
+
+        <div class="question-block" data-ans="B">
+            <span class="question-text">1. أي من العلماء التاليين يعتبر أول من استخدم مصطلح "الريادي" في القرن الثامن عشر؟</span>
+            <div class="options">
+                <label><input type="radio" name="q1" value="A"> جوزيف شومبيتر</label>
+                <label><input type="radio" name="q1" value="B"> ريتشارد كانتيلون</label>
+                <label><input type="radio" name="q1" value="C"> جان بابتيست ساي</label>
+                <label><input type="radio" name="q1" value="D"> بيتر دراكر</label>
+            </div>
         </div>
-    </div>
 
-    <div class="question-block" data-correct="a">
-        <span class="q-text">2- المعادلة الرياضية الصحيحة لحساب احتمال الحياة لمدة n سنة (n px) هي:</span>
-        <div class="options">
-            <label><input type="radio" name="q2" value="a"> lx+n ÷ lx</label>
-            <label><input type="radio" name="q2" value="b"> lx ÷ lx+n</label>
-            <label><input type="radio" name="q2" value="c"> (lx - lx+n) ÷ lx</label>
-            <label><input type="radio" name="q2" value="d"> lx+n - lx</label>
+        <div class="question-block" data-ans="C">
+            <span class="question-text">2. ربط "جان بابتيست ساي" ريادة الأعمال بـ:</span>
+            <div class="options">
+                <label><input type="radio" name="q2" value="A"> تحمل المخاطر فقط</label>
+                <label><input type="radio" name="q2" value="B"> توفير رأس المال</label>
+                <label><input type="radio" name="q2" value="C"> نقل الموارد من إنتاجية منخفضة إلى إنتاجية أعلى</label>
+                <label><input type="radio" name="q2" value="D"> العمل الحكومي</label>
+            </div>
         </div>
-    </div>
 
-    <div class="question-block" data-correct="c">
-        <span class="q-text">3- احتمال أن شخصاً عمره x سوف يموت قبل بلوغه السن x+n (احتمال الوفاة خلال n سنة) يحسب بـ:</span>
-        <div class="options">
-            <label><input type="radio" name="q3" value="a"> 1 - n px</label>
-            <label><input type="radio" name="q3" value="b"> (lx - lx+n) ÷ lx</label>
-            <label><input type="radio" name="q3" value="c"> الخياران (أ) و (ب) صحيحان</label>
-            <label><input type="radio" name="q3" value="d"> lx+n ÷ lx</label>
+        <div class="question-block" data-ans="A">
+            <span class="question-text">3. في أي عام تقريباً بدأ الاعتراف بريادة الأعمال كعلم مستقل ومنفصل عن الإدارة؟</span>
+            <div class="options">
+                <label><input type="radio" name="q3" value="A"> 1961 (بعد دراسة ماكليلاند)</label>
+                <label><input type="radio" name="q3" value="B"> 1734 (مع كانتيلون)</label>
+                <label><input type="radio" name="q3" value="C"> 1900 (بداية القرن العشرين)</label>
+                <label><input type="radio" name="q3" value="D"> 2010 (مع الثورة الرقمية)</label>
+            </div>
         </div>
-    </div>
 
-    <h2>ثانياً: الوفاة المؤجلة</h2>
-
-    <div class="question-block" data-correct="b">
-        <span class="q-text">4- احتمال أن شخصاً سنه x سيعيش m سنة ثم يموت خلال السنة التالية مباشرة (m qx) يسمى:</span>
-        <div class="options">
-            <label><input type="radio" name="q4" value="a"> احتمال الوفاة المؤكد</label>
-            <label><input type="radio" name="q4" value="b"> احتمال الوفاة المؤجل لمدة m سنة</label>
-            <label><input type="radio" name="q4" value="c"> احتمال الحياة المؤقت</label>
-            <label><input type="radio" name="q4" value="d"> احتمال الوفاة خلال m سنة</label>
+        <div class="question-block" data-ans="D">
+            <span class="question-text">4. يرى "شومبيتر" أن المحرك الأساسي للاقتصاد هو "التدمير الخلاق"، والذي يقصد به:</span>
+            <div class="options">
+                <label><input type="radio" name="q4" value="A"> تدمير البيئة من أجل الربح</label>
+                <label><input type="radio" name="q4" value="B"> المنافسة السعرية الشرسة</label>
+                <label><input type="radio" name="q4" value="C"> الاستغناء عن العمالة البشرية</label>
+                <label><input type="radio" name="q4" value="D"> استبدال المنتجات القديمة بابتكارات جديدة أفضل</label>
+            </div>
         </div>
-    </div>
 
-    <div class="question-block" data-correct="a">
-        <span class="q-text">5- الرمز m n qx يعبر عن احتمال أن شخصاً عمره x سوف:</span>
-        <div class="options">
-            <label><input type="radio" name="q5" value="a"> يعيش m سنة ثم يموت خلال n من السنوات التالية لها</label>
-            <label><input type="radio" name="q5" value="b"> يموت خلال m+n سنة القادمة</label>
-            <label><input type="radio" name="q5" value="c"> يعيش n سنة بعد m سنة من الآن</label>
-            <label><input type="radio" name="q5" value="d"> يموت في تمام السن m+n</label>
+        <div class="question-block" data-ans="C">
+            <span class="question-text">5. المدرسة التي تبحث عن "السمات الشخصية" (كالحاجة للإنجاز والسيطرة) هي:</span>
+            <div class="options">
+                <label><input type="radio" name="q5" value="A"> المدرسة الكلاسيكية</label>
+                <label><input type="radio" name="q5" value="B"> المدرسة السلوكية</label>
+                <label><input type="radio" name="q5" value="C"> مدرسة السمات (النفسية)</label>
+                <label><input type="radio" name="q5" value="D"> المدرسة الاقتصادية</label>
+            </div>
         </div>
-    </div>
 
-    <div class="question-block" data-correct="c">
-        <span class="q-text">6- لحساب احتمال الوفاة المؤجل لمدة m سنة والمحدد بـ n سنة (m n qx)، نستخدم العلاقة:</span>
-        <div class="options">
-            <label><input type="radio" name="q6" value="a"> (lx+m - lx+m+n) ÷ lx</label>
-            <label><input type="radio" name="q6" value="b"> m px - m+n px</label>
-            <label><input type="radio" name="q6" value="c"> الخياران (أ) و (ب) صحيحان</label>
-            <label><input type="radio" name="q6" value="d"> lx+m ÷ lx+m+n</label>
+        <div class="question-block" data-ans="B">
+            <span class="question-text">6. "ريادة الأعمال المؤسسية" (Intrapreneurship) تستهدف بشكل أساسي:</span>
+            <div class="options">
+                <label><input type="radio" name="q6" value="A"> القضاء على الشركات الكبرى</label>
+                <label><input type="radio" name="q6" value="B"> بث روح الابتكار داخل الشركات القائمة لمنع الجمود</label>
+                <label><input type="radio" name="q6" value="C"> مساعدة الفقراء في المجتمع</label>
+                <label><input type="radio" name="q6" value="D"> تقليل الضرائب على الأفراد</label>
+            </div>
         </div>
-    </div>
 
-    <h2>ثالثاً: تطبيقات حسابية ورموز</h2>
-
-    <div class="question-block" data-correct="b">
-        <span class="q-text">7- إذا كان l40 = 90,000 و l50 = 80,000، فإن احتمال أن شخصاً عمره 40 سنة سيعيش حتى سن 50 هو:</span>
-        <div class="options">
-            <label><input type="radio" name="q7" value="a"> 0.111</label>
-            <label><input type="radio" name="q7" value="b"> 0.888</label>
-            <label><input type="radio" name="q7" value="c"> 0.125</label>
-            <label><input type="radio" name="q7" value="d"> 0.900</label>
+        <div class="question-block" data-ans="A">
+            <span class="question-text">7. ما الذي يميز "رائد الأعمال الاجتماعي" عن غيره؟</span>
+            <div class="options">
+                <label><input type="radio" name="q7" value="A"> هدفه الأساسي معالجة قضايا اجتماعية بأسلوب ابتكاري</label>
+                <label><input type="radio" name="q7" value="B"> عدم اهتمامه بتغطية تكاليف مشروعه</label>
+                <label><input type="radio" name="q7" value="C"> عمله دائماً يكون في القطاع الحكومي</label>
+                <label><input type="radio" name="q7" value="D"> اعتماده الكلي على التبرعات فقط</label>
+            </div>
         </div>
-    </div>
-
-    <div class="question-block" data-correct="a">
-        <span class="q-text">8- إذا كان احتمال أن يعيش شخص لمدة 5 سنوات هو 0.90، فإن احتمال وفاته خلال هذه السنوات الخمس هو:</span>
-        <div class="options">
-            <label><input type="radio" name="q8" value="a"> 0.10</label>
-            <label><input type="radio" name="q8" value="b"> 0.05</label>
-            <label><input type="radio" name="q8" value="c"> 0.95</label>
-            <label><input type="radio" name="q8" value="d"> 1.90</label>
+        <div class="question-block" data-ans="D">
+            <span class="question-text">8. من أهم وظائف "حاضنات الأعمال" (Business Incubators):</span>
+            <div class="options">
+                <label><input type="radio" name="q8" value="A"> إعطاء منح مالية غير مستردة لكل الناس</label>
+                <label><input type="radio" name="q8" value="B"> إدارة المشروع بدلاً من صاحبه</label>
+                <label><input type="radio" name="q8" value="C"> تعيين موظفين في الحكومة</label>
+                <label><input type="radio" name="q8" value="D"> توفير بيئة عمل واستشارات لتقليل مخاطر الفشل في البداية</label>
+            </div>
         </div>
-    </div>
 
-    <div class="question-block" data-correct="b">
-        <span class="q-text">9- احتمال الوفاة المؤجل لمدة 10 سنوات لشخص عمره 30 سنة يعني أنه:</span>
-        <div class="options">
-            <label><input type="radio" name="q9" value="a"> سيموت بين السن 30 والسن 40</label>
-            <label><input type="radio" name="q9" value="b"> سيعيش حتى السن 40 ثم يموت في السنة بين 40 و 41</label>
-            <label><input type="radio" name="q9" value="c"> سيعيش حتى السن 40 فقط</label>
-            <label><input type="radio" name="q9" value="d"> سيموت قبل السن 30</label>
+        <div class="question-block" data-ans="A">
+            <span class="question-text">9. الفرق بين "رائد الأعمال" و"صاحب المشروع الصغير" يكمن في:</span>
+            <div class="options">
+                <label><input type="radio" name="q9" value="A"> الابتكار والقدرة على النمو المتسارع</label>
+                <label><input type="radio" name="q9" value="B"> امتلاك سجل تجاري من عدمه</label>
+                <label><input type="radio" name="q9" value="C"> عدد الموظفين فقط</label>
+                <label><input type="radio" name="q9" value="D"> جنسية صاحب المشروع</label>
+            </div>
         </div>
-    </div>
 
-    <div class="question-block" data-correct="c">
-        <span class="q-text">10- أي من الرموز التالية يمثل "العدد الكلي للسنوات التي سيحياها الأشخاص الذين بقوا أحياء حتى السن x":</span>
-        <div class="options">
-            <label><input type="radio" name="q10" value="a"> dx</label>
-            <label><input type="radio" name="q10" value="b"> qx</label>
-            <label><input type="radio" name="q10" value="c"> Tx</label>
-            <label><input type="radio" name="q10" value="d"> Mx</label>
+        <div class="question-block" data-ans="C">
+            <span class="question-text">10. ظاهرة "تصغير الحجم" (Downsizing) في الشركات الكبرى أدت إلى:</span>
+            <div class="options">
+                <label><input type="radio" name="q10" value="A"> انتهاء عصر ريادة الأعمال</label>
+                <label><input type="radio" name="q10" value="B"> زيادة الاحتكارات العالمية</label>
+                <label><input type="radio" name="q10" value="C"> دفع المديرين ذوي الخبرة لتأسيس مشروعاتهم الخاصة</label>
+                <label><input type="radio" name="q10" value="D"> إلغاء استخدام التكنولوجيا</label>
+            </div>
         </div>
-    </div>
 
-    <div class="question-block" data-correct="b">
-        <span class="q-text">11- المطلوب حساب احتمال أن يعيش شخص عمره 30 سنة حتى يصل إلى سن 35، الرمز المناسب هو:</span>
-        <div class="options">
-            <label><input type="radio" name="q11" value="a"> 30 p35</label>
-            <label><input type="radio" name="q11" value="b"> 5 p30</label>
-            <label><input type="radio" name="q11" value="c"> 35 q30</label>
-            <label><input type="radio" name="q11" value="d"> 5 q35</label>
+        <h2>رابعاً: أسئلة الصح والخطأ</h2>
+
+        <div class="question-block" data-ans="صح">
+            <span class="question-text">11. المخاطرة الريادية هي مخاطرة "مدروسة" وليست مقامرة عشوائية.</span>
+            <div class="options">
+                <label><input type="radio" name="q11" value="صح"> صح</label>
+                <label><input type="radio" name="q11" value="خطأ"> خطأ</label>
+            </div>
         </div>
-    </div>
 
-    <div class="question-block" data-correct="a">
-        <span class="q-text">12- تحسب قيمة 5 p30 عن طريق:</span>
-        <div class="options">
-            <label><input type="radio" name="q12" value="a"> l35 ÷ l30</label>
-            <label><input type="radio" name="q12" value="b"> l30 ÷ l35</label>
-            <label><input type="radio" name="q12" value="c"> l35 - l30</label>
-            <label><input type="radio" name="q12" value="d"> l30 × l35</label>
+        <div class="question-block" data-ans="خطأ">
+            <span class="question-text">12. المدرسة النمساوية ترى أن السوق دائماً في حالة توازن تام ولا يحتاج للريادي.</span>
+            <div class="options">
+                <label><input type="radio" name="q12" value="صح"> صح</label>
+                <label><input type="radio" name="q12" value="خطأ"> خطأ</label>
+            </div>
         </div>
-    </div>
 
-    <div class="question-block" data-correct="b">
-        <span class="q-text">13- إذا كان l30 = 952030 و l35 = 941524، فإن احتمال وفاة هذا الشخص قبل بلوغه سن 35 (5 q30) هو:</span>
-        <div class="options">
-            <label><input type="radio" name="q13" value="a"> 0.98896</label>
-            <label><input type="radio" name="q13" value="b"> 0.01104</label>
-            <label><input type="radio" name="q13" value="c"> 0.05520</label>
-            <label><input type="radio" name="q13" value="d"> 0.11040</label>
+        <div class="question-block" data-ans="صح">
+            <span class="question-text">13. الاستقلالية والحرية في اتخاذ القرار من أهم دوافع رائد الأعمال.</span>
+            <div class="options">
+                <label><input type="radio" name="q13" value="صح"> صح</label>
+                <label><input type="radio" name="q13" value="خطأ"> خطأ</label>
+            </div>
         </div>
-    </div>
 
-    <div class="question-block" data-correct="c">
-        <span class="q-text">14- النتيجة النهائية لاحتمال الحياة لمدة 5 سنوات لشخص عمره 30 عاماً هي:</span>
-        <div class="options">
-            <label><input type="radio" name="q14" value="a"> 0.88964</label>
-            <label><input type="radio" name="q14" value="b"> 0.94152</label>
-            <label><input type="radio" name="q14" value="c"> 0.98896</label>
-            <label><input type="radio" name="q14" value="d"> 0.95203</label>
+        <div class="question-block" data-ans="خطأ">
+            <span class="question-text">14. المشروع الصغير التقليدي (مثل البقالة) يعتبر دائماً مشروعاً ريادياً.</span>
+            <div class="options">
+                <label><input type="radio" name="q14" value="صح"> صح</label>
+                <label><input type="radio" name="q14" value="خطأ"> خطأ</label>
+            </div>
         </div>
-    </div>
 
-    <div class="question-block" data-correct="c">
-        <span class="q-text">15- ماذا يمثل الفرق بين (l30 - l35)؟</span>
-        <div class="options">
-            <label><input type="radio" name="q15" value="a"> عدد الأحياء عند سن 35</label>
-            <label><input type="radio" name="q15" value="b"> احتمال الحياة لمدة 5 سنوات</label>
-            <label><input type="radio" name="q15" value="c"> عدد الوفيات الإجمالي بين السن 30 والسن 35</label>
-            <label><input type="radio" name="q15" value="d"> احتمال الوفاة عند سن 30 فقط</label>
+        <div class="question-block" data-ans="صح">
+            <span class="question-text">15. يرى "بيتر دراكر" أن ريادة الأعمال هي "ممارسة" وليست مجرد علم نظري.</span>
+            <div class="options">
+                <label><input type="radio" name="q15" value="صح"> صح</label>
+                <label><input type="radio" name="q15" value="خطأ"> خطأ</label>
+            </div>
         </div>
-    </div>
 
-    <div class="question-block" data-correct="a">
-        <span class="q-text">16- أي من العلاقات التالية استخدمها المثال للتحقق من صحة الحل (علاقة المكمل)؟</span>
-        <div class="options">
-            <label><input type="radio" name="q16" value="a"> n px + n qx = 1</label>
-            <label><input type="radio" name="q16" value="b"> px × qx = 1</label>
-            <label><input type="radio" name="q16" value="c"> lx + dx = 1</label>
-            <label><input type="radio" name="q16" value="d"> n px ÷ n qx = 1</label>
-        </div>
-    </div>
+        <button type="button" class="btn-submit" onclick="showResults()"></button>
+    </form>
 
-    <h2>رابعاً: تفسير الرموز</h2>
-
-    <div class="question-block" data-correct="b">
-        <span class="q-text">17- ماذا يمثل الرمز الاكتواري 5 p20؟</span>
-        <div class="options">
-            <label><input type="radio" name="q17" value="a"> احتمال وفاة شخص عمره 20 خلال 5 سنوات</label>
-            <label><input type="radio" name="q17" value="b"> احتمال أن يعيش شخص عمره 20 سنة لمدة 5 سنوات على الأقل</label>
-            <label><input type="radio" name="q17" value="c"> احتمال أن يعيش شخص عمره 5 سنوات بعد بلوغه سن 20</label>
-            <label><input type="radio" name="q17" value="d"> عدد الأحياء عند سن 25</label>
-        </div>
-    </div>
-
-    <div class="question-block" data-correct="a">
-        <span class="q-text">18- ما هو التفسير الصحيح للرمز 5 q20؟</span>
-        <div class="options">
-            <label><input type="radio" name="q18" value="a"> احتمال أن شخصاً عمره 20 سنة سيموت قبل بلوغه سن 25</label>
-            <label><input type="radio" name="q18" value="b"> احتمال أن شخصاً عمره 5 سنوات سيعيش حتى سن 20</label>
-            <label><input type="radio" name="q18" value="c"> احتمال وفاة شخص عمره 20 سنة بعد سن 25</label>
-            <label><input type="radio" name="q18" value="d"> معدل الوفاة السنوي عند سن 20</label>
-        </div>
-    </div>
-
-    <div class="question-block" data-correct="b">
-        <span class="q-text">19- ماذا يعني وجود علامة التأجيل في الرمز 5 q20؟</span>
-        <div class="options">
-            <label><input type="radio" name="q19" value="a"> الشخص سيموت فوراً عند سن 20</label>
-            <label><input type="radio" name="q19" value="b"> الشخص سيعيش 5 سنوات ثم يموت خلال السنة التالية مباشرة (بين 25 و26)</label>
-            <label><input type="radio" name="q19" value="c"> الشخص سيموت خلال 5 سنوات قادمة</label>
-            <label><input type="radio" name="q19" value="d"> تأجيل دفع القسط لمدة 5 سنوات</label>
-        </div>
-    </div>
-
-    <div class="question-block" data-correct="c">
-        <span class="q-text">20- فسر الرمز 5 5 q20 (الوفاة المؤجلة والمحددة):</span>
-        <div class="options">
-            <label><input type="radio" name="q20" value="a"> احتمال الوفاة بين سن 20 و 25</label>
-            <label><input type="radio" name="q20" value="b"> احتمال الوفاة بين سن 20 و 30</label>
-            <label><input type="radio" name="q20" value="c"> احتمال أن يعيش الشخص حتى سن 25 ثم يموت خلال الخمس سنوات التالية</label>
-            <label><input type="radio" name="q20" value="d"> احتمال أن يعيش الشخص 20 سنة إضافية</label>
-        </div>
-    </div>
-
-    <div class="question-block" data-correct="b">
-        <span class="q-text">21- الرمز 10 5 q50 يعني أن الشخص الذي عمره 50 سنة:</span>
-        <div class="options">
-            <label><input type="radio" name="q21" value="a"> سيموت قبل سن 60</label>
-            <label><input type="radio" name="q21" value="b"> سيعيش حتى سن 60 ثم يموت خلال الخمس سنوات التالية (60-65)</label>
-            <label><input type="radio" name="q21" value="c"> سيموت خلال 10 سنوات من الآن</label>
-            <label><input type="radio" name="q21" value="d"> سيعيش 50 سنة إضافية</label>
-        </div>
-    </div>
-
-    <div class="question-block" data-correct="b">
-        <span class="q-text">22- الرمز الاكتواري الصحيح لـ "احتمال حياة شخص عمره 30 سنة لمدة 30 سنة" هو:</span>
-        <div class="options">
-            <label><input type="radio" name="q22" value="a"> 30 q30</label>
-            <label><input type="radio" name="q22" value="b"> 30 p30</label>
-            <label><input type="radio" name="q22" value="c"> 60 p30</label>
-            <label><input type="radio" name="q22" value="d"> p60</label>
-        </div>
-    </div>
-
-    <div class="question-block" data-correct="a">
-        <span class="q-text">23- "احتمال حياة شخص عمره 30 سنة حتى بلوغه تمام السن 60 ثم وفاته قبل بلوغه تمام السن 65" يعبر عنه بالرمز:</span>
-        <div class="options">
-            <label><input type="radio" name="q23" value="a"> 30 5 q30</label>
-            <label><input type="radio" name="q23" value="b"> 30 65 q30</label>
-            <label><input type="radio" name="q23" value="c"> 60 5 q30</label>
-            <label><input type="radio" name="q23" value="d"> 5 30 q30</label>
-        </div>
-    </div>
-
-    <div class="question-block" data-correct="c">
-        <span class="q-text">24- ما هو الرمز الذي يمثل "احتمال وفاة شخص عمره 40 سنة خلال 20 سنة"؟</span>
-        <div class="options">
-            <label><input type="radio" name="q24" value="a"> 20 p40</label>
-            <label><input type="radio" name="q24" value="b"> 40 q20</label>
-            <label><input type="radio" name="q24" value="c"> 20 q40</label>
-            <label><input type="radio" name="q24" value="d"> 60 q40</label>
-        </div>
-    </div>
-
-    <div class="question-block" data-correct="b">
-        <span class="q-text">25- "احتمال وفاة شخص عمره 40 سنة خلال العام الـ 60 من عمره" (أي سيعيش حتى سن 59 ثم يموت خلال سنة) يرمز له بـ:</span>
-        <div class="options">
-            <label><input type="radio" name="q25" value="a"> 20 q40</label>
-            <label><input type="radio" name="q25" value="b"> 19 q40</label>
-            <label><input type="radio" name="q25" value="c"> 60 q40</label>
-            <label><input type="radio" name="q25" value="d"> q60</label>
-        </div>
-    </div>
-
-    <div class="question-block" data-correct="a">
-        <span class="q-text">26- الرمز الذي يعبر عن "احتمال وفاة شخص عمره 50 سنة بين بلوغه تمام السن 60 وتمام السن 70" هو:</span>
-        <div class="options">
-            <label><input type="radio" name="q26" value="a"> 10 10 q50</label>
-            <label><input type="radio" name="q26" value="b"> 10 20 q50</label>
-            <label><input type="radio" name="q26" value="c"> 60 70 q50</label>
-            <label><input type="radio" name="q26" value="d"> 10 50 q10</label>
-        </div>
-    </div>
-
-    <h2>خامساً: احتمالات حياة شخصين</h2>
-    <p style="background:#eef; padding:10px; border-radius:5px;">بفرض احتمال حياة الأول 0.8 والثاني 0.7</p>
-
-    <div class="question-block" data-correct="b">
-        <span class="q-text">27- إذا كان احتمال حياة شخصين (أ، ب) هو 0.8 و 0.7 على الترتيب، فإن احتمال حياتهما معاً هو:</span>
-        <div class="options">
-            <label><input type="radio" name="q27" value="a"> 1.50</label>
-            <label><input type="radio" name="q27" value="b"> 0.56</label>
-            <label><input type="radio" name="q27" value="c"> 0.15</label>
-            <label><input type="radio" name="q27" value="d"> 0.10</label>
-        </div>
-    </div>
-
-    <div class="question-block" data-correct="a">
-        <span class="q-text">28- احتمال وفاتهما معاً (وفاة الشخصين في نفس الوقت) يساوي:</span>
-        <div class="options">
-            <label><input type="radio" name="q28" value="a"> 0.06</label>
-            <label><input type="radio" name="q28" value="b"> 0.50</label>
-            <label><input type="radio" name="q28" value="c"> 0.24</label>
-            <label><input type="radio" name="q28" value="d"> 0.14</label>
-        </div>
-    </div>
-
-    <div class="question-block" data-correct="c">
-        <span class="q-text">29- احتمال "حياة واحد فقط" من الشخصين يبلغ:</span>
-        <div class="options">
-            <label><input type="radio" name="q29" value="a"> 0.56</label>
-            <label><input type="radio" name="q29" value="b"> 0.06</label>
-            <label><input type="radio" name="q29" value="c"> 0.38</label>
-            <label><input type="radio" name="q29" value="d"> 0.94</label>
-        </div>
-    </div>
-
-    <div class="question-block" data-correct="c">
-        <span class="q-text">30- ما هو احتمال حياة "واحد على الأقل" من الشخصين؟</span>
-        <div class="options">
-            <label><input type="radio" name="q30" value="a"> 0.06</label>
-            <label><input type="radio" name="q30" value="b"> 0.38</label>
-            <label><input type="radio" name="q30" value="c"> 0.94</label>
-            <label><input type="radio" name="q30" value="d"> 0.44</label>
-        </div>
-    </div>
-
-    <div class="question-block" data-correct="b">
-        <span class="q-text">31- احتمال حياة "واحد على الأكثر" من الشخصين هو:</span>
-        <div class="options">
-            <label><input type="radio" name="q31" value="a"> 0.56</label>
-            <label><input type="radio" name="q31" value="b"> 0.44</label>
-            <label><input type="radio" name="q31" value="c"> 0.94</label>
-            <label><input type="radio" name="q31" value="d"> 0.10</label>
-        </div>
-    </div>
-
-    <button onclick="calculateScore()">تصحيح الاختبار وعرض النتيجة</button>
     <div id="result"></div>
 </div>
 
 <script>
-    function calculateScore() {
+    function showResults() {
         let score = 0;
-        const questions = document.querySelectorAll('.question-block');
-        
-        questions.forEach(q => {
-            const correctValue = q.getAttribute('data-correct');
-            const inputs = q.querySelectorAll('input[type="radio"]');
-            let answered = false;
+        const total = 15;
+        const blocks = document.querySelectorAll('.question-block');
+
+        blocks.forEach(block => {
+            const correctValue = block.getAttribute('data-ans');
+            const selected = block.querySelector('input[type="radio"]:checked');
             
-            // Reset styles
-            q.querySelectorAll('label').forEach(l => {
-                l.classList.remove('correct-answer', 'wrong-answer');
-            });
+            // تنظيف الألوان السابقة
+            block.querySelectorAll('label').forEach(lbl => lbl.className = '');
 
-            inputs.forEach(input => {
-                if (input.checked) {
-                    answered = true;
-                    if (input.value === correctValue) {
-                        score++;
-                        input.parentElement.classList.add('correct-answer');
-                    } else {
-                        input.parentElement.classList.add('wrong-answer');
-                    }
+            if (selected) {
+                if (selected.value === correctValue) {
+                    score++;
+                    selected.parentElement.classList.add('correct');
+                } else {
+                    selected.parentElement.classList.add('wrong');
+                    block.querySelector(`input[value="${correctValue}"]`).parentElement.classList.add('correct');
                 }
-            });
-
-            // Highlight correct answer anyway
-            if (answered || !answered) {
-                 const correctInput = q.querySelector(`input[value="${correctValue}"]`);
-                 if(correctInput) correctInput.parentElement.classList.add('correct-answer');
+            } else {
+                block.querySelector(`input[value="${correctValue}"]`).parentElement.classList.add('correct');
             }
         });
 
-        const resultDiv = document.getElementById('result');
-        resultDiv.style.display = 'block';
-        resultDiv.innerText = `النتيجة النهائية: ${score} من ${questions.length}`;
-        window.scrollTo(0, document.body.scrollHeight);
+        const resDiv = document.getElementById('result');
+        resDiv.style.display = 'block';
+        const percent = Math.round((score/total)*100);
+        resDiv.innerHTML = `نتيجتك النهائية: ${score} من ${total} (${percent}%)`;
+        resDiv.style.backgroundColor = percent >= 50 ? '#d4edda' : '#f8d7da';
+        resDiv.style.color = percent >= 50 ? '#155724' : '#721c24';
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
 
