@@ -33,36 +33,36 @@
             padding: 50px 20px;
             text-align: center;
             margin-bottom: 30px;
-            /* تم التعديل لعرض الصورة والنص معًا */
             display: flex; 
-            flex-direction: column; /* لتبقى العناصر عمودية في التصميم الأساسي */
+            flex-direction: column; 
             align-items: center;
         }
         
         /* تنسيق الصورة الشخصية */
         .profile-img {
-            width: 150px; /* تحديد حجم الصورة */
-            height: 150px;
-            border-radius: 50%; /* لجعل الصورة دائرية */
-            object-fit: cover; /* للتأكد من تغطية الصورة للمنطقة المحددة */
+            width: 180px; /* تم تكبير الحجم قليلاً للتوضيح */
+            height: 180px;
+            border-radius: 50%; 
+            object-fit: cover; 
             margin-bottom: 20px;
-            border: 5px solid white; /* لإضافة إطار أبيض حول الصورة */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border: 5px solid rgba(255, 255, 255, 0.8); 
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
         }
         
         .hero h2 {
             font-size: 2.5em;
-            margin-top: 0;
+            margin-top: 10px;
         }
         .hero p {
             font-size: 1.2em;
+            max-width: 600px;
         }
         .container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 0 20px 40px;
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             gap: 20px;
             flex-wrap: wrap; 
         }
@@ -71,7 +71,7 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-            width: calc(33% - 20px); 
+            width: calc(45% - 20px); 
             min-width: 280px; 
             transition: transform 0.3s, box-shadow 0.3s;
             display: flex;
@@ -91,7 +91,6 @@
         }
         .card i {
             margin-left: 10px;
-            color: #0056b3;
         }
         .card p {
             color: #555;
@@ -114,53 +113,15 @@
         .btn-primary:hover {
             background-color: #1e7e34;
         }
-        .btn-secondary {
-            background-color: #f0ad4e;
-            color: white;
-        }
-        .btn-secondary:hover {
-            background-color: #ec971f;
-        }
-        .btn-default {
-            background-color: #007bff;
-            color: white;
-        }
-        .btn-default:hover {
-            background-color: #0056b3;
-        }
-        /* تعريف زر جديد للبطاقة الجديدة */
         .btn-info {
-            background-color: #17a2b8; /* لون سماوي/معلوماتي */
+            background-color: #17a2b8;
             color: white;
         }
         .btn-info:hover {
             background-color: #138496;
         }
 
-        /* تنسيق الأيقونات */
-        .card h3:first-child i {
-            color: #28a745; 
-        }
-        .card:nth-child(2) h3 i {
-            color: #f0ad4e; 
-        }
-        .card:nth-child(3) h3 i {
-            color: #007bff; 
-        }
-        .card:nth-child(4) h3 i { /* أيقونة البطاقة الجديدة */
-            color: #17a2b8; 
-        }
-
-        /* Media Queries for responsiveness */
-        @media (max-width: 900px) {
-            .container {
-                justify-content: center;
-            }
-            .card {
-                width: calc(50% - 20px);
-                margin-bottom: 20px;
-            }
-        }
+        /* Media Queries */
         @media (max-width: 600px) {
             .card {
                 width: 100%;
@@ -174,27 +135,24 @@
     </header>
 
     <section class="hero">
-        <img src="WhatsApp Image.jpeg.jpg" alt="صورة الطالب محمد وليد" class="profile-img">
+        <img src="WhatsApp Image.jpeg.jpg" alt="صورة محمد وليد" class="profile-img">
         
         <h2>⚔️ جاهز للانطلاق؟ ابدأ رحلة التميز الآن!</h2>
         <p>لا تضيّع دقيقة! حوّل مراجعتك إلى سلاحك الأقوى. انطلق الآن وتحدَ مستواك لتحقيق القمة!</p>
     </section>
 
     <section class="container">
-     
-        
         <div class="card">
-            <h3><i class="fa-solid fa-file-pen"></i> Exercise </h3>
+            <h3><i class="fa-solid fa-file-pen" style="color: #28a745;"></i> Exercise </h3>
             <p>اختبر معلوماتك في بيئة تحاكي الاختبار النهائي. أسئلة مركّزة ومحددة لقياس مدى استعدادك للدرجة الكاملة.</p>
-            <a href="Exercise.html" class="btn btn-primary">ابدأ الامتحان  </a>
+            <a href="Exercise.html" class="btn btn-primary">ابدأ الامتحان</a>
         </div>
 
         <div class="card">
-            <h3><i class="fa-solid fa-clipboard-check"></i> Summaries </h3>
-            <p>جولات سريعة ومكثفة على أهم الشروحات والملخصات. جهّز ذخيرتك المعرفية وانطلق للاختبار. هنا تكتسب الأساس المتين .</p>
-            <a href="Reader.html" class="btn btn-info">ابدأالامتحان</a> </a>
+            <h3><i class="fa-solid fa-clipboard-check" style="color: #17a2b8;"></i> Summaries </h3>
+            <p>جولات سريعة ومكثفة على أهم الشروحات والملخصات. جهّز ذخيرتك المعرفية وانطلق للاختبار. هنا تكتسب الأساس المتين.</p>
+            <a href="Reader.html" class="btn btn-info">عرض الملخصات</a>
         </div>
-        
     </section>
 
 </body>
