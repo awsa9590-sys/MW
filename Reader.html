@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>مستعرض الفصول التعليمية</title>
+    <title>مستعرض الفصول التعليمية المحدث</title>
     <style>
         body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #2c3e50; }
         
@@ -40,27 +40,27 @@
 <body>
 
 <header>
-    📑 المكتبة الرقمية: عرض الفصول الدراسية
+    📑 المكتبة الرقمية: عرض الفصول الدراسية المحدثة
 </header>
 
 <div class="main-container">
     <nav>
-        <button onclick="changeFile('الفصل الاول ريادة اعمال.pdf', this)" class="active">
-            📙 الفصل الأول: ريادة الأعمال
+        <button onclick="changeFile('قالب كتاب حول ريادة الأعمال.pdf', this)" class="active">
+            📙 ريادة الأعمال: رحلة الإنشاء والابتكار [cite: 29]
         </button>
-        <button onclick="changeFile('الفصل الاول موارد بشريه.pdf', this)">
-            📘 الفصل الأول: موارد بشرية
+        <button onclick="changeFile('كتاب عن إدارة الموارد البشرية.pdf', this)">
+            📘 فن الإدارة واستغلال الموارد [cite: 1]
         </button>
     </nav>
 
     <div class="viewer">
-        <iframe id="pdf-viewer" src="الفصل الاول ريادة اعمال.pdf"></iframe>
+        <iframe id="pdf-viewer" src="قالب كتاب حول ريادة الأعمال.pdf"></iframe>
     </div>
 </div>
 
 <script>
     function changeFile(fileName, btn) {
-        // تغيير ملف الـ PDF
+        // تغيير ملف الـ PDF بناءً على الملفات المرفوعة
         document.getElementById('pdf-viewer').src = fileName;
         
         // تحديث حالة الأزرار
