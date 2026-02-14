@@ -3,175 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بنك أسئلة ريادة الأعمال - الفصل الأول</title>
+    <title>بنك أسئلة مبادئ الإدارة والموارد البشرية</title>
     <style>
-        :root { --primary: #2c3e50; --accent: #e67e22; --success: #27ae60; --error: #c0392b; --bg: #f8f9fa; }
+        :root { --primary: #2c3e50; --accent: #2980b9; --success: #27ae60; --error: #c0392b; --bg: #f4f7f6; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); color: var(--primary); margin: 0; padding: 20px; line-height: 1.6; }
-        .container { max-width: 1000px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: var(--accent); border-bottom: 3px solid var(--accent); padding-bottom: 10px; }
-        h2 { background: var(--primary); color: #fff; padding: 10px 15px; border-radius: 8px; margin-top: 30px; font-size: 1.2rem; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: var(--primary); border-bottom: 3px solid var(--accent); padding-bottom: 10px; }
+        h2 { background: var(--accent); color: #fff; padding: 10px 15px; border-radius: 8px; margin-top: 30px; font-size: 1.2rem; }
         .question-block { background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 20px; border-right: 6px solid var(--accent); }
         .question-text { font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; display: block; color: #333; }
-        .options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .options { display: grid; grid-template-columns: 1fr; gap: 10px; }
         label { padding: 12px; border: 1px solid #eee; border-radius: 8px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; background: #fafafa; }
-        label:hover { background: #fff3e0; border-color: var(--accent); }
+        label:hover { background: #ebf5fb; border-color: var(--accent); }
         input[type="radio"] { margin-left: 10px; transform: scale(1.2); }
         .btn-submit { display: block; width: 100%; padding: 20px; background: var(--success); color: white; border: none; border-radius: 10px; font-size: 1.4rem; font-weight: bold; cursor: pointer; margin-top: 40px; }
         #result { margin-top: 30px; padding: 25px; border-radius: 10px; text-align: center; font-size: 1.8rem; display: none; font-weight: bold; }
         .correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724; }
         .wrong { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
-        @media (max-width: 600px) { .options { grid-template-columns: 1fr; } }
+        .correction-text { display: none; margin-top: 10px; padding: 10px; background: #fff3cd; border-right: 4px solid #ffc107; font-size: 0.95rem; color: #856404; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>بنك الأسئلة الشامل: ريادة الأعمال</h1>
+    <h1>بنك الأسئلة: مبادئ الإدارة والموارد البشرية</h1>
 
     <form id="quizForm">
+        <h2>أولاً: أسئلة الاختيار من متعدد</h2>
 
         <div class="question-block" data-ans="B">
-            <span class="question-text">1. أي من العلماء التاليين يعتبر أول من استخدم مصطلح "الريادي" في القرن الثامن عشر؟</span>
+            <span class="question-text">1. تُعرّف الإدارة بأنها عملية تحقيق الأهداف المرسومة باستغلال الموارد المتاحة وفق منهج محدد وضمن:</span>
             <div class="options">
-                <label><input type="radio" name="q1" value="A"> جوزيف شومبيتر</label>
-                <label><input type="radio" name="q1" value="B"> ريتشارد كانتيلون</label>
-                <label><input type="radio" name="q1" value="C"> جان بابتيست ساي</label>
-                <label><input type="radio" name="q1" value="D"> بيتر دراكر</label>
-            </div>
-        </div>
-
-        <div class="question-block" data-ans="C">
-            <span class="question-text">2. ربط "جان بابتيست ساي" ريادة الأعمال بـ:</span>
-            <div class="options">
-                <label><input type="radio" name="q2" value="A"> تحمل المخاطر فقط</label>
-                <label><input type="radio" name="q2" value="B"> توفير رأس المال</label>
-                <label><input type="radio" name="q2" value="C"> نقل الموارد من إنتاجية منخفضة إلى إنتاجية أعلى</label>
-                <label><input type="radio" name="q2" value="D"> العمل الحكومي</label>
+                <label><input type="radio" name="q1" value="A"> أ) موارد مالية ضخمة.</label>
+                <label><input type="radio" name="q1" value="B"> ب) بيئة معينة.</label>
+                <label><input type="radio" name="q1" value="C"> ج) رقابة صارمة فقط.</label>
             </div>
         </div>
 
         <div class="question-block" data-ans="A">
-            <span class="question-text">3. في أي عام تقريباً بدأ الاعتراف بريادة الأعمال كعلم مستقل ومنفصل عن الإدارة؟</span>
+            <span class="question-text">2. تشمل موارد المنظمة كل من الموارد البشرية والموارد الطبيعية ومورد:</span>
             <div class="options">
-                <label><input type="radio" name="q3" value="A"> 1961 (بعد دراسة ماكليلاند)</label>
-                <label><input type="radio" name="q3" value="B"> 1734 (مع كانتيلون)</label>
-                <label><input type="radio" name="q3" value="C"> 1900 (بداية القرن العشرين)</label>
-                <label><input type="radio" name="q3" value="D"> 2010 (مع الثورة الرقمية)</label>
-            </div>
-        </div>
-
-        <div class="question-block" data-ans="D">
-            <span class="question-text">4. يرى "شومبيتر" أن المحرك الأساسي للاقتصاد هو "التدمير الخلاق"، والذي يقصد به:</span>
-            <div class="options">
-                <label><input type="radio" name="q4" value="A"> تدمير البيئة من أجل الربح</label>
-                <label><input type="radio" name="q4" value="B"> المنافسة السعرية الشرسة</label>
-                <label><input type="radio" name="q4" value="C"> الاستغناء عن العمالة البشرية</label>
-                <label><input type="radio" name="q4" value="D"> استبدال المنتجات القديمة بابتكارات جديدة أفضل</label>
+                <label><input type="radio" name="q2" value="A"> أ) رأس المال بصوره المالية والمادية.</label>
+                <label><input type="radio" name="q2" value="B"> ب) الأهداف التسويقية.</label>
+                <label><input type="radio" name="q2" value="C"> ج) المنافسين الخارجيين.</label>
             </div>
         </div>
 
         <div class="question-block" data-ans="C">
-            <span class="question-text">5. المدرسة التي تبحث عن "السمات الشخصية" (كالحاجة للإنجاز والسيطرة) هي:</span>
+            <span class="question-text">3. الوظيفة الإدارية التي تهتم بتوقع المستقبل وتحديد أفضل السبل لإنجاز الأهداف هي:</span>
             <div class="options">
-                <label><input type="radio" name="q5" value="A"> المدرسة الكلاسيكية</label>
-                <label><input type="radio" name="q5" value="B"> المدرسة السلوكية</label>
-                <label><input type="radio" name="q5" value="C"> مدرسة السمات (النفسية)</label>
-                <label><input type="radio" name="q5" value="D"> المدرسة الاقتصادية</label>
+                <label><input type="radio" name="q3" value="A"> أ) التنظيم.</label>
+                <label><input type="radio" name="q3" value="B"> ب) التوجيه.</label>
+                <label><input type="radio" name="q3" value="C"> ج) التخطيط.</label>
             </div>
         </div>
 
         <div class="question-block" data-ans="B">
-            <span class="question-text">6. "ريادة الأعمال المؤسسية" (Intrapreneurship) تستهدف بشكل أساسي:</span>
+            <span class="question-text">4. من الأنشطة البارزة في وظيفة التنظيم:</span>
             <div class="options">
-                <label><input type="radio" name="q6" value="A"> القضاء على الشركات الكبرى</label>
-                <label><input type="radio" name="q6" value="B"> بث روح الابتكار داخل الشركات القائمة لمنع الجمود</label>
-                <label><input type="radio" name="q6" value="C"> مساعدة الفقراء في المجتمع</label>
-                <label><input type="radio" name="q6" value="D"> تقليل الضرائب على الأفراد</label>
+                <label><input type="radio" name="q4" value="A"> أ) وضع الشخص المناسب في المكان المناسب.</label>
+                <label><input type="radio" name="q4" value="B"> ب) تصنيف أنواع العمل وتفويض العمل إلى أشخاص آخرين.</label>
+                <label><input type="radio" name="q4" value="C"> ج) قياس الأداء الفعلي ومقارنته بالمعايير.</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-ans="B">
+            <span class="question-text">5. تعتبر القناة التي تحصل من خلالها المنظمة على مواردها البشرية هي وظيفة:</span>
+            <div class="options">
+                <label><input type="radio" name="q5" value="A"> أ) الرقابة.</label>
+                <label><input type="radio" name="q5" value="B"> ب) التوظيف.</label>
+                <label><input type="radio" name="q5" value="C"> ج) التخطيط الاستراتيجي.</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-ans="B">
+            <span class="question-text">6. تتضمن مهام التوظيف الثمانية عملية "الاستقطاب" ويقصد بها:</span>
+            <div class="options">
+                <label><input type="radio" name="q6" value="A"> أ) تقييم أداء الموظفين.</label>
+                <label><input type="radio" name="q6" value="B"> ب) البحث عن الكفاءات لسد الوظائف الشاغرة.</label>
+                <label><input type="radio" name="q6" value="C"> ج) إنهاء خدمة الموظف.</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-ans="B">
+            <span class="question-text">7. القدرة على أداء الأعمال بطريقة صحيحة (Doing things right) تُسمى:</span>
+            <div class="options">
+                <label><input type="radio" name="q7" value="A"> أ) الفاعلية.</label>
+                <label><input type="radio" name="q7" value="B"> ب) الكفاءة (Efficiency).</label>
+                <label><input type="radio" name="q7" value="C"> ج) القيادة.</label>
             </div>
         </div>
 
         <div class="question-block" data-ans="A">
-            <span class="question-text">7. ما الذي يميز "رائد الأعمال الاجتماعي" عن غيره؟</span>
+            <span class="question-text">8. يُقصد بـ "توصيف الوظيفة" تحديد:</span>
             <div class="options">
-                <label><input type="radio" name="q7" value="A"> هدفه الأساسي معالجة قضايا اجتماعية بأسلوب ابتكاري</label>
-                <label><input type="radio" name="q7" value="B"> عدم اهتمامه بتغطية تكاليف مشروعه</label>
-                <label><input type="radio" name="q7" value="C"> عمله دائماً يكون في القطاع الحكومي</label>
-                <label><input type="radio" name="q7" value="D"> اعتماده الكلي على التبرعات فقط</label>
-            </div>
-        </div>
-        <div class="question-block" data-ans="D">
-            <span class="question-text">8. من أهم وظائف "حاضنات الأعمال" (Business Incubators):</span>
-            <div class="options">
-                <label><input type="radio" name="q8" value="A"> إعطاء منح مالية غير مستردة لكل الناس</label>
-                <label><input type="radio" name="q8" value="B"> إدارة المشروع بدلاً من صاحبه</label>
-                <label><input type="radio" name="q8" value="C"> تعيين موظفين في الحكومة</label>
-                <label><input type="radio" name="q8" value="D"> توفير بيئة عمل واستشارات لتقليل مخاطر الفشل في البداية</label>
+                <label><input type="radio" name="q8" value="A"> أ) واجبات ومسئوليات وظروف عمل الوظيفة.</label>
+                <label><input type="radio" name="q8" value="B"> ب) اسم الشركة وموقعها الجغرافي.</label>
+                <label><input type="radio" name="q8" value="C"> ج) أرباح المنظمة السنوية.</label>
             </div>
         </div>
 
-        <div class="question-block" data-ans="A">
-            <span class="question-text">9. الفرق بين "رائد الأعمال" و"صاحب المشروع الصغير" يكمن في:</span>
-            <div class="options">
-                <label><input type="radio" name="q9" value="A"> الابتكار والقدرة على النمو المتسارع</label>
-                <label><input type="radio" name="q9" value="B"> امتلاك سجل تجاري من عدمه</label>
-                <label><input type="radio" name="q9" value="C"> عدد الموظفين فقط</label>
-                <label><input type="radio" name="q9" value="D"> جنسية صاحب المشروع</label>
-            </div>
-        </div>
+        <h2>ثانياً: أسئلة الصح والخطأ</h2>
 
-        <div class="question-block" data-ans="C">
-            <span class="question-text">10. ظاهرة "تصغير الحجم" (Downsizing) في الشركات الكبرى أدت إلى:</span>
+        <div class="question-block" data-ans="خطأ">
+            <span class="question-text">9. البيئة هي المحيط الذي تعيش فيه المنشأة ويمكن للمدير التحكم الكامل في كافة متغيراتها.</span>
             <div class="options">
-                <label><input type="radio" name="q10" value="A"> انتهاء عصر ريادة الأعمال</label>
-                <label><input type="radio" name="q10" value="B"> زيادة الاحتكارات العالمية</label>
-                <label><input type="radio" name="q10" value="C"> دفع المديرين ذوي الخبرة لتأسيس مشروعاتهم الخاصة</label>
-                <label><input type="radio" name="q10" value="D"> إلغاء استخدام التكنولوجيا</label>
+                <label><input type="radio" name="q9" value="صح"> صح</label>
+                <label><input type="radio" name="q9" value="خطأ"> خطأ</label>
             </div>
+            <div class="correction-text">التصحيح: البيئة تتكون من متغيرات محيطة بالمنظمة لا يمكن التحكم بها.</div>
         </div>
-
-        <h2>رابعاً: أسئلة الصح والخطأ</h2>
 
         <div class="question-block" data-ans="صح">
-            <span class="question-text">11. المخاطرة الريادية هي مخاطرة "مدروسة" وليست مقامرة عشوائية.</span>
+            <span class="question-text">10. التخطيط عملية مستمرة تجيب على أسئلة مثل: ماذا نفعل، ومن يقوم به، ومتى وكيف.</span>
+            <div class="options">
+                <label><input type="radio" name="q10" value="صح"> صح</label>
+                <label><input type="radio" name="q10" value="خطأ"> خطأ</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-ans="خطأ">
+            <span class="question-text">11. الرقابة هي الوظيفة الأولى في العملية الإدارية.</span>
             <div class="options">
                 <label><input type="radio" name="q11" value="صح"> صح</label>
                 <label><input type="radio" name="q11" value="خطأ"> خطأ</label>
             </div>
+            <div class="correction-text">التصحيح: التخطيط هو الوظيفة الأولى، بينما الرقابة هي الوظيفة الأخيرة (الخامسة).</div>
         </div>
 
         <div class="question-block" data-ans="خطأ">
-            <span class="question-text">12. المدرسة النمساوية ترى أن السوق دائماً في حالة توازن تام ولا يحتاج للريادي.</span>
+            <span class="question-text">12. الفاعلية (Effectiveness) تعني أداء الأعمال بأقل تكلفة ومورد ممكن.</span>
             <div class="options">
                 <label><input type="radio" name="q12" value="صح"> صح</label>
                 <label><input type="radio" name="q12" value="خطأ"> خطأ</label>
             </div>
+            <div class="correction-text">التصحيح: الفاعلية تعني تحقيق النتائج المرجوة، أما استخدام الموارد بأفضل طريقة فهو الكفاءة.</div>
         </div>
 
-        <div class="question-block" data-ans="صح">
-            <span class="question-text">13. الاستقلالية والحرية في اتخاذ القرار من أهم دوافع رائد الأعمال.</span>
+        <div class="question-block" data-ans="خطأ">
+            <span class="question-text">13. تبدأ مهام التوظيف الثمانية بعملية "تقييم الأداء".</span>
             <div class="options">
                 <label><input type="radio" name="q13" value="صح"> صح</label>
                 <label><input type="radio" name="q13" value="خطأ"> خطأ</label>
             </div>
+            <div class="correction-text">التصحيح: تبدأ بعملية "تخطيط الموارد البشرية".</div>
         </div>
 
         <div class="question-block" data-ans="خطأ">
-            <span class="question-text">14. المشروع الصغير التقليدي (مثل البقالة) يعتبر دائماً مشروعاً ريادياً.</span>
+            <span class="question-text">14. إدارة الموارد البشرية تهتم فقط بالموظفين الحاليين ولا علاقة لها بالمتوقعين.</span>
             <div class="options">
                 <label><input type="radio" name="q14" value="صح"> صح</label>
                 <label><input type="radio" name="q14" value="خطأ"> خطأ</label>
             </div>
+            <div class="correction-text">التصحيح: إدارة الموارد البشرية تعني الاستخدام الأمثل للعنصر البشري المتوفر والمتوقع.</div>
         </div>
 
-        <div class="question-block" data-ans="صح">
-            <span class="question-text">15. يرى "بيتر دراكر" أن ريادة الأعمال هي "ممارسة" وليست مجرد علم نظري.</span>
-            <div class="options">
-                <label><input type="radio" name="q15" value="صح"> صح</label>
-                <label><input type="radio" name="q15" value="خطأ"> خطأ</label>
-            </div>
-        </div>
-
-        <button type="button" class="btn-submit" onclick="showResults()"></button>
+        <button type="button" class="btn-submit" onclick="showResults()">تصدير النتيجة والحلول</button>
     </form>
 
     <div id="result"></div>
@@ -180,15 +167,16 @@
 <script>
     function showResults() {
         let score = 0;
-        const total = 15;
         const blocks = document.querySelectorAll('.question-block');
+        const total = blocks.length;
 
         blocks.forEach(block => {
             const correctValue = block.getAttribute('data-ans');
             const selected = block.querySelector('input[type="radio"]:checked');
+            const correction = block.querySelector('.correction-text');
             
-            // تنظيف الألوان السابقة
             block.querySelectorAll('label').forEach(lbl => lbl.className = '');
+            if (correction) correction.style.display = 'none';
 
             if (selected) {
                 if (selected.value === correctValue) {
@@ -197,9 +185,11 @@
                 } else {
                     selected.parentElement.classList.add('wrong');
                     block.querySelector(`input[value="${correctValue}"]`).parentElement.classList.add('correct');
+                    if (correction) correction.style.display = 'block';
                 }
             } else {
                 block.querySelector(`input[value="${correctValue}"]`).parentElement.classList.add('correct');
+                if (correction) correction.style.display = 'block';
             }
         });
 
