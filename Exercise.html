@@ -248,8 +248,22 @@
         result.innerHTML = `<h2>درجتك: ${score} من ${total}</h2><p>النسبة المئوية: ${Math.round((score/total)*100)}%</p>`;
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
     window.onload = changeChapter;
+    // أضف هذه الخاصية داخل دالة gradeQuiz في Exercise.html
+function gradeQuiz() {
+    // ... (الكود القديم)
+    
+    // إضافة تأثير التمرير لأعلى النتيجة بسلاسة
+    const result = document.getElementById('finalResult');
+    result.style.animation = "fadeIn 0.5s ease-in-out";
+    
+    // تغيير لون النتيجة بناءً على الدرجة
+    if (score / total >= 0.5) {
+        result.style.borderColor = "var(--success)";
+    } else {
+        result.style.borderColor = "var(--danger)";
+    }
+}
 </script>
 </body>
 </html>
