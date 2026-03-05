@@ -1,272 +1,255 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>اختبار الفصل الأول - المحاسبة</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة اختبارات المحاسبة المتوسطة</title>
+    <style>
+        :root {
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --primary: #38bdf8;
+            --secondary: #818cf8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+        }
 
-<style>
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Cairo',sans-serif;
-}
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-body{
-background:linear-gradient(135deg,#0f172a,#1e293b);
-color:white;
-padding:30px;
-}
+        header h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
 
-.container{
-max-width:900px;
-margin:auto;
-}
+        .selector-box {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid #334155;
+        }
 
-header{
-text-align:center;
-margin-bottom:30px;
-}
+        select {
+            background: #0f172a;
+            color: var(--text-main);
+            border: 2px solid var(--primary);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            width: 100%;
+            max-width: 400px;
+            outline: none;
+            cursor: pointer;
+        }
 
-header h1{
-font-size:32px;
-margin-bottom:10px;
-}
+        .q-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #334155;
+            transition: 0.3s;
+        }
 
-header p{
-color:#94a3b8;
-}
+        .q-header {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
 
-.progress{
-width:100%;
-height:10px;
-background:#334155;
-border-radius:10px;
-margin-bottom:30px;
-overflow:hidden;
-}
+        .q-num {
+            background: var(--primary);
+            color: #000;
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
 
-.progress-bar{
-height:100%;
-width:0%;
-background:#38bdf8;
-transition:0.3s;
-}
+        .options-grid {
+            display: grid;
+            gap: 12px;
+        }
 
-.card{
-background:#1e293b;
-padding:20px;
-border-radius:12px;
-margin-bottom:20px;
-box-shadow:0 10px 20px rgba(0,0,0,0.3);
-}
+        .opt-label {
+            background: #334155;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border: 2px solid transparent;
+            transition: 0.2s;
+        }
 
-.question{
-font-size:18px;
-margin-bottom:10px;
-}
+        .opt-label:hover { background: #475569; }
 
-.options label{
-display:block;
-background:#334155;
-padding:10px;
-border-radius:8px;
-margin-top:8px;
-cursor:pointer;
-transition:0.2s;
-}
+        input[type="radio"] {
+            margin-left: 15px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
 
-.options label:hover{
-background:#475569;
-}
+        .opt-label.correct { border-color: var(--success); background: rgba(16, 185, 129, 0.15); color: var(--success); }
+        .opt-label.wrong { border-color: var(--danger); background: rgba(239, 68, 68, 0.15); color: var(--danger); }
 
-.correct{
-background:#16a34a !important;
-}
+        .btn-submit {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
 
-.wrong{
-background:#dc2626 !important;
-}
-
-button{
-width:100%;
-padding:15px;
-font-size:18px;
-border:none;
-border-radius:10px;
-background:#0ea5e9;
-color:white;
-cursor:pointer;
-margin-top:20px;
-transition:0.2s;
-}
-
-button:hover{
-background:#0284c7;
-}
-
-#result{
-text-align:center;
-font-size:28px;
-margin-bottom:20px;
-display:none;
-}
-
-.score{
-font-size:40px;
-color:#38bdf8;
-margin-top:10px;
-}
-
-</style>
+        #finalResult {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: var(--bg-card);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 2px solid var(--primary);
+        }
+    </style>
 </head>
-
 <body>
 
 <div class="container">
+    <header>
+        <h1>منصة الاختبارات الذكية</h1>
+        <p style="color: var(--text-muted)">المحاسبة المتوسطة (2)</p>
+    </header>
 
-<header>
-<h1>اختبار الفصل الأول</h1>
-<p>المحاسبة عن رأس المال المملوك</p>
-</header>
+    <div class="selector-box">
+        <label style="display: block; margin-bottom: 10px;">اختر الفصل الدراسي:</label>
+        <select id="chapterSelect" onchange="changeChapter()">
+            <option value="ch1"> المحاسبة متوسطة 2 </option>
+            <option value="ch2"> محاسبة فى الوحدات الحكومية </option>
+        </select>
+    </div>
 
-<div class="progress">
-<div class="progress-bar" id="bar"></div>
-</div>
+    <div id="finalResult"></div>
 
-<div id="result"></div>
-
-<form id="quiz">
-<div id="questions"></div>
-
-<button type="button" onclick="check()">عرض النتيجة</button>
-
-</form>
-
+    <form id="quizForm">
+        <div id="quizContainer"></div>
+        <button type="button" class="btn-submit" onclick="gradeQuiz()">عرض النتيجة النهائية</button>
+    </form>
 </div>
 
 <script>
+    const allQuizzes = {
+        ch1: [
+            { q: "المعادلة الأساسية للميزانية هي:", opts: ["الأصول = الخصوم – حقوق الملكية", "الأصول = الخصوم + حقوق الملكية", "الخصوم = الأصول + حقوق الملكية", "حقوق الملكية = الأصول – الخصوم"], ans: 1 },
+            { q: "يتكون رأس مال الشركة المساهمة من:", opts: ["سندات", "أسهم", "قروض", "أرباح محتجزة"], ans: 1 },
+            { q: "القيمة المكتوبة على شهادة السهم تسمى:", opts: ["القيمة السوقية", "القيمة الحقيقية", "القيمة الاسمية", "القيمة الدفترية"], ans: 2 },
+            { q: "طبقًا للقانون لا يجوز إصدار السهم:", opts: ["بأكثر من قيمته الاسمية", "بأقل من قيمته الاسمية", "بالقيمة السوقية", "بالقيمة الدفترية"], ans: 1 },
+            { q: "الزيادة عن القيمة الاسمية عند إصدار السهم تسمى:", opts: ["علاوة إصدار", "خصم إصدار", "احتياطي", "أرباح"], ans: 0 },
+            { q: "القيمة التي تمثل نصيب السهم في صافي أصول الشركة حسب الدفاتر تسمى:", opts: ["القيمة السوقية", "القيمة الدفترية", "القيمة الاسمية", "القيمة الحقيقية"], ans: 1 },
+            { q: "القيمة التي يباع بها السهم في سوق الأوراق المالية تسمى:", opts: ["القيمة السوقية", "القيمة الاسمية", "القيمة الدفترية", "قيمة الإصدار"], ans: 0 },
+            { q: "الأسهم التي يكتب اسم صاحبها على شهادة السهم تسمى:", opts: ["أسهم لحاملها", "أسهم اسمية", "أسهم ممتازة", "أسهم منحة"], ans: 1 },
+            { q: "الأسهم التي تنتقل ملكيتها بمجرد تسليمها تسمى:", opts: ["أسهم اسمية", "أسهم ممتازة", "أسهم لحاملها", "أسهم عينية"], ans: 2 },
+            { q: "الأسهم التي تسدد قيمتها نقدًا تسمى:", opts: ["أسهم عينية", "أسهم نقدية", "أسهم ممتازة", "أسهم تمتع"], ans: 1 },
+            { q: "الأسهم التي تصدر مقابل أصول يقدمها المستثمر تسمى:", opts: ["أسهم نقدية", "أسهم ممتازة", "أسهم عينية", "أسهم منحة"], ans: 2 },
+            { q: "الأسهم التي تمنح أصحابها امتيازات إضافية تسمى:", opts: ["أسهم عادية", "أسهم ممتازة", "أسهم اسمية", "أسهم منحة"], ans: 1 },
+            { q: "الأسهم التي تمنح الحقوق العادية للمساهمين تسمى:", opts: ["أسهم ممتازة", "أسهم عادية", "أسهم تمتع", "أسهم منحة"], ans: 1 },
+            { q: "الأسهم التي تمنح مجانًا عند زيادة رأس المال تسمى:", opts: ["أسهم تمتع", "أسهم ممتازة", "أسهم منحة", "أسهم لحاملها"], ans: 2 },
+            { q: "القسط الأول الذي يدفع عند الاكتتاب يسمى:", opts: ["قسط التخصيص", "قسط الاكتتاب", "القسط الأخير", "قسط رأس المال"], ans: 1 },
+            { q: "الدفعة الثانية من أقساط الأسهم تسمى:", opts: ["قسط التخصيص", "قسط أول", "قسط أخير", "قسط اكتتاب"], ans: 0 },
+            { q: "الحد الأدنى الذي يجب دفعه عند الاكتتاب هو:", opts: ["نصف القيمة الاسمية", "ربع القيمة الاسمية", "ثلث القيمة الاسمية", "كامل القيمة"], ans: 1 },
+            { q: "رأس المال الذي يسمح للشركة بإصداره يسمى:", opts: ["رأس المال المصدر", "رأس المال المدفوع", "رأس المال المرخص به", "رأس المال المكتتب فيه"], ans: 2 },
+            { q: "رأس المال الناتج من مجموع القيم الاسمية للأسهم المصدرة يسمى:", opts: ["رأس المال المدفوع", "رأس المال المصدر", "رأس المال المرخص", "رأس المال الاحتياطي"], ans: 1 },
+            { q: "المبلغ الذي تم سداده فعلاً من قيمة الأسهم يسمى:", opts: ["رأس المال المصدر", "رأس المال المدفوع", "رأس المال المرخص", "رأس المال الاسمي"], ans: 1 },
+            // الأسهم الجديدة المضافة من الصور:
+            { q: "إذا كان رأس المال المصدر 2,000,000 جنيه والقيمة الاسمية للسهم 100 جنيه، فإن عدد الأسهم المصدرة:", opts: ["200,000 سهم", "20,000 سهم", "2,000 سهم"], ans: 1 },
+            { q: "القيد الأول عند اكتتاب المؤسسين في كامل قيمة الأسهم هو:", opts: ["من حـ/ البنك إلى حـ/ المؤسسين", "من حـ/ المؤسسين إلى حـ/ البنك", "من حـ/ رأس المال إلى حـ/ البنك"], ans: 0 },
+            { q: "عند 'طلب' قسط التخصيص، يكون الطرف المدين هو:", opts: ["حـ/ البنك", "حـ/ رأس مال الأسهم", "حـ/ قسط التخصيص"], ans: 2 },
+            { q: "في حالة زيادة الاكتتاب (رد الزيادة للمكتتبين)، يكون القيد هو:", opts: ["من حـ/ البنك إلى حـ/ المكتتبين", "من حـ/ المكتتبين إلى حـ/ البنك", "من حـ/ رأس المال إلى حـ/ البنك"], ans: 1 },
+            { q: "إذا اكتتب الجمهور في 120,000 سهم وكانت الأسهم المصدرة 100,000 سهم، فإن عدد أسهم الزيادة:", opts: ["100,000 سهم", "120,000 سهم", "20,000 سهم"], ans: 2 },
+            { q: "حساب 'قسط الاكتتاب' يظهر في الجانب الدائن عند:", opts: ["تحصيل القسط في البنك", "إصدار رأس المال", "طلب الأقساط التالية"], ans: 0 },
+            { q: "قسط أول وأخير قيمته 20 ج، لعدد 100,000 سهم، يكون مبلغ القيد:", opts: ["1,000,000 جنيه", "2,000,000 جنيه", "5,000,000 جنيه"], ans: 1 },
+            { q: "يظهر حساب 'رأس مال الأسهم العادية' دائماً في قيود الإصدار كطرف:", opts: ["مدين", "دائن", "مدين ودائن معاً"], ans: 1 },
+            { q: "الفرق بين 'رأس المال المرخص به' و 'رأس المال المصدر' هو أن المرخص به:", opts: ["هو ما تم تحصيله فعلياً", "أقل من المصدر دائماً", "هو الحد الأقصى المسموح به قانوناً"], ans: 2 },
+            { q: "عند 'تحصيل' أي قسط في البنك (تخصيص أو أول وأخير)، يكون حساب البنك:", opts: ["مديناً (لأنه أصل زاد)", "دائناً", "لا يتأثر"], ans: 0 }
+        ],
+        ch2: [
+            { q: "تمثل السندات بالنسبة للشركة المصدرة:", opts: ["حق ملكية", "قرض طويل الأجل", "أصل متداول", "احتياطي"], ans: 1 },
+            { q: "تستحق فوائد السندات عادة في مواعيد:", opts: ["سنوية أو نصف سنوية", "عند تصفية الشركة فقط", "حسب الأرباح المحققة", "مرة واحدة عند الاستحقاق"], ans: 0 }
+        ]
+    };
 
-const questions=[
+    function changeChapter() {
+        const chapter = document.getElementById('chapterSelect').value;
+        const container = document.getElementById('quizContainer');
+        const result = document.getElementById('finalResult');
+        container.innerHTML = "";
+        result.style.display = "none";
+        
+        allQuizzes[chapter].forEach((q, i) => {
+            let optsHtml = q.opts.map((opt, index) => `
+                <label class="opt-label">
+                    <input type="radio" name="q${i}" value="${index}">
+                    ${String.fromCharCode(65 + index)}) ${opt}
+                </label>
+            `).join('');
+            container.innerHTML += `
+                <div class="q-card" data-ans="${q.ans}">
+                    <div class="q-header"><span class="q-num">سؤال ${i+1}</span> ${q.q}</div>
+                    <div class="options-grid">${optsHtml}</div>
+                </div>`;
+        });
+    }
 
-{q:"يتكون رأس مال الشركة المساهمة من:",o:["سندات","حصص متساوية تسمى أسهم","قروض","ودائع"],a:1},
+    function gradeQuiz() {
+        let score = 0;
+        const chapter = document.getElementById('chapterSelect').value;
+        const cards = document.querySelectorAll('.q-card');
+        cards.forEach((card, i) => {
+            const correct = parseInt(card.getAttribute('data-ans'));
+            const selected = card.querySelector('input:checked');
+            const labels = card.querySelectorAll('.opt-label');
+            labels.forEach(l => l.className = 'opt-label');
+            if (selected) {
+                const userAns = parseInt(selected.value);
+                if (userAns === correct) { score++; labels[userAns].classList.add('correct'); }
+                else { labels[userAns].classList.add('wrong'); labels[correct].classList.add('correct'); }
+            } else { labels[correct].classList.add('correct'); }
+        });
+        const result = document.getElementById('finalResult');
+        const total = allQuizzes[chapter].length;
+        result.style.display = 'block';
+        result.innerHTML = `<h2>درجتك: ${score} من ${total}</h2><p>النسبة المئوية: ${Math.round((score/total)*100)}%</p>`;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-{q:"المصدران الأساسيان لتمويل الأصول:",o:["الإيرادات والمصروفات","الأصول والخصوم","حقوق الملكية والخصوم","الأرباح والخسائر"],a:2},
-
-{q:"المعادلة المحاسبية:",o:["الأصول = المصروفات + الإيرادات","الأصول = الخصوم + حقوق الملكية","الأصول = الإيرادات - المصروفات","الأصول = رأس المال"],a:1},
-
-{q:"السهم يمثل:",o:["دين على الشركة","حصة في رأس المال","قرض","أصل ثابت"],a:1},
-
-{q:"القيمة التي يحددها القانون للسهم:",o:["السوقية","الاسمية","العادلة","الدفترية"],a:1},
-
-{q:"من حقوق المساهم:",o:["الحصول على فائدة","المشاركة في الإدارة","سداد القروض","إدارة الحسابات"],a:1},
-
-{q:"يحق للمساهم:",o:["الاشتراك في الأرباح","تحديد الأسعار","تعيين العمال","إصدار السندات"],a:0},
-
-{q:"الأسهم ذات المزايا الخاصة:",o:["عادية","ممتازة","نقدية","اسمية"],a:1},
-
-{q:"الأسهم التي تسدد نقداً:",o:["نقدية","عينية","منحة","تمتع"],a:0},
-
-{q:"الأسهم مقابل أصول:",o:["نقدية","عينية","ممتازة","ذهبية"],a:1},
-
-{q:"الأسهم المجانية:",o:["ممتازة","منحة","عينية","ذهبية"],a:1},
-
-{q:"الشهادة مقابل اختراع:",o:["أسهم تمتع","حصص تأسيس","أسهم عادية","أسهم نقدية"],a:1},
-
-{q:"الأسهم البديلة للأسهم المستهلكة:",o:["تمتع","عادية","ذهبية","ممتازة"],a:0},
-
-{q:"القيمة الاسمية للسهم:",o:["أقل من جنيه","5 إلى 1000 جنيه","1000 إلى 5000","غير محددة"],a:1},
-
-{q:"عند التصفية يحصل المساهم على:",o:["أجر","جزء من الأصول","راتب","مكافأة"],a:1},
-
-{q:"الأسهم العادية تمنح:",o:["مزايا خاصة","الحقوق الأساسية","بدون حقوق","أرباح ثابتة"],a:1},
-
-{q:"الأسهم الممتازة تتميز:",o:["عدم أرباح","مزايا خاصة","عدم ملكية","عدم تداول"],a:1},
-
-{q:"المساهم يمتلك:",o:["جزء من الأصول","جزء من رأس المال","جزء من المصروفات","جزء من الديون"],a:1},
-
-{q:"الخصوم تمثل:",o:["حقوق الملاك","التزامات للغير","أرباح","إيرادات"],a:1},
-
-{q:"حقوق الملكية تمثل:",o:["أموال الملاك","القروض","المصروفات","الإيرادات"],a:0}
-
-];
-
-const container=document.getElementById("questions");
-
-questions.forEach((e,i)=>{
-
-let html=`<div class="card" id="q${i}">
-<div class="question"><b>س${i+1}:</b> ${e.q}</div>
-<div class="options">`;
-
-e.o.forEach((opt,index)=>{
-
-html+=`<label><input type="radio" name="q${i}" value="${index}" onclick="updateProgress()"> ${opt}</label>`;
-
-});
-
-html+=`</div></div>`;
-
-container.innerHTML+=html;
-
-});
-
-function updateProgress(){
-
-let answered=document.querySelectorAll("input:checked").length;
-let percent=(answered/questions.length)*100;
-document.getElementById("bar").style.width=percent+"%";
-
-}
-
-function check(){
-
-let score=0;
-
-questions.forEach((e,i)=>{
-
-let card=document.getElementById("q"+i);
-let selected=document.querySelector(`input[name=q${i}]:checked`);
-let labels=card.querySelectorAll("label");
-
-labels.forEach(l=>l.classList.remove("correct","wrong"));
-
-if(selected){
-
-if(parseInt(selected.value)==e.a){
-
-score++;
-labels[e.a].classList.add("correct");
-
-}else{
-
-labels[selected.value].classList.add("wrong");
-labels[e.a].classList.add("correct");
-
-}
-
-}else{
-
-labels[e.a].classList.add("correct");
-
-}
-
-});
-
-let res=document.getElementById("result");
-
-res.style.display="block";
-
-res.innerHTML=`النتيجة النهائية<div class="score">${score} / ${questions.length}</div>`;
-
-window.scrollTo({top:0,behavior:"smooth"});
-
-}
-
+    window.onload = changeChapter;
 </script>
-
 </body>
 </html>
