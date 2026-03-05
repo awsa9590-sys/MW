@@ -1,331 +1,271 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Quiz Pro | منصة الاختبارات الذكية</title>
-    <style>
-        :root {
-            --bg-body: #0f172a;
-            --bg-card: #1e293b;
-            --primary: #38bdf8;
-            --secondary: #818cf8;
-            --success: #10b981;
-            --danger: #ef4444;
-            --text-gold: #fbbf24;
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
-        }
+<meta charset="UTF-8">
+<title>اختبار الفصل الأول - المحاسبة</title>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
 
-        .container {
-            width: 100%;
-            max-width: 900px;
-            margin-top: 40px;
-        }
+<style>
 
-        /* رأس الصفحة */
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Cairo',sans-serif;
+}
 
-        header h1 {
-            font-size: 2.5rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-        }
+body{
+background:linear-gradient(135deg,#0f172a,#1e293b);
+color:white;
+padding:30px;
+}
 
-        /* قسم اختيار المادة */
-        .selection-box {
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid #334155;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            margin-bottom: 40px;
-            text-align: center;
-        }
+.container{
+max-width:900px;
+margin:auto;
+}
 
-        select {
-            background: #0f172a;
-            color: var(--text-main);
-            border: 2px solid var(--primary);
-            padding: 12px 25px;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            width: 100%;
-            max-width: 400px;
-            cursor: pointer;
-            outline: none;
-        }
+header{
+text-align:center;
+margin-bottom:30px;
+}
 
-        /* تصميم كرت السؤال */
-        .q-card {
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: 24px;
-            margin-bottom: 25px;
-            border: 1px solid #334155;
-            transition: 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
+header h1{
+font-size:32px;
+margin-bottom:10px;
+}
 
-        .q-card::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0; width: 5px; height: 100%;
-            background: var(--primary);
-        }
+header p{
+color:#94a3b8;
+}
 
-        .q-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
+.progress{
+width:100%;
+height:10px;
+background:#334155;
+border-radius:10px;
+margin-bottom:30px;
+overflow:hidden;
+}
 
-        .q-num {
-            background: var(--primary);
-            color: #000;
-            font-weight: bold;
-            padding: 5px 15px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-        }
+.progress-bar{
+height:100%;
+width:0%;
+background:#38bdf8;
+transition:0.3s;
+}
 
-        .q-text {
-            font-size: 1.25rem;
-            font-weight: 500;
-            line-height: 1.6;
-        }
+.card{
+background:#1e293b;
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+box-shadow:0 10px 20px rgba(0,0,0,0.3);
+}
 
-        /* خيارات الإجابة */
-        .options-grid {
-            display: grid;
-            gap: 12px;
-        }
+.question{
+font-size:18px;
+margin-bottom:10px;
+}
 
-        .opt-label {
-            background: #334155;
-            padding: 18px;
-            border-radius: 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            transition: 0.2s;
-            border: 2px solid transparent;
-        }
+.options label{
+display:block;
+background:#334155;
+padding:10px;
+border-radius:8px;
+margin-top:8px;
+cursor:pointer;
+transition:0.2s;
+}
 
-        .opt-label:hover {
-            background: #475569;
-            transform: scale(1.01);
-        }
+.options label:hover{
+background:#475569;
+}
 
-        input[type="radio"] {
-            margin-left: 15px;
-            width: 20px;
-            height: 20px;
-            accent-color: var(--primary);
-        }
+.correct{
+background:#16a34a !important;
+}
 
-        /* حالات النتيجة */
-        .opt-label.correct {
-            border-color: var(--success);
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-        }
+.wrong{
+background:#dc2626 !important;
+}
 
-        .opt-label.wrong {
-            border-color: var(--danger);
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
-        }
+button{
+width:100%;
+padding:15px;
+font-size:18px;
+border:none;
+border-radius:10px;
+background:#0ea5e9;
+color:white;
+cursor:pointer;
+margin-top:20px;
+transition:0.2s;
+}
 
-        .hint {
-            margin-top: 15px;
-            padding: 10px;
-            background: rgba(251, 191, 36, 0.1);
-            border-right: 4px solid var(--text-gold);
-            color: var(--text-gold);
-            font-size: 0.9rem;
-            display: none;
-        }
+button:hover{
+background:#0284c7;
+}
 
-        /* أزرار */
-        .btn-submit {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 20px 40px;
-            border-radius: 15px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            box-shadow: 0 5px 15px rgba(56, 189, 248, 0.3);
-            transition: 0.3s;
-            margin-top: 20px;
-        }
+#result{
+text-align:center;
+font-size:28px;
+margin-bottom:20px;
+display:none;
+}
 
-        .btn-submit:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.5);
-        }
+.score{
+font-size:40px;
+color:#38bdf8;
+margin-top:10px;
+}
 
-        /* لوحة النتيجة النهائية */
-        #finalResult {
-            text-align: center;
-            padding: 40px;
-            border-radius: 30px;
-            margin-bottom: 30px;
-            display: none;
-            border: 2px solid var(--primary);
-        }
-
-        #finalResult h2 { font-size: 3rem; margin: 0; }
-    </style>
+</style>
 </head>
+
 <body>
 
 <div class="container">
-    <header>
-        <h1>Smart Quiz Pro</h1>
-        <p style="color: var(--text-muted)">نظام الاختبارات الإلكترونية المتكامل</p>
-    </header>
 
-    <div class="selection-box">
-        <h3 style="margin-top: 0">اختر مادة الاختبار</h3>
-        <select id="quizLoader" onchange="initQuiz()">
-            </select>
-    </div>
+<header>
+<h1>اختبار الفصل الأول</h1>
+<p>المحاسبة عن رأس المال المملوك</p>
+</header>
 
-    <div id="finalResult"></div>
+<div class="progress">
+<div class="progress-bar" id="bar"></div>
+</div>
 
-    <form id="quizForm">
-        <div id="quizContainer"></div>
-        <button type="button" id="submitBtn" class="btn-submit" onclick="gradeQuiz()" style="display: none;">إنهاء الاختبار وعرض النتيجة</button>
-    </form>
+<div id="result"></div>
+
+<form id="quiz">
+<div id="questions"></div>
+
+<button type="button" onclick="check()">عرض النتيجة</button>
+
+</form>
+
 </div>
 
 <script>
-    // قاعدة بيانات الامتحانات
-    const quizData = {
-        mgmt: {
-            name: "مبادئ الإدارة",
-            questions: [
-                { q: "تُعرّف الإدارة بأنها عملية تحقيق الأهداف المرسومة باستغلال الموارد المتاحة وفق منهج محدد وضمن:", opts: {A: "موارد مالية ضخمة", B: "بيئة معينة", C: "رقابة صارمة"}, ans: "B" },
-                { q: "القدرة على أداء الأعمال بطريقة صحيحة تُسمى:", opts: {A: "الفاعلية", B: "الكفاءة", C: "الإنتاجية"}, ans: "B" },
-                { q: "الرقابة هي الوظيفة الأولى في العملية الإدارية.", opts: {صح: "صح", خطأ: "خطأ"}, ans: "خطأ", note: "التخطيط هو الوظيفة الأولى." }
-            ]
-        },
-        hr: {
-            name: "الموارد البشرية",
-            questions: [
-                { q: "البحث عن الكفاءات لسد الوظائف الشاغرة يسمى:", opts: {A: "التعيين", B: "الاستقطاب", C: "الاختبار"}, ans: "B" },
-                { q: "إدارة الموارد البشرية تهتم فقط بالموظفين الحاليين.", opts: {صح: "صح", خطأ: "خطأ"}, ans: "خطأ" }
-            ]
-        }
-    };
 
-    // تعبئة القائمة
-    const loader = document.getElementById('quizLoader');
-    loader.innerHTML = '<option value="">-- اختر المادة --</option>';
-    for (let key in quizData) {
-        loader.innerHTML += `<option value="${key}">${quizData[key].name}</option>`;
-    }
+const questions=[
 
-    function initQuiz() {
-        const key = loader.value;
-        const container = document.getElementById('quizContainer');
-        const btn = document.getElementById('submitBtn');
-        const res = document.getElementById('finalResult');
-        
-        container.innerHTML = "";
-        res.style.display = "none";
-        
-        if (!key) { btn.style.display = "none"; return; }
-        btn.style.display = "block";
+{q:"يتكون رأس مال الشركة المساهمة من:",o:["سندات","حصص متساوية تسمى أسهم","قروض","ودائع"],a:1},
 
-        quizData[key].questions.forEach((item, i) => {
-            let optsHtml = "";
-            for (let k in item.opts) {
-                optsHtml += `
-                    <label class="opt-label">
-                        <input type="radio" name="q${i}" value="${k}">
-                        ${k === 'صح' || k === 'خطأ' ? '' : k + ') '} ${item.opts[k]}
-                    </label>
-                `;
-            }
+{q:"المصدران الأساسيان لتمويل الأصول:",o:["الإيرادات والمصروفات","الأصول والخصوم","حقوق الملكية والخصوم","الأرباح والخسائر"],a:2},
 
-            container.innerHTML += `
-                <div class="q-card" data-ans="${item.ans}">
-                    <div class="q-header">
-                        <span class="q-num">سؤال ${i+1}</span>
-                        <span class="q-text">${item.q}</span>
-                    </div>
-                    <div class="options-grid">${optsHtml}</div>
-                    ${item.note ? `<div class="hint">💡 توضيح: ${item.note}</div>` : ''}
-                </div>
-            `;
-        });
-    }
+{q:"المعادلة المحاسبية:",o:["الأصول = المصروفات + الإيرادات","الأصول = الخصوم + حقوق الملكية","الأصول = الإيرادات - المصروفات","الأصول = رأس المال"],a:1},
 
-    function gradeQuiz() {
-        let score = 0;
-        const cards = document.querySelectorAll('.q-card');
-        
-        cards.forEach(card => {
-            const correct = card.getAttribute('data-ans');
-            const selected = card.querySelector('input:checked');
-            const hint = card.querySelector('.hint');
-            
-            card.querySelectorAll('.opt-label').forEach(l => l.className = 'opt-label');
+{q:"السهم يمثل:",o:["دين على الشركة","حصة في رأس المال","قرض","أصل ثابت"],a:1},
 
-            if (selected) {
-                if (selected.value === correct) {
-                    score++;
-                    selected.parentElement.classList.add('correct');
-                } else {
-                    selected.parentElement.classList.add('wrong');
-                    highlight(card, correct);
-                    if(hint) hint.style.display = 'block';
-                }
-            } else {
-                highlight(card, correct);
-                if(hint) hint.style.display = 'block';
-            }
-        });
+{q:"القيمة التي يحددها القانون للسهم:",o:["السوقية","الاسمية","العادلة","الدفترية"],a:1},
 
-        const final = document.getElementById('finalResult');
-        const total = cards.length;
-        const ratio = (score/total);
-        
-        final.style.display = "block";
-        final.innerHTML = `<h2>${score} / ${total}</h2><p>${ratio >= 0.5 ? 'أحسنت! لقد اجتزت الاختبار' : 'نأسف، حاول مرة أخرى'}</p>`;
-        final.style.borderColor = ratio >= 0.5 ? 'var(--success)' : 'var(--danger)';
-        final.style.color = ratio >= 0.5 ? 'var(--success)' : 'var(--danger)';
+{q:"من حقوق المساهم:",o:["الحصول على فائدة","المشاركة في الإدارة","سداد القروض","إدارة الحسابات"],a:1},
 
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+{q:"يحق للمساهم:",o:["الاشتراك في الأرباح","تحديد الأسعار","تعيين العمال","إصدار السندات"],a:0},
 
-    function highlight(card, val) {
-        card.querySelectorAll('input').forEach(input => {
-            if (input.value === val) input.parentElement.classList.add('correct');
-        });
-    }
+{q:"الأسهم ذات المزايا الخاصة:",o:["عادية","ممتازة","نقدية","اسمية"],a:1},
+
+{q:"الأسهم التي تسدد نقداً:",o:["نقدية","عينية","منحة","تمتع"],a:0},
+
+{q:"الأسهم مقابل أصول:",o:["نقدية","عينية","ممتازة","ذهبية"],a:1},
+
+{q:"الأسهم المجانية:",o:["ممتازة","منحة","عينية","ذهبية"],a:1},
+
+{q:"الشهادة مقابل اختراع:",o:["أسهم تمتع","حصص تأسيس","أسهم عادية","أسهم نقدية"],a:1},
+
+{q:"الأسهم البديلة للأسهم المستهلكة:",o:["تمتع","عادية","ذهبية","ممتازة"],a:0},
+
+{q:"القيمة الاسمية للسهم:",o:["أقل من جنيه","5 إلى 1000 جنيه","1000 إلى 5000","غير محددة"],a:1},
+
+{q:"عند التصفية يحصل المساهم على:",o:["أجر","جزء من الأصول","راتب","مكافأة"],a:1},
+
+{q:"الأسهم العادية تمنح:",o:["مزايا خاصة","الحقوق الأساسية","بدون حقوق","أرباح ثابتة"],a:1},
+
+{q:"الأسهم الممتازة تتميز:",o:["عدم أرباح","مزايا خاصة","عدم ملكية","عدم تداول"],a:1},
+
+{q:"المساهم يمتلك:",o:["جزء من الأصول","جزء من رأس المال","جزء من المصروفات","جزء من الديون"],a:1},
+
+{q:"الخصوم تمثل:",o:["حقوق الملاك","التزامات للغير","أرباح","إيرادات"],a:1},
+
+{q:"حقوق الملكية تمثل:",o:["أموال الملاك","القروض","المصروفات","الإيرادات"],a:0}
+
+];
+
+const container=document.getElementById("questions");
+
+questions.forEach((e,i)=>{
+
+let html=`<div class="card" id="q${i}">
+<div class="question"><b>س${i+1}:</b> ${e.q}</div>
+<div class="options">`;
+
+e.o.forEach((opt,index)=>{
+
+html+=`<label><input type="radio" name="q${i}" value="${index}" onclick="updateProgress()"> ${opt}</label>`;
+
+});
+
+html+=`</div></div>`;
+
+container.innerHTML+=html;
+
+});
+
+function updateProgress(){
+
+let answered=document.querySelectorAll("input:checked").length;
+let percent=(answered/questions.length)*100;
+document.getElementById("bar").style.width=percent+"%";
+
+}
+
+function check(){
+
+let score=0;
+
+questions.forEach((e,i)=>{
+
+let card=document.getElementById("q"+i);
+let selected=document.querySelector(`input[name=q${i}]:checked`);
+let labels=card.querySelectorAll("label");
+
+labels.forEach(l=>l.classList.remove("correct","wrong"));
+
+if(selected){
+
+if(parseInt(selected.value)==e.a){
+
+score++;
+labels[e.a].classList.add("correct");
+
+}else{
+
+labels[selected.value].classList.add("wrong");
+labels[e.a].classList.add("correct");
+
+}
+
+}else{
+
+labels[e.a].classList.add("correct");
+
+}
+
+});
+
+let res=document.getElementById("result");
+
+res.style.display="block";
+
+res.innerHTML=`النتيجة النهائية<div class="score">${score} / ${questions.length}</div>`;
+
+window.scrollTo({top:0,behavior:"smooth"});
+
+}
+
 </script>
 
 </body>
