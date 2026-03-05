@@ -2,41 +2,16 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>مستعرض الفصول التعليمية - المحاسبة المتوسطة</title>
+    <title>مستعرض المحاسبة المتوسطة (2)</title>
     <style>
         body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #2c3e50; }
-        
-        /* تصميم الهيدر */
-        header { 
-            background: #1a252f; color: white; padding: 10px 20px; 
-            text-align: center; height: 40px; line-height: 40px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        /* حاوية المحتوى الرئيسي */
+        header { background: #1a252f; color: white; padding: 10px 20px; text-align: center; height: 40px; line-height: 40px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         .main-container { display: flex; height: calc(100vh - 60px); }
-
-        /* القائمة الجانبية */
-        nav { 
-            width: 300px; background: #34495e; padding: 20px; 
-            display: flex; flex-direction: column; gap: 10px;
-            border-left: 1px solid #2c3e50;
-            overflow-y: auto;
-        }
-
-        .category-title { color: #bdc3c7; font-size: 12px; margin-top: 15px; border-bottom: 1px solid #455a64; padding-bottom: 5px; }
-
-        nav button {
-            background: #1abc9c; color: white; border: none; padding: 12px;
-            cursor: pointer; text-align: right; border-radius: 5px;
-            font-size: 14px; transition: background 0.3s;
-            display: block; width: 100%;
-        }
-
-        nav button:hover { background: #16a085; }
-        nav button.active { background: #e67e22; }
-
-        /* منطقة العرض */
+        nav { width: 320px; background: #34495e; padding: 20px; display: flex; flex-direction: column; gap: 10px; border-left: 2px solid #2c3e50; overflow-y: auto; }
+        .section-label { color: #1abc9c; font-weight: bold; margin-top: 10px; font-size: 0.9em; border-bottom: 1px solid #1abc9c; padding-bottom: 5px; }
+        nav button { background: #455a64; color: white; border: none; padding: 12px; cursor: pointer; text-align: right; border-radius: 5px; font-size: 14px; transition: 0.3s; }
+        nav button:hover { background: #1abc9c; }
+        nav button.active { background: #e67e22; font-weight: bold; }
         .viewer { flex-grow: 1; background: #ecf0f1; }
         iframe { width: 100%; height: 100%; border: none; }
     </style>
@@ -44,19 +19,17 @@
 <body>
 
 <header>
-    📑 المكتبة الرقمية: عرض المحاسبة المتوسطة والكتب الإدارية
+    🎓 منصة التعلم الذاتي: المحاسبة المتوسطة (2) - Walid & Spider
 </header>
 
 <div class="main-container">
     <nav>
-         </button>
-
-        <div class="category-title">المحاسبة المتوسطة (2)</div>
+        <div class="section-label">المحاسبة المتوسطة (2)</div>
         <button onclick="changeFile('محاسبة متوسطة (2) اساسيات + الفصل الاول عملى.pdf', this)" class="active">
-            📝 أساسيات المحاسبة + الفصل الأول (عملي) [cite: 3, 73]
+            📖 الأساسيات + الفصل الأول (عملي) [cite: 3, 75]
         </button>
-        <button onclick="changeFile('المحاسبة المتوسطة 2 spider & نطرىwalid.pdf', this)">
-            📖 محاسبة متوسطة (2) - نظري وتمارين [cite: 132, 133]
+        <button onclick="changeFile('المحاسبة المتوسطة 2 spider &  نطرىwalid.pdf', this)">
+            📝 شرح القيود والتمارين (نظري + عملي) [cite: 132, 144]
         </button>
     </nav>
 
@@ -67,10 +40,7 @@
 
 <script>
     function changeFile(fileName, btn) {
-        // تغيير ملف الـ PDF بناءً على الملفات المرفوعة
         document.getElementById('pdf-viewer').src = fileName;
-        
-        // تحديث حالة الأزرار
         const buttons = document.querySelectorAll('nav button');
         buttons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
