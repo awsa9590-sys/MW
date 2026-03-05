@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>مستعرض الفصول التعليمية المحدث</title>
+    <title>مستعرض الفصول التعليمية - المحاسبة المتوسطة</title>
     <style>
         body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #2c3e50; }
         
@@ -18,15 +18,19 @@
 
         /* القائمة الجانبية */
         nav { 
-            width: 250px; background: #34495e; padding: 20px; 
+            width: 300px; background: #34495e; padding: 20px; 
             display: flex; flex-direction: column; gap: 10px;
             border-left: 1px solid #2c3e50;
+            overflow-y: auto;
         }
+
+        .category-title { color: #bdc3c7; font-size: 12px; margin-top: 15px; border-bottom: 1px solid #455a64; padding-bottom: 5px; }
 
         nav button {
             background: #1abc9c; color: white; border: none; padding: 12px;
             cursor: pointer; text-align: right; border-radius: 5px;
             font-size: 14px; transition: background 0.3s;
+            display: block; width: 100%;
         }
 
         nav button:hover { background: #16a085; }
@@ -40,21 +44,24 @@
 <body>
 
 <header>
-    📑 المكتبة الرقمية: عرض الفصول الدراسية المحدثة
+    📑 المكتبة الرقمية: عرض المحاسبة المتوسطة والكتب الإدارية
 </header>
 
 <div class="main-container">
     <nav>
-        <button onclick="changeFile('قالب كتاب حول ريادة الأعمال.pdf', this)" class="active">
-            📙 ريادة الأعمال: رحلة الإنشاء والابتكار [cite: 29]
+         </button>
+
+        <div class="category-title">المحاسبة المتوسطة (2)</div>
+        <button onclick="changeFile('محاسبة متوسطة (2) اساسيات + الفصل الاول عملى.pdf', this)" class="active">
+            📝 أساسيات المحاسبة + الفصل الأول (عملي) [cite: 3, 73]
         </button>
-        <button onclick="changeFile('كتاب عن إدارة الموارد البشرية.pdf', this)">
-            📘 فن الإدارة واستغلال الموارد [cite: 1]
+        <button onclick="changeFile('المحاسبة المتوسطة 2 spider & نطرىwalid.pdf', this)">
+            📖 محاسبة متوسطة (2) - نظري وتمارين [cite: 132, 133]
         </button>
     </nav>
 
     <div class="viewer">
-        <iframe id="pdf-viewer" src="قالب كتاب حول ريادة الأعمال.pdf"></iframe>
+        <iframe id="pdf-viewer" src="محاسبة متوسطة (2) اساسيات + الفصل الاول عملى.pdf"></iframe>
     </div>
 </div>
 
