@@ -142,7 +142,14 @@
 </head>
 <body>
 
-<div class="container">
+<div id="accessDenied" style="display:none; max-width:700px; margin:80px auto; text-align:center; background:#1e293b; padding:35px; border-radius:20px; border:1px solid #334155;">
+        <div style="font-size:55px;">🔒</div>
+        <h2>يجب تسجيل الدخول أولاً</h2>
+        <p style="color:#94a3b8">سيتم عرض بنك الأسئلة الخاص بفرقتك فقط.</p>
+        <button class="btn-submit" style="max-width:350px" onclick="location.href='login.html'">تسجيل الدخول</button>
+    </div>
+
+<div id="appContent" class="container" style="display:none;">
     <header>
         <h1>منصة الاختبارات الذكية</h1>
         <p style="color: var(--text-muted)">المحاسبة المتوسطة (2)</p>
@@ -150,13 +157,8 @@
 
     <div class="selector-box">
         <label style="display: block; margin-bottom: 10px;">اختر الفصل الدراسي:</label>
-        <select id="chapterSelect" onchange="changeChapter()">
-            <option value="ch1"> المحاسبة متوسطة 2 </option>
-            <option value="ch2"> محاسبة فى الوحدات الحكومية </option>
-            <option value="ch3"> ريادة الاعمال </option>
-            <option value="ch4"> ادارة الموارد البشرية </option>
-             <option value="ch5">  نطم المعلومات الادارية  </option>
-        </select>
+        <select id="chapterSelect" onchange="changeChapter()"></select>
+        <div id="levelInfo" style="margin-top:12px;color:var(--text-muted);font-size:.95rem"></div>
     </div>
 <div id="imgContainer" style="display: none; text-align: center; margin: 20px 0;">
     <p id="imgLabel" style="margin-bottom: 15px; font-size: 1.1rem; color: #38bdf8; font-weight: bold;">
@@ -174,6 +176,8 @@
         <button type="button" class="btn-submit" onclick="gradeQuiz()">عرض النتيجة النهائية</button>
     </form>
 </div>
+
+</div><!-- /appContent -->
 
 <script>
     const allQuizzes = {
@@ -438,7 +442,91 @@ function changeChapter() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    window.onload = changeChapter;
+    function getLoggedUser() {
+        const raw = localStorage.getItem("mw_user");
+        if (!raw) return null;
+        try {
+            const user = JSON.parse(raw);
+            if (!user || user.success !== true) return null;
+            return user;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function getLevel(user) {
+        return String(user.level ?? user.Level ?? user.year ?? user.grade ?? "").trim();
+    }
+
+    function setupByLevel() {
+        const user = getLoggedUser();
+
+        if (!user) {
+            document.getElementById("appContent").style.display = "none";
+            document.getElementById("accessDenied").style.display = "block";
+            return;
+        }
+
+        const level = getLevel(user);
+        const levelNames = {
+            "1":"الفرقة الأولى",
+            "2":"الفرقة الثانية",
+            "3":"الفرقة الثالثة",
+            "4":"الفرقة الرابعة"
+        };
+
+        if (!levelNames[level]) {
+            document.getElementById("appContent").style.display = "none";
+            document.getElementById("accessDenied").style.display = "block";
+            document.querySelector("#accessDenied h2").textContent = "بيانات الفرقة غير صحيحة";
+            document.querySelector("#accessDenied p").textContent =
+                "لا توجد فرقة دراسية صحيحة مرتبطة بهذا الحساب.";
+            return;
+        }
+
+        document.getElementById("appContent").style.display = "block";
+
+        const select = document.getElementById("chapterSelect");
+        const chapters = quizzesByLevel[level] || [];
+
+        select.innerHTML = "";
+
+        if (!chapters.length) {
+            const opt = document.createElement("option");
+            opt.textContent = "لا توجد أسئلة مضافة لهذه الفرقة بعد";
+            opt.disabled = true;
+            opt.selected = true;
+            select.appendChild(opt);
+
+            document.getElementById("levelInfo").textContent =
+                "👤 " + (user.name || user.username || "الطالب") +
+                " — " + levelNames[level];
+
+            document.getElementById("quizContainer").innerHTML =
+                '<div class="q-card" style="text-align:center"><h2>📚 بنك الأسئلة</h2><p style="color:var(--text-muted)">سيتم إضافة أسئلة هذه الفرقة هنا.</p></div>';
+
+            document.querySelector(".btn-submit").style.display = "none";
+            document.getElementById("imgContainer").style.display = "none";
+            return;
+        }
+
+        chapters.forEach((key, index) => {
+            const opt = document.createElement("option");
+            opt.value = key;
+            opt.textContent = chapterNames[key] || key;
+            if (index === 0) opt.selected = true;
+            select.appendChild(opt);
+        });
+
+        document.getElementById("levelInfo").textContent =
+            "👤 " + (user.name || user.username || "الطالب") +
+            " — " + levelNames[level];
+
+        document.querySelector(".btn-submit").style.display = "block";
+        changeChapter();
+    }
+
+    window.onload = setupByLevel;
 </script>
 </body>
 </html>
