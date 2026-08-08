@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إنشاء حساب | WALID & SPIDER</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+font-family:"Segoe UI",Tahoma,sans-serif;background:linear-gradient(135deg,#0f172a,#0056b3);padding:20px}
+.box{width:100%;max-width:460px;background:#fff;border-radius:24px;padding:32px;box-shadow:0 20px 50px #0005;text-align:center}
+.logo{width:90px;height:90px;border-radius:50%;object-fit:cover}
+h1{margin:12px 0 5px;color:#0f172a}.sub{color:#777;margin-bottom:22px}
+.input,.select{width:100%;padding:14px;margin:7px 0;border:1px solid #ddd;border-radius:10px;font-size:16px}
+.btn{width:100%;padding:14px;margin-top:12px;border:0;border-radius:10px;background:#0056b3;color:#fff;font-size:17px;font-weight:bold;cursor:pointer}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.login{display:block;margin-top:18px;color:#0056b3;text-decoration:none}
+#message{min-height:24px;margin-top:14px;font-weight:bold}
+</style>
+</head>
+<body>
+<div class="box">
+<img src="1000119623.jpg" class="logo" alt="WALID & SPIDER">
+<h1>إنشاء حساب</h1>
+<div class="sub">سجل حسابك للدخول إلى المنصة</div>
+
+<input id="name" class="input" placeholder="الاسم بالكامل">
+<input id="username" class="input" placeholder="اسم المستخدم" autocomplete="username">
+<input id="password" class="input" type="password" placeholder="كلمة المرور" autocomplete="new-password">
+<input id="confirm" class="input" type="password" placeholder="تأكيد كلمة المرور" autocomplete="new-password">
+
+<select id="level" class="select">
+<option value="">اختر الفرقة الدراسية</option>
+<option value="1">الفرقة الأولى</option>
+<option value="2">الفرقة الثانية</option>
+<option value="3">الفرقة الثالثة</option>
+<option value="4">الفرقة الرابعة</option>
+</select>
+
+<button id="registerBtn" class="btn" onclick="registerUser()">إنشاء الحساب</button>
+<div id="message"></div>
+<a class="login" href="login.html">لديك حساب؟ تسجيل الدخول</a>
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbzXKggpXFg5HmrTfWHP0bPW4gDQfS6pQwyideQ81ESNQraDZ5LrYsyVYfXuT4mxRx0/exec";
+
+function registerUser(){
+    const name=document.getElementById("name").value.trim();
+    const username=document.getElementById("username").value.trim();
+    const password=document.getElementById("password").value;
+    const confirm=document.getElementById("confirm").value;
+    const level=document.getElementById("level").value;
+    const msg=document.getElementById("message");
+    const btn=document.getElementById("registerBtn");
+
+    if(!name || !username || !password || !confirm || !level){
+        msg.style.color="red"; msg.textContent="من فضلك أكمل جميع البيانات."; return;
+    }
+    if(username.length < 3){
+        msg.style.color="red"; msg.textContent="اسم المستخدم يجب أن يكون 3 أحرف على الأقل."; return;
+    }
+    if(password.length < 6){
+        msg.style.color="red"; msg.textContent="كلمة المرور يجب أن تكون 6 أحرف على الأقل."; return;
+    }
+    if(password !== confirm){
+        msg.style.color="red"; msg.textContent="كلمتا المرور غير متطابقتين."; return;
+    }
+
+    btn.disabled=true;
+    msg.style.color="#555"; msg.textContent="جاري إنشاء الحساب...";
+
+    const callback="registerCallback_"+Date.now();
+
+    window[callback]=function(result){
+        btn.disabled=false;
+        if(result.success){
+            msg.style.color="green";
+            msg.textContent="تم إنشاء الحساب بنجاح ✓";
+            localStorage.setItem("mw_user", JSON.stringify(result));
+            setTimeout(()=>location.href="dashboard.html",700);
+        }else{
+            msg.style.color="red";
+            msg.textContent=result.message || "تعذر إنشاء الحساب.";
+        }
+        delete window[callback];
+    };
+
+    const script=document.createElement("script");
+    script.src=API_URL
+        +"?action=register"
+        +"&name="+encodeURIComponent(name)
+        +"&username="+encodeURIComponent(username)
+        +"&password="+encodeURIComponent(password)
+        +"&level="+encodeURIComponent(level)
+        +"&callback="+callback;
+    document.body.appendChild(script);
+}
+</script>
+</body>
+</html>
