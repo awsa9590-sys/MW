@@ -174,13 +174,31 @@ id="username"
 class="input"
 type="text"
 placeholder="اسم المستخدم">
+<div style="position:relative;">
+    <input
+        type="password"
+        id="password"
+        placeholder="كلمة المرور"
+        autocomplete="current-password"
+        style="width:100%; padding:14px 50px 14px 14px;">
 
-<input
-id="password"
-class="input"
-type="password"
-placeholder="كلمة المرور">
-
+    <button
+        type="button"
+        onclick="togglePassword()"
+        id="showPasswordBtn"
+        style="
+            position:absolute;
+            right:10px;
+            top:50%;
+            transform:translateY(-50%);
+            border:0;
+            background:transparent;
+            cursor:pointer;
+            font-size:20px;
+        "
+        title="إظهار كلمة المرور"
+    >👁️</button>
+</div>
 <button
 class="login-btn"
 onclick="login()">
