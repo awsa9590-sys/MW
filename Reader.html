@@ -1,176 +1,261 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>مستعرض المحاسبة المتوسطة (2)</title>
-    <style>
-        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #2c3e50; }
-        header { background: #1a252f; color: white; padding: 10px 20px; text-align: center; height: 40px; line-height: 40px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .main-container { display: flex; height: calc(100vh - 60px); }
-        nav { width: 320px; background: #34495e; padding: 20px; display: flex; flex-direction: column; gap: 10px; border-left: 2px solid #2c3e50; overflow-y: auto; }
-        .section-label { color: #1abc9c; font-weight: bold; margin-top: 10px; font-size: 0.9em; border-bottom: 1px solid #1abc9c; padding-bottom: 5px; }
-        nav button { background: #455a64; color: white; border: none; padding: 12px; cursor: pointer; text-align: right; border-radius: 5px; font-size: 14px; transition: 0.3s; }
-        nav button:hover { background: #1abc9c; }
-        nav button.active { background: #e67e22; font-weight: bold; }
-        .viewer { flex-grow: 1; background: #ecf0f1; }
-        iframe { width: 100%; height: 100%; border: none; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Walid & Spider - الكتب حسب الفرقة</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;font-family:"Segoe UI",Tahoma,sans-serif;background:#2c3e50}
+header{height:60px;background:#1a252f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:bold}
+.main-container{display:flex;height:calc(100vh - 60px)}
+nav{width:330px;background:#34495e;padding:18px;display:flex;flex-direction:column;gap:9px;overflow-y:auto}
+.section-label{color:#1abc9c;font-weight:bold;margin-top:8px;border-bottom:1px solid #1abc9c;padding-bottom:6px}
+nav button{background:#455a64;color:#fff;border:0;padding:12px;cursor:pointer;text-align:right;border-radius:7px;font-size:14px}
+nav button:hover{background:#1abc9c}
+nav button.active{background:#e67e22;font-weight:bold}
+.viewer{flex:1;background:#ecf0f1}
+iframe{width:100%;height:100%;border:0}
+#loading,#denied,#empty{display:none;height:100%;align-items:center;justify-content:center;text-align:center;color:#fff;padding:30px}
+.message{max-width:600px;background:#34495e;padding:35px;border-radius:18px;box-shadow:0 10px 30px #0004}
+.message h2{margin-top:0}
+.logout{margin-top:auto;background:#c0392b!important}
+.badge{font-size:13px;color:#dff9f4;margin-bottom:4px;text-align:center}
+</style>
 </head>
+
 <body>
-    <header>
-        🎓 Walid & Spider — كتب الفرقة الثالثة
-    </header>
 
-    <div id="access-denied" style="
-        display:none;
-        min-height:calc(100vh - 60px);
-        align-items:center;
-        justify-content:center;
-        text-align:center;
-        color:white;
-        background:#2c3e50;
-        padding:30px;
-        box-sizing:border-box;">
-        <div>
-            <div style="font-size:60px;">🔒</div>
-            <h2>هذا القسم خاص بالفرقة الثالثة</h2>
-            <p id="access-message">لا يمكنك الوصول إلى كتب هذه الفرقة.</p>
-            <button onclick="location.href='index.html'" style="
-                border:0; padding:12px 25px; border-radius:8px;
-                background:#1abc9c; color:white; cursor:pointer;">
-                العودة للرئيسية
-            </button>
-        </div>
-    </div>
+<header>🎓 WALID & SPIDER — مكتبة الطالب</header>
 
-    <div id="reader-content" class="main-container">
-        <nav>
-            <div class="section-label">المحاسبة المتوسطة (2)</div>
-            <button onclick="changeFile('محاسبة متوسطة (2) اساسيات + الفصل الاول عملى.pdf', this)" class="active">
-                📖 الأساسيات + الفصل الأول (عملي)
-            </button>
-            <button onclick="changeFile('المحاسبة المتوسطة 2 spider &  نطرىwalid.pdf', this)">
-                📝 شرح القيود والتمارين (نظري + عملي)
-            </button>
+<div id="loading" style="display:flex">
+  <div class="message">
+    <h2>جاري التحقق...</h2>
+    <p>يتم تحديد الفرقة الدراسية الخاصة بحسابك.</p>
+  </div>
+</div>
 
-            <div class="section-label">المحاسبة الحكومية</div>
-            <button onclick="changeFile('محاسبة حكومية جزء اول spider & walid.pdf', this)">
-                🏛️ محاسبة حكومية
-            </button>
-            <button onclick="changeFile('الفصل الاول محاسبة حكومية.pdf', this)">
-                🏛️ الفصل الأول محاسبة حكومية
-            </button>
-            <button onclick="changeFile('الفصل الثانى محاسبة حكومية.pdf', this)">
-                🏛️ الفصل الثاني محاسبة حكومية
-            </button>
+<div id="denied">
+  <div class="message">
+    <h2>🔒 لا يوجد دخول</h2>
+    <p id="deniedText">يجب تسجيل الدخول أولًا.</p>
+    <button onclick="location.href='login.html'">تسجيل الدخول</button>
+  </div>
+</div>
 
-            <div class="section-label">ريادة الأعمال</div>
-            <button onclick="changeFile('الفصل الاول ريادة الأعمال spider & walid.pdf', this)">
-                🚀 الفصل الأول: رحلة الإنشاء والابتكار
-            </button>
-            <button onclick="changeFile('الفصل التاني ريادة الأعمال spider & walid.pdf', this)">
-                👥 الفصل الثاني: خصائص وصفات رواد الأعمال
-            </button>
+<div id="empty">
+  <div class="message">
+    <h2>📚 لا توجد كتب مضافة لهذه الفرقة بعد</h2>
+    <p id="emptyText"></p>
+    <p>أضف كتب هذه الفرقة في قسم <b>BOOKS</b> داخل الكود.</p>
+    <button onclick="location.href='index.html'">العودة للرئيسية</button>
+  </div>
+</div>
 
-            <div class="section-label">إدارة الموارد البشرية</div>
-            <button onclick="changeFile('فصول الموارد البشرية spider  & walid.pdf', this)">
-                📊 الفصل الأول: مفاهيم ووظائف الإدارة
-            </button>
+<div id="reader" class="main-container" style="display:none">
+  <nav>
+    <div class="badge" id="studentInfo"></div>
+    <div id="bookList"></div>
 
-            <div class="section-label">نظم المعلومات المحاسبية</div>
-            <button onclick="changeFile('الفصل الاول نظم.pdf', this)">
-                💻 الفصل الأول: تطور النظم المحاسبية
-            </button>
+    <button class="logout" onclick="logout()">🚪 تسجيل الخروج</button>
+  </nav>
 
-            <div class="section-label">اللغة الإنجليزية</div>
-            <button onclick="changeFile('قواعد اللغة الإنجليزية.pdf', this)">
-                🔤 ملخص قواعد اللغة الإنجليزية
-            </button>
+  <div class="viewer">
+    <iframe id="pdf-viewer"></iframe>
+  </div>
+</div>
 
-            <button onclick="logout()" style="
-                margin-top:auto; background:#c0392b;">
-                🚪 تسجيل الخروج
-            </button>
-        </nav>
+<script>
+/*
+========================================================
+  الكتب الخاصة بكل فرقة
+  الفرقة الثالثة: الكتب الموجودة في Reader الحالي.
+  الفرق 1 و2 و4: اتركها هنا وأضف أسماء ملفاتها لاحقًا.
+  لا يتم عرض كتب فرقة أخرى للطالب.
+========================================================
+*/
+const BOOKS = {
+  "1": [
+    // مثال:
+    // {section:"اسم المادة", title:"اسم الكتاب", file:"اسم الملف.pdf"}
+  ],
 
-        <div class="viewer">
-            <iframe id="pdf-viewer" src="محاسبة متوسطة (2) اساسيات + الفصل الاول عملى.pdf"></iframe>
-        </div>
-    </div>
+  "2": [
+    // مثال:
+    // {section:"اسم المادة", title:"اسم الكتاب", file:"اسم الملف.pdf"}
+  ],
 
-    <script>
-        // هذه الصفحة مخصصة للفرقة الثالثة فقط.
-        const REQUIRED_LEVEL = "3";
+  "3": [
+    {
+      section:"المحاسبة المتوسطة (2)",
+      title:"📖 الأساسيات + الفصل الأول (عملي)",
+      file:"محاسبة متوسطة (2) اساسيات + الفصل الاول عملى.pdf"
+    },
+    {
+      section:"المحاسبة المتوسطة (2)",
+      title:"📝 شرح القيود والتمارين (نظري + عملي)",
+      file:"المحاسبة المتوسطة 2 spider &  نطرىwalid.pdf"
+    },
+    {
+      section:"المحاسبة الحكومية",
+      title:"🏛️ محاسبة حكومية",
+      file:"محاسبة حكومية جزء اول spider & walid.pdf"
+    },
+    {
+      section:"المحاسبة الحكومية",
+      title:"🏛️ الفصل الأول محاسبة حكومية",
+      file:"الفصل الاول محاسبة حكومية.pdf"
+    },
+    {
+      section:"المحاسبة الحكومية",
+      title:"🏛️ الفصل الثاني محاسبة حكومية",
+      file:"الفصل الثانى محاسبة حكومية.pdf"
+    },
+    {
+      section:"ريادة الأعمال",
+      title:"🚀 الفصل الأول: رحلة الإنشاء والابتكار",
+      file:"الفصل الاول ريادة الأعمال spider & walid.pdf"
+    },
+    {
+      section:"ريادة الأعمال",
+      title:"👥 الفصل الثاني: خصائص وصفات رواد الأعمال",
+      file:"الفصل التاني ريادة الأعمال spider & walid.pdf"
+    },
+    {
+      section:"إدارة الموارد البشرية",
+      title:"📊 الفصل الأول: مفاهيم ووظائف الإدارة",
+      file:"فصول الموارد البشرية spider  & walid.pdf"
+    },
+    {
+      section:"نظم المعلومات المحاسبية",
+      title:"💻 الفصل الأول: تطور النظم المحاسبية",
+      file:"الفصل الاول نظم.pdf"
+    },
+    {
+      section:"اللغة الإنجليزية",
+      title:"🔤 ملخص قواعد اللغة الإنجليزية",
+      file:"قواعد اللغة الإنجليزية.pdf"
+    }
+  ],
 
-        function getLoggedUser() {
-            const keys = ["mw_user", "user", "loggedUser", "currentUser"];
+  "4": [
+    // مثال:
+    // {section:"اسم المادة", title:"اسم الكتاب", file:"اسم الملف.pdf"}
+  ]
+};
 
-            for (const key of keys) {
-                const raw = localStorage.getItem(key);
-                if (!raw) continue;
+const LEVEL_NAMES = {
+  "1":"الفرقة الأولى",
+  "2":"الفرقة الثانية",
+  "3":"الفرقة الثالثة",
+  "4":"الفرقة الرابعة"
+};
 
-                try {
-                    const obj = JSON.parse(raw);
-                    if (obj && typeof obj === "object") return obj;
-                } catch (e) {
-                    // لو كانت القيمة نصًا فقط
-                    return { username: raw };
-                }
-            }
+function getUser(){
+  const raw = localStorage.getItem("mw_user");
+  if(!raw) return null;
 
-            return null;
-        }
+  try{
+    const user = JSON.parse(raw);
+    if(!user || user.success !== true) return null;
+    return user;
+  }catch(e){
+    return null;
+  }
+}
 
-        function getLevel(user) {
-            if (!user) return "";
-            return String(
-                user.level ??
-                user.Level ??
-                user.year ??
-                user.grade ??
-                user.class ??
-                ""
-            ).trim();
-        }
+function getLevel(user){
+  return String(
+    user.level ?? user.Level ?? user.year ?? user.grade ?? ""
+  ).trim();
+}
 
-        function protectPage() {
-            const user = getLoggedUser();
+function addButton(book, isFirst){
+  const btn = document.createElement("button");
+  btn.textContent = book.title;
+  btn.onclick = function(){
+    changeFile(book.file, btn);
+  };
+  if(isFirst) btn.classList.add("active");
+  return btn;
+}
 
-            if (!user) {
-                window.location.replace("login.html");
-                return false;
-            }
+function renderBooks(level){
+  const list = document.getElementById("bookList");
+  list.innerHTML = "";
 
-            const level = getLevel(user);
+  const books = BOOKS[level] || [];
 
-            if (level !== REQUIRED_LEVEL) {
-                document.getElementById("reader-content").style.display = "none";
-                document.getElementById("access-denied").style.display = "flex";
-                document.getElementById("access-message").textContent =
-                    "حسابك مسجل في الفرقة " + (level || "غير محددة") +
-                    "، وهذه الكتب مخصصة للفرقة الثالثة.";
-                return false;
-            }
+  if(!books.length){
+    document.getElementById("reader").style.display = "none";
+    document.getElementById("empty").style.display = "flex";
+    document.getElementById("emptyText").textContent =
+      LEVEL_NAMES[level] + " موجودة في النظام، لكن لم تتم إضافة ملفات كتبها إلى Reader بعد.";
+    return;
+  }
 
-            return true;
-        }
+  let currentSection = "";
+  let first = true;
 
-        function changeFile(fileName, btn) {
-            document.getElementById("pdf-viewer").src = fileName;
-            document.querySelectorAll("nav button").forEach(b => {
-                b.classList.remove("active");
-            });
-            btn.classList.add("active");
-        }
+  books.forEach(book => {
+    if(book.section !== currentSection){
+      currentSection = book.section;
+      const label = document.createElement("div");
+      label.className = "section-label";
+      label.textContent = currentSection;
+      list.appendChild(label);
+    }
 
-        function logout() {
-            ["mw_user", "user", "loggedUser", "currentUser"].forEach(key => {
-                localStorage.removeItem(key);
-            });
-            window.location.replace("login.html");
-        }
+    list.appendChild(addButton(book, first));
+    first = false;
+  });
 
-        protectPage();
-    </script>
+  document.getElementById("reader").style.display = "flex";
+
+  const firstBook = books[0];
+  document.getElementById("pdf-viewer").src = firstBook.file;
+}
+
+function changeFile(fileName, btn){
+  document.getElementById("pdf-viewer").src = fileName;
+  document.querySelectorAll("#bookList button").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+}
+
+function logout(){
+  localStorage.removeItem("mw_user");
+  location.replace("login.html");
+}
+
+function start(){
+  const user = getUser();
+
+  if(!user){
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("denied").style.display = "flex";
+    return;
+  }
+
+  const level = getLevel(user);
+
+  if(!["1","2","3","4"].includes(level)){
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("denied").style.display = "flex";
+    document.getElementById("deniedText").textContent =
+      "حسابك لا يحتوي على فرقة دراسية صحيحة.";
+    return;
+  }
+
+  document.getElementById("loading").style.display = "none";
+  document.getElementById("studentInfo").textContent =
+    "👤 " + (user.name || user.username || "الطالب") +
+    " — " + LEVEL_NAMES[level];
+
+  renderBooks(level);
+}
+
+start();
+</script>
+
 </body>
 </html>
