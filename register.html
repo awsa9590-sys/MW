@@ -23,7 +23,7 @@
 <button id="registerBtn" class="btn" onclick="registerUser()">إنشاء الحساب</button><div id="message"></div>
 <a class="login" href="login.html">لديك حساب؟ تسجيل الدخول</a></div>
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbxd95_r5uaSWTN8REeBoNqbK72zI4u_hr4BzfH88Y3JXSTo7Q_MNWbaoyTs1ZvSi__b/exec";
+const API_URL="https://script.google.com/macros/s/AKfycbxwqXY-LDzdi0a31ZJ7T7FiCyBEyKS7A1Klss9YHjVaxGZcbLC6iZvfa4-brZrysPzn/exec";
 function togglePassword(id,btn){const i=document.getElementById(id);if(i.type==="password"){i.type="text";btn.textContent="🙈"}else{i.type="password";btn.textContent="👁️"}}
 function registerUser(){
 const name=document.getElementById("name").value.trim(),username=document.getElementById("username").value.trim(),password=document.getElementById("password").value,confirm=document.getElementById("confirm").value,level=document.getElementById("level").value,msg=document.getElementById("message"),btn=document.getElementById("registerBtn");
