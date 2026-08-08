@@ -1,38 +1,625 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>WALID & SPIDER | إنشاء حساب</title>
-<style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:"Segoe UI",Tahoma,sans-serif;background:linear-gradient(135deg,#0f172a,#0056b3);padding:20px}
-.box{width:100%;max-width:460px;background:#fff;border-radius:24px;padding:32px;box-shadow:0 20px 50px #0005;text-align:center}
-.logo{width:90px;height:90px;border-radius:50%;object-fit:cover}h1{margin:12px 0 5px;color:#0f172a}.sub{color:#777;margin-bottom:22px}
-.input,.select{width:100%;padding:14px;margin:7px 0;border:1px solid #ddd;border-radius:10px;font-size:16px}
-.pass-wrap{position:relative;width:100%}.pass-wrap .input{padding-left:52px}
-.eye{position:absolute;left:8px;top:50%;transform:translateY(-50%);border:0;background:transparent;cursor:pointer;font-size:20px;padding:6px}
-.btn{width:100%;padding:14px;margin-top:12px;border:0;border-radius:10px;background:#0056b3;color:#fff;font-size:17px;font-weight:bold;cursor:pointer}
-.btn:disabled{opacity:.6}.login{display:block;margin-top:18px;color:#0056b3;text-decoration:none}#message{min-height:24px;margin-top:14px;font-weight:bold}
-</style></head>
-<body><div class="box">
-<img src="1000119623.jpg" class="logo" alt="WALID & SPIDER"><h1>إنشاء حساب</h1><div class="sub">سجل حسابك للدخول إلى المنصة</div>
-<input id="name" class="input" placeholder="الاسم بالكامل">
-<input id="username" class="input" placeholder="اسم المستخدم" autocomplete="username">
-<div class="pass-wrap"><input id="password" class="input" type="password" placeholder="كلمة المرور"><button type="button" class="eye" onclick="togglePassword('password',this)">👁️</button></div>
-<div class="pass-wrap"><input id="confirm" class="input" type="password" placeholder="تأكيد كلمة المرور"><button type="button" class="eye" onclick="togglePassword('confirm',this)">👁️</button></div>
-<select id="level" class="select"><option value="">اختر الفرقة الدراسية</option><option value="1">الفرقة الأولى</option><option value="2">الفرقة الثانية</option><option value="3">الفرقة الثالثة</option><option value="4">الفرقة الرابعة</option></select>
-<button id="registerBtn" class="btn" onclick="registerUser()">إنشاء الحساب</button><div id="message"></div>
-<a class="login" href="login.html">لديك حساب؟ تسجيل الدخول</a></div>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>إنشاء حساب | WALID & SPIDER</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, Tahoma, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #061b4f, #0878e8);
+    }
+
+    .container {
+      width: 92%;
+      max-width: 450px;
+      background: rgba(255,255,255,0.97);
+      border-radius: 25px;
+      padding: 30px;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.3);
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 25px;
+      font-weight: bold;
+      color: #123c78;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #123c78;
+      margin: 10px 0;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      margin-bottom: 17px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+      background: white;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #0878e8;
+      box-shadow: 0 0 5px rgba(8,120,232,.2);
+    }
+
+    .password-box {
+      position: relative;
+    }
+
+    .password-box input {
+      padding-left: 55px;
+    }
+
+    .show-password {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    button.register {
+      width: 100%;
+      border: none;
+      padding: 15px;
+      border-radius: 12px;
+      background: #0878e8;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    button.register:hover {
+      background: #0566c8;
+    }
+
+    button.register:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+      min-height: 25px;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .login-link a {
+      color: #0878e8;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .home-link {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      color: #777;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="logo">
+    WALID & SPIDER
+  </div>
+
+  <h1>إنشاء حساب</h1>
+
+  <div class="subtitle">
+    منصة المحاسبة التعليمية
+  </div>
+
+  <form id="registerForm">
+
+    <!-- اسم المستخدم -->
+    <div class="input-group">
+      <label for="username">اسم المستخدم</label>
+
+      <input
+        type="text"
+        id="username"
+        placeholder="أدخل اسم المستخدم"
+        autocomplete="username"
+        required
+      >
+    </div>
+
+    <!-- الاسم -->
+    <div class="input-group">
+      <label for="name">الاسم بالكامل</label>
+
+      <input
+        type="text"
+        id="name"
+        placeholder="أدخل اسمك بالكامل"
+        required
+      >
+    </div>
+
+    <!-- كلمة المرور -->
+    <div class="input-group">
+      <label for="password">كلمة المرور</label>
+
+      <div class="password-box">
+
+        <input
+          type="password"
+          id="password"
+          placeholder="أدخل كلمة المرور"
+          autocomplete="new-password"
+          required
+        >
+
+        <button
+          type="button"
+          class="show-password"
+          onclick="togglePassword()"
+          id="showPasswordButton"
+          title="إظهار كلمة المرور"
+        >
+          👁️
+        </button>
+
+      </div>
+    </div>
+
+    <!-- تأكيد كلمة المرور -->
+    <div class="input-group">
+      <label for="confirmPassword">تأكيد كلمة المرور</label>
+
+      <div class="password-box">
+
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="أعد كتابة كلمة المرور"
+          autocomplete="new-password"
+          required
+        >
+
+        <button
+          type="button"
+          class="show-password"
+          onclick="toggleConfirmPassword()"
+          title="إظهار كلمة المرور"
+        >
+          👁️
+        </button>
+
+      </div>
+    </div>
+
+    <!-- الفرقة -->
+    <div class="input-group">
+
+      <label for="level">الفرقة الدراسية</label>
+
+      <select id="level" required>
+
+        <option value="">
+          اختر الفرقة
+        </option>
+
+        <option value="1">
+          الفرقة الأولى
+        </option>
+
+        <option value="2">
+          الفرقة الثانية
+        </option>
+
+        <option value="3">
+          الفرقة الثالثة
+        </option>
+
+        <option value="4">
+          الفرقة الرابعة
+        </option>
+
+      </select>
+
+    </div>
+
+    <button
+      type="submit"
+      class="register"
+      id="registerButton"
+    >
+      إنشاء الحساب
+    </button>
+
+  </form>
+
+  <div
+    class="message"
+    id="message"
+  ></div>
+
+  <div class="login-link">
+    لديك حساب بالفعل؟
+    <a href="login.html">
+      تسجيل الدخول
+    </a>
+  </div>
+
+  <a
+    href="index.html"
+    class="home-link"
+  >
+    العودة إلى الرئيسية
+  </a>
+
+</div>
+
+
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbzY1AZUxWU5gMLr9QNl3KGkn68Z-2xNOgAp-kaytMy8rS0G38MOmhSw9stKb54_Apqy/exec";
-function togglePassword(id,btn){const i=document.getElementById(id);if(i.type==="password"){i.type="text";btn.textContent="🙈"}else{i.type="password";btn.textContent="👁️"}}
-function registerUser(){
-const name=document.getElementById("name").value.trim(),username=document.getElementById("username").value.trim(),password=document.getElementById("password").value,confirm=document.getElementById("confirm").value,level=document.getElementById("level").value,msg=document.getElementById("message"),btn=document.getElementById("registerBtn");
-if(!name||!username||!password||!confirm||!level){msg.style.color="red";msg.textContent="من فضلك أكمل جميع البيانات.";return}
-if(password.length<6){msg.style.color="red";msg.textContent="كلمة المرور يجب أن تكون 6 أحرف على الأقل.";return}
-if(password!==confirm){msg.style.color="red";msg.textContent="كلمتا المرور غير متطابقتين.";return}
-btn.disabled=true;msg.style.color="#555";msg.textContent="جاري إنشاء الحساب...";
-const callback="registerCallback_"+Date.now();
-window[callback]=function(result){btn.disabled=false;if(result&&result.success){localStorage.setItem("mw_user",JSON.stringify(result));msg.style.color="green";msg.textContent="تم إنشاء الحساب بنجاح ✓";setTimeout(()=>location.href="index.html",500)}else{msg.style.color="red";msg.textContent=(result&&result.message)||"تعذر إنشاء الحساب."}delete window[callback]};
-const s=document.createElement("script");s.src=API_URL+"?action=register&name="+encodeURIComponent(name)+"&username="+encodeURIComponent(username)+"&password="+encodeURIComponent(password)+"&level="+encodeURIComponent(level)+"&callback="+callback;document.body.appendChild(s);
-}
-</script></body></html>
+
+  /*
+   * رابط Google Apps Script
+   */
+  const API_URL =
+    "https://script.google.com/macros/s/AKfycbxd95_r5uaSWTN8REeBoNqbK72zI4u_hr4BzfH88Y3JXSTo7Q_MNWbaoyTs1ZvSi__b/exec";
+
+
+  /*
+   * إظهار / إخفاء كلمة المرور
+   */
+  function togglePassword() {
+
+    const input =
+      document.getElementById("password");
+
+    if (input.type === "password") {
+      input.type = "text";
+    } else {
+      input.type = "password";
+    }
+  }
+
+
+  /*
+   * إظهار / إخفاء تأكيد كلمة المرور
+   */
+  function toggleConfirmPassword() {
+
+    const input =
+      document.getElementById("confirmPassword");
+
+    if (input.type === "password") {
+      input.type = "text";
+    } else {
+      input.type = "password";
+    }
+  }
+
+
+  /*
+   * رسالة للمستخدم
+   */
+  function showMessage(text, success = false) {
+
+    const message =
+      document.getElementById("message");
+
+    message.textContent = text;
+
+    message.style.color =
+      success ? "#0a8f45" : "#d00000";
+  }
+
+
+  /*
+   * إرسال التسجيل
+   */
+  document
+    .getElementById("registerForm")
+    .addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      const username =
+        document
+          .getElementById("username")
+          .value
+          .trim();
+
+      const name =
+        document
+          .getElementById("name")
+          .value
+          .trim();
+
+      const password =
+        document
+          .getElementById("password")
+          .value;
+
+      const confirmPassword =
+        document
+          .getElementById("confirmPassword")
+          .value;
+
+      const level =
+        document
+          .getElementById("level")
+          .value;
+
+      const button =
+        document
+          .getElementById("registerButton");
+
+
+      /*
+       * التحقق من البيانات
+       */
+
+      if (!username || !name || !password || !level) {
+
+        showMessage(
+          "من فضلك أكمل جميع البيانات"
+        );
+
+        return;
+      }
+
+
+      /*
+       * التحقق من كلمة المرور
+       */
+
+      if (password !== confirmPassword) {
+
+        showMessage(
+          "كلمتا المرور غير متطابقتين"
+        );
+
+        return;
+      }
+
+
+      /*
+       * التأكد من الفرقة
+       */
+
+      if (!["1", "2", "3", "4"].includes(String(level))) {
+
+        showMessage(
+          "بيانات الفرقة غير صحيحة"
+        );
+
+        return;
+      }
+
+
+      /*
+       * تعطيل الزر أثناء التسجيل
+       */
+
+      button.disabled = true;
+
+      button.textContent =
+        "جاري إنشاء الحساب...";
+
+      showMessage(
+        "جاري التسجيل..."
+      );
+
+
+      /*
+       * إنشاء الطلب
+       */
+
+      const callbackName =
+        "registerCallback_" +
+        Date.now();
+
+
+      window[callbackName] =
+        function(result) {
+
+          try {
+
+            if (result && result.success) {
+
+              /*
+               * حفظ بيانات الطالب
+               */
+
+              if (result.user) {
+
+                localStorage.setItem(
+                  "username",
+                  result.user.username || username
+                );
+
+                localStorage.setItem(
+                  "name",
+                  result.user.name || name
+                );
+
+                localStorage.setItem(
+                  "level",
+                  String(
+                    result.user.level || level
+                  )
+                );
+
+              } else {
+
+                localStorage.setItem(
+                  "username",
+                  username
+                );
+
+                localStorage.setItem(
+                  "name",
+                  name
+                );
+
+                localStorage.setItem(
+                  "level",
+                  String(level)
+                );
+
+              }
+
+
+              showMessage(
+                "تم إنشاء الحساب بنجاح",
+                true
+              );
+
+
+              /*
+               * الانتقال لتسجيل الدخول
+               */
+
+              setTimeout(function() {
+
+                window.location.href =
+                  "login.html";
+
+              }, 1200);
+
+
+            } else {
+
+              showMessage(
+                result && result.message
+                  ? result.message
+                  : "تعذر إنشاء الحساب"
+              );
+
+              button.disabled = false;
+
+              button.textContent =
+                "إنشاء الحساب";
+            }
+
+          } finally {
+
+            /*
+             * حذف callback
+             */
+
+            try {
+
+              delete window[callbackName];
+
+            } catch (e) {}
+
+          }
+
+        };
+
+
+      /*
+       * إنشاء رابط الطلب
+       */
+
+      const params =
+        "?action=register" +
+        "&username=" +
+        encodeURIComponent(username) +
+        "&password=" +
+        encodeURIComponent(password) +
+        "&name=" +
+        encodeURIComponent(name) +
+        "&level=" +
+        encodeURIComponent(String(level)) +
+        "&callback=" +
+        encodeURIComponent(callbackName);
+
+
+      const script =
+        document.createElement("script");
+
+      script.src =
+        API_URL + params;
+
+
+      /*
+       * في حالة فشل الاتصال
+       */
+
+      script.onerror =
+        function() {
+
+          showMessage(
+            "تعذر الاتصال بالخادم"
+          );
+
+          button.disabled = false;
+
+          button.textContent =
+            "إنشاء الحساب";
+
+          try {
+
+            delete window[callbackName];
+
+          } catch (e) {}
+
+        };
+
+
+      document.body.appendChild(script);
+
+    });
+
+</script>
+
+</body>
+</html>
