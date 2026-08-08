@@ -142,14 +142,15 @@
 </head>
 <body>
 
-<div id="accessDenied" style="display:none; max-width:700px; margin:80px auto; text-align:center; background:#1e293b; padding:35px; border-radius:20px; border:1px solid #334155;">
-        <div style="font-size:55px;">🔒</div>
-        <h2>يجب تسجيل الدخول أولاً</h2>
-        <p style="color:#94a3b8">سيتم عرض بنك الأسئلة الخاص بفرقتك فقط.</p>
-        <button class="btn-submit" style="max-width:350px" onclick="location.href='login.html'">تسجيل الدخول</button>
-    </div>
 
-<div id="appContent" class="container" style="display:none;">
+<div id="accessDenied" style="display:none;max-width:850px;margin:80px auto;text-align:center;background:var(--bg-card);padding:40px;border-radius:20px;border:1px solid #334155;">
+    <div style="font-size:60px;">🔒</div>
+    <h2 id="deniedTitle">تسجيل الدخول مطلوب</h2>
+    <p id="deniedText" style="color:var(--text-muted);">يجب تسجيل الدخول لفتح بنك الأسئلة.</p>
+    <button class="btn-submit" style="max-width:400px;" onclick="location.href='login.html'">تسجيل الدخول</button>
+</div>
+
+<div id="quizApp" class="container" style="display:none;">
     <header>
         <h1>منصة الاختبارات الذكية</h1>
         <p style="color: var(--text-muted)">المحاسبة المتوسطة (2)</p>
@@ -158,7 +159,12 @@
     <div class="selector-box">
         <label style="display: block; margin-bottom: 10px;">اختر الفصل الدراسي:</label>
         <select id="chapterSelect" onchange="changeChapter()"></select>
-        <div id="levelInfo" style="margin-top:12px;color:var(--text-muted);font-size:.95rem"></div>
+        <div id="studentLevel" style="margin-top:10px;color:var(--text-muted);font-size:.95rem;"></div>
+        <button type="button" onclick="logout()" style="
+            margin-top:14px;padding:10px 20px;border:0;border-radius:10px;
+            background:#ef4444;color:#fff;cursor:pointer;font-weight:bold;">
+            🚪 تسجيل الخروج
+        </button>
     </div>
 <div id="imgContainer" style="display: none; text-align: center; margin: 20px 0;">
     <p id="imgLabel" style="margin-bottom: 15px; font-size: 1.1rem; color: #38bdf8; font-weight: bold;">
@@ -177,7 +183,7 @@
     </form>
 </div>
 
-</div><!-- /appContent -->
+</div><!-- /quizApp -->
 
 <script>
     const allQuizzes = {
@@ -372,8 +378,110 @@ ch5:[
   { q: "تعتبر العلاقة بين المحاسب والتقنيات الرقمية علاقة:", a: 0, opts: ["تكاملية (الإنسان يقود والآلة تنفذ)", "صراعية (أحدهما يلغي الآخر)", "لا توجد علاقة"], f: "التقنية تعزز قدرات المحاسب ولا تلغيه، بل تنقله لمستوى أعلى من التحليل." }
 ]
     };
+
+    const quizzesByLevel = {
+        "1": [],
+        "2": [],
+        "3": ["ch1", "ch2", "ch3", "ch4", "ch5"],
+        "4": []
+    };
+
+    const chapterNames = {
+        ch1: "المحاسبة المتوسطة (2)",
+        ch2: "المحاسبة في الوحدات الحكومية",
+        ch3: "ريادة الأعمال",
+        ch4: "إدارة الموارد البشرية",
+        ch5: "نظم المعلومات المحاسبية"
+    };
+
+    const levelNames = {
+        "1": "الفرقة الأولى",
+        "2": "الفرقة الثانية",
+        "3": "الفرقة الثالثة",
+        "4": "الفرقة الرابعة"
+    };
+
+    function getLoggedUser() {
+        const raw = localStorage.getItem("mw_user");
+        if (!raw) return null;
+        try {
+            const user = JSON.parse(raw);
+            if (!user || user.success !== true) return null;
+            return user;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function getUserLevel(user) {
+        return String(user.level ?? user.Level ?? user.year ?? user.grade ?? "").trim();
+    }
+
+    function setupByLevel() {
+        const user = getLoggedUser();
+
+        if (!user) {
+            document.getElementById("quizApp").style.display = "none";
+            document.getElementById("accessDenied").style.display = "block";
+            return;
+        }
+
+        const level = getUserLevel(user);
+
+        if (!levelNames[level]) {
+            document.getElementById("quizApp").style.display = "none";
+            document.getElementById("accessDenied").style.display = "block";
+            document.getElementById("deniedTitle").textContent = "بيانات الفرقة غير صحيحة";
+            document.getElementById("deniedText").textContent =
+                "لا توجد فرقة دراسية صحيحة مرتبطة بهذا الحساب.";
+            return;
+        }
+
+        document.getElementById("quizApp").style.display = "block";
+        document.getElementById("studentLevel").textContent =
+            "👤 " + (user.name || user.username || "الطالب") +
+            " — " + levelNames[level];
+
+        const select = document.getElementById("chapterSelect");
+        const chapters = quizzesByLevel[level] || [];
+        select.innerHTML = "";
+
+        if (!chapters.length) {
+            const option = document.createElement("option");
+            option.textContent = "لا توجد أسئلة مضافة لهذه الفرقة بعد";
+            option.disabled = true;
+            option.selected = true;
+            select.appendChild(option);
+
+            document.getElementById("quizContainer").innerHTML =
+                '<div class="q-card" style="text-align:center"><h2>📚 بنك الأسئلة</h2><p style="color:var(--text-muted)">لم تتم إضافة أسئلة ' +
+                levelNames[level] + ' إلى هذا الملف بعد.</p></div>';
+
+            document.querySelector(".btn-submit").style.display = "none";
+            document.getElementById("imgContainer").style.display = "none";
+            return;
+        }
+
+        chapters.forEach((key, index) => {
+            const option = document.createElement("option");
+            option.value = key;
+            option.textContent = chapterNames[key] || key;
+            if (index === 0) option.selected = true;
+            select.appendChild(option);
+        });
+
+        document.querySelector(".btn-submit").style.display = "block";
+        changeChapter();
+    }
+
+    function logout() {
+        localStorage.removeItem("mw_user");
+        location.replace("login.html");
+    }
+
 function changeChapter() {
     const chapter = document.getElementById('chapterSelect').value;
+    if (!chapter || !allQuizzes[chapter]) return;
     const imgDiv = document.getElementById('imgContainer');
     const container = document.getElementById('quizContainer');
     const result = document.getElementById('finalResult');
@@ -440,90 +548,6 @@ function changeChapter() {
         result.style.display = 'block';
         result.innerHTML = `<h2>درجتك: ${score} من ${total}</h2><p>النسبة المئوية: ${Math.round((score/total)*100)}%</p>`;
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function getLoggedUser() {
-        const raw = localStorage.getItem("mw_user");
-        if (!raw) return null;
-        try {
-            const user = JSON.parse(raw);
-            if (!user || user.success !== true) return null;
-            return user;
-        } catch (e) {
-            return null;
-        }
-    }
-
-    function getLevel(user) {
-        return String(user.level ?? user.Level ?? user.year ?? user.grade ?? "").trim();
-    }
-
-    function setupByLevel() {
-        const user = getLoggedUser();
-
-        if (!user) {
-            document.getElementById("appContent").style.display = "none";
-            document.getElementById("accessDenied").style.display = "block";
-            return;
-        }
-
-        const level = getLevel(user);
-        const levelNames = {
-            "1":"الفرقة الأولى",
-            "2":"الفرقة الثانية",
-            "3":"الفرقة الثالثة",
-            "4":"الفرقة الرابعة"
-        };
-
-        if (!levelNames[level]) {
-            document.getElementById("appContent").style.display = "none";
-            document.getElementById("accessDenied").style.display = "block";
-            document.querySelector("#accessDenied h2").textContent = "بيانات الفرقة غير صحيحة";
-            document.querySelector("#accessDenied p").textContent =
-                "لا توجد فرقة دراسية صحيحة مرتبطة بهذا الحساب.";
-            return;
-        }
-
-        document.getElementById("appContent").style.display = "block";
-
-        const select = document.getElementById("chapterSelect");
-        const chapters = quizzesByLevel[level] || [];
-
-        select.innerHTML = "";
-
-        if (!chapters.length) {
-            const opt = document.createElement("option");
-            opt.textContent = "لا توجد أسئلة مضافة لهذه الفرقة بعد";
-            opt.disabled = true;
-            opt.selected = true;
-            select.appendChild(opt);
-
-            document.getElementById("levelInfo").textContent =
-                "👤 " + (user.name || user.username || "الطالب") +
-                " — " + levelNames[level];
-
-            document.getElementById("quizContainer").innerHTML =
-                '<div class="q-card" style="text-align:center"><h2>📚 بنك الأسئلة</h2><p style="color:var(--text-muted)">سيتم إضافة أسئلة هذه الفرقة هنا.</p></div>';
-
-            document.querySelector(".btn-submit").style.display = "none";
-            document.getElementById("imgContainer").style.display = "none";
-            return;
-        }
-
-        chapters.forEach((key, index) => {
-            const opt = document.createElement("option");
-            opt.value = key;
-            opt.textContent = chapterNames[key] || key;
-            if (index === 0) opt.selected = true;
-            select.appendChild(opt);
-        });
-
-        document.getElementById("levelInfo").textContent =
-            "👤 " + (user.name || user.username || "الطالب") +
-            " — " + levelNames[level];
-
-        document.querySelector(".btn-submit").style.display = "block";
-        changeChapter();
     }
 
     window.onload = setupByLevel;
