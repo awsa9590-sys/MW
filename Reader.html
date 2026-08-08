@@ -17,63 +17,160 @@
     </style>
 </head>
 <body>
+    <header>
+        🎓 Walid & Spider — كتب الفرقة الثالثة
+    </header>
 
-<header>
-    🎓  Walid & Spider
-</header>
-
-<div class="main-container">
-    <nav>
-        <div class="section-label">المحاسبة المتوسطة (2)</div>
-        <button onclick="changeFile('محاسبة متوسطة (2) اساسيات + الفصل الاول عملى.pdf', this)" class="active">
-            📖 الأساسيات + الفصل الأول (عملي) 
-        </button>
-        <button onclick="changeFile('المحاسبة المتوسطة 2 spider &  نطرىwalid.pdf', this)">
-            📝 شرح القيود والتمارين (نظري + عملي)
-        </button>
-
-        <div class="section-label">المحاسبة الحكومية</div>
-        <button onclick="changeFile('محاسبة حكومية جزء اول spider & walid.pdf', this)">
-            🏛️  محاسبة حكومية   
-             <button onclick="changeFile('الفصل الاول محاسبة حكومية.pdf', this)">
-            🏛️   الفصل الاول محاسبة حكومية 
-              <button onclick="changeFile('الفصل الثانى محاسبة حكومية.pdf', this)">
-            🏛️   الفصل الثانى محاسبة حكومية 
-            
-        </button><div class="section-label"> ريادة الاعمال </div>
-<button onclick="changeFile('الفصل الاول ريادة الأعمال spider & walid.pdf', this)">
-    🚀 الفصل الأول: رحلة الإنشاء والابتكار 
-</button>
-<button onclick="changeFile('الفصل التاني ريادة الأعمال spider & walid.pdf', this)">
-    👥 الفصل الثاني: خصائص وصفات رواد الأعمال 
-</button>
-<div class="section-label"> إدارة الموارد البشرية </div>
-        <button onclick="changeFile('فصول الموارد البشرية spider  & walid.pdf', this)">
-            📊 الفصل الأول: مفاهيم ووظائف الإدارة
-        </button>
-        <div class="section-label">نظم المعلومات المحاسبية</div>
-        <button onclick="changeFile('الفصل الاول نظم.pdf', this)">
-            💻 الفصل الأول: تطور النظم المحاسبية
-        </button>
-        <div class="section-label">اللغة الإنجليزية</div>
-        <button onclick="changeFile('قواعد اللغة الإنجليزية.pdf', this)">
-            🔤 ملخص قواعد اللغة الإنجليزية
-        </button>
-    </nav>
-
-    <div class="viewer">
-        <iframe id="pdf-viewer" src="محاسبة متوسطة (2) اساسيات + الفصل الاول عملى.pdf"></iframe>
+    <div id="access-denied" style="
+        display:none;
+        min-height:calc(100vh - 60px);
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+        color:white;
+        background:#2c3e50;
+        padding:30px;
+        box-sizing:border-box;">
+        <div>
+            <div style="font-size:60px;">🔒</div>
+            <h2>هذا القسم خاص بالفرقة الثالثة</h2>
+            <p id="access-message">لا يمكنك الوصول إلى كتب هذه الفرقة.</p>
+            <button onclick="location.href='index.html'" style="
+                border:0; padding:12px 25px; border-radius:8px;
+                background:#1abc9c; color:white; cursor:pointer;">
+                العودة للرئيسية
+            </button>
+        </div>
     </div>
-</div>
 
-<script>
-    function changeFile(fileName, btn) {
-        document.getElementById('pdf-viewer').src = fileName;
-        const buttons = document.querySelectorAll('nav button');
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-    }
-</script>
+    <div id="reader-content" class="main-container">
+        <nav>
+            <div class="section-label">المحاسبة المتوسطة (2)</div>
+            <button onclick="changeFile('محاسبة متوسطة (2) اساسيات + الفصل الاول عملى.pdf', this)" class="active">
+                📖 الأساسيات + الفصل الأول (عملي)
+            </button>
+            <button onclick="changeFile('المحاسبة المتوسطة 2 spider &  نطرىwalid.pdf', this)">
+                📝 شرح القيود والتمارين (نظري + عملي)
+            </button>
 
+            <div class="section-label">المحاسبة الحكومية</div>
+            <button onclick="changeFile('محاسبة حكومية جزء اول spider & walid.pdf', this)">
+                🏛️ محاسبة حكومية
+            </button>
+            <button onclick="changeFile('الفصل الاول محاسبة حكومية.pdf', this)">
+                🏛️ الفصل الأول محاسبة حكومية
+            </button>
+            <button onclick="changeFile('الفصل الثانى محاسبة حكومية.pdf', this)">
+                🏛️ الفصل الثاني محاسبة حكومية
+            </button>
+
+            <div class="section-label">ريادة الأعمال</div>
+            <button onclick="changeFile('الفصل الاول ريادة الأعمال spider & walid.pdf', this)">
+                🚀 الفصل الأول: رحلة الإنشاء والابتكار
+            </button>
+            <button onclick="changeFile('الفصل التاني ريادة الأعمال spider & walid.pdf', this)">
+                👥 الفصل الثاني: خصائص وصفات رواد الأعمال
+            </button>
+
+            <div class="section-label">إدارة الموارد البشرية</div>
+            <button onclick="changeFile('فصول الموارد البشرية spider  & walid.pdf', this)">
+                📊 الفصل الأول: مفاهيم ووظائف الإدارة
+            </button>
+
+            <div class="section-label">نظم المعلومات المحاسبية</div>
+            <button onclick="changeFile('الفصل الاول نظم.pdf', this)">
+                💻 الفصل الأول: تطور النظم المحاسبية
+            </button>
+
+            <div class="section-label">اللغة الإنجليزية</div>
+            <button onclick="changeFile('قواعد اللغة الإنجليزية.pdf', this)">
+                🔤 ملخص قواعد اللغة الإنجليزية
+            </button>
+
+            <button onclick="logout()" style="
+                margin-top:auto; background:#c0392b;">
+                🚪 تسجيل الخروج
+            </button>
+        </nav>
+
+        <div class="viewer">
+            <iframe id="pdf-viewer" src="محاسبة متوسطة (2) اساسيات + الفصل الاول عملى.pdf"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // هذه الصفحة مخصصة للفرقة الثالثة فقط.
+        const REQUIRED_LEVEL = "3";
+
+        function getLoggedUser() {
+            const keys = ["mw_user", "user", "loggedUser", "currentUser"];
+
+            for (const key of keys) {
+                const raw = localStorage.getItem(key);
+                if (!raw) continue;
+
+                try {
+                    const obj = JSON.parse(raw);
+                    if (obj && typeof obj === "object") return obj;
+                } catch (e) {
+                    // لو كانت القيمة نصًا فقط
+                    return { username: raw };
+                }
+            }
+
+            return null;
+        }
+
+        function getLevel(user) {
+            if (!user) return "";
+            return String(
+                user.level ??
+                user.Level ??
+                user.year ??
+                user.grade ??
+                user.class ??
+                ""
+            ).trim();
+        }
+
+        function protectPage() {
+            const user = getLoggedUser();
+
+            if (!user) {
+                window.location.replace("login.html");
+                return false;
+            }
+
+            const level = getLevel(user);
+
+            if (level !== REQUIRED_LEVEL) {
+                document.getElementById("reader-content").style.display = "none";
+                document.getElementById("access-denied").style.display = "flex";
+                document.getElementById("access-message").textContent =
+                    "حسابك مسجل في الفرقة " + (level || "غير محددة") +
+                    "، وهذه الكتب مخصصة للفرقة الثالثة.";
+                return false;
+            }
+
+            return true;
+        }
+
+        function changeFile(fileName, btn) {
+            document.getElementById("pdf-viewer").src = fileName;
+            document.querySelectorAll("nav button").forEach(b => {
+                b.classList.remove("active");
+            });
+            btn.classList.add("active");
+        }
+
+        function logout() {
+            ["mw_user", "user", "loggedUser", "currentUser"].forEach(key => {
+                localStorage.removeItem(key);
+            });
+            window.location.replace("login.html");
+        }
+
+        protectPage();
+    </script>
 </body>
 </html>
