@@ -317,7 +317,20 @@ login();
 }
 
 });
+function togglePassword() {
+    const password = document.getElementById("password");
+    const button = document.getElementById("showPasswordBtn");
 
+    if (password.type === "password") {
+        password.type = "text";
+        button.textContent = "🙈";
+        button.title = "إخفاء كلمة المرور";
+    } else {
+        password.type = "password";
+        button.textContent = "👁️";
+        button.title = "إظهار كلمة المرور";
+    }
+}
 </script>
 
 </body>
