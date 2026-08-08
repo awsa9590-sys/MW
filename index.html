@@ -25,7 +25,33 @@
     </style>
 </head>
 <body>
-    <header><h1> WALID & SPIDER </h1></header>
+    <script>
+        // حماية الصفحة: لا يمكن فتح الصفحة الرئيسية بدون تسجيل دخول
+        (function () {
+            const savedUser = localStorage.getItem("mw_user");
+
+            if (!savedUser) {
+                window.location.replace("login.html");
+                return;
+            }
+
+            try {
+                const user = JSON.parse(savedUser);
+                if (!user || user.success !== true) {
+                    localStorage.removeItem("mw_user");
+                    window.location.replace("login.html");
+                }
+            } catch (error) {
+                localStorage.removeItem("mw_user");
+                window.location.replace("login.html");
+            }
+        })();
+    </script>
+    <header>
+        <h1> WALID & SPIDER </h1>
+        <div id="accountInfo" style="margin-top:10px;font-size:14px;"></div>
+        <button onclick="logout()" style="margin-top:10px;padding:8px 16px;border:0;border-radius:8px;background:#dc3545;color:#fff;cursor:pointer;font-weight:bold;">تسجيل الخروج</button>
+    </header>
     <section class="hero">
         <img src="1000119623.jpg" alt="Logo" class="profile-img">
         <h2>🚀 طريقك للتميز في المحاسبة</h2>
@@ -45,5 +71,32 @@
             <a href="Reader.html" class="btn btn-info">تصفح الملخصات</a>
         </div>
     </section>
+
+    <script>
+        (function () {
+            const accountInfo = document.getElementById("accountInfo");
+            const savedUser = localStorage.getItem("mw_user");
+
+            if (accountInfo && savedUser) {
+                try {
+                    const user = JSON.parse(savedUser);
+                    const levels = {
+                        "1": "الفرقة الأولى",
+                        "2": "الفرقة الثانية",
+                        "3": "الفرقة الثالثة",
+                        "4": "الفرقة الرابعة"
+                    };
+                    accountInfo.textContent =
+                        "مرحبًا " + (user.name || user.username || "الطالب") +
+                        " — " + (levels[String(user.level)] || "");
+                } catch (e) {}
+            }
+        })();
+
+        function logout() {
+            localStorage.removeItem("mw_user");
+            window.location.replace("login.html");
+        }
+    </script>
 </body>
 </html>
