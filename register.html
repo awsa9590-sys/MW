@@ -1,101 +1,520 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>إنشاء حساب | WALID & SPIDER</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
-font-family:"Segoe UI",Tahoma,sans-serif;background:linear-gradient(135deg,#0f172a,#0056b3);padding:20px}
-.box{width:100%;max-width:460px;background:#fff;border-radius:24px;padding:32px;box-shadow:0 20px 50px #0005;text-align:center}
-.logo{width:90px;height:90px;border-radius:50%;object-fit:cover}
-h1{margin:12px 0 5px;color:#0f172a}.sub{color:#777;margin-bottom:22px}
-.input,.select{width:100%;padding:14px;margin:7px 0;border:1px solid #ddd;border-radius:10px;font-size:16px}
-.btn{width:100%;padding:14px;margin-top:12px;border:0;border-radius:10px;background:#0056b3;color:#fff;font-size:17px;font-weight:bold;cursor:pointer}
-.btn:disabled{opacity:.6;cursor:not-allowed}
-.login{display:block;margin-top:18px;color:#0056b3;text-decoration:none}
-#message{min-height:24px;margin-top:14px;font-weight:bold}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إنشاء حساب جديد - WALID & SPIDER</title>
+
+  <!-- Google Font: Cairo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ==================== RESET & VARIABLES ==================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0b0f19 0%, #111827 50%, #030712 100%);
+      --card-bg: rgba(17, 24, 39, 0.75);
+      --card-border: rgba(255, 255, 255, 0.1);
+      
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --accent-cyan: #06b6d4;
+      --accent-glow: rgba(59, 130, 246, 0.4);
+
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      
+      --danger: #ef4444;
+      --success: #10b981;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+      padding: 20px 0;
+    }
+
+    /* Ambient Glow Background Elements */
+    .glow-sphere {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .sphere-1 {
+      width: 350px;
+      height: 350px;
+      background: rgba(59, 130, 246, 0.2);
+      top: -50px;
+      left: -50px;
+    }
+    .sphere-2 {
+      width: 400px;
+      height: 400px;
+      background: rgba(6, 182, 212, 0.15);
+      bottom: -100px;
+      right: -100px;
+    }
+
+    /* ==================== REGISTER CONTAINER ==================== */
+    .register-wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 460px;
+      padding: 20px;
+    }
+
+    .register-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px 32px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
+                  0 0 30px rgba(59, 130, 246, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .register-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary), var(--accent-cyan), transparent);
+    }
+
+    /* Header section */
+    .card-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .brand-logo {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      color: var(--accent-cyan);
+      font-size: 28px;
+    }
+
+    .card-header h2 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    .card-header p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* ==================== FORM INPUTS ==================== */
+    .form-group {
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #d1d5db;
+      margin-bottom: 8px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-wrapper i.input-icon {
+      position: absolute;
+      right: 16px;
+      color: #6b7280;
+      font-size: 16px;
+      transition: color 0.3s;
+      pointer-events: none;
+    }
+
+    .input-wrapper input,
+    .input-wrapper select {
+      width: 100%;
+      padding: 12px 45px 12px 16px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: var(--text-main);
+      font-size: 14px;
+      outline: none;
+      transition: all 0.3s ease;
+      appearance: none;
+    }
+
+    .input-wrapper select {
+      cursor: pointer;
+    }
+
+    /* Custom Select Arrow */
+    .select-wrapper::after {
+      content: '\f107';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 16px;
+      color: #6b7280;
+      pointer-events: none;
+    }
+
+    .input-wrapper input::placeholder {
+      color: #4b5563;
+    }
+
+    /* Focus States */
+    .input-wrapper input:focus,
+    .input-wrapper select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .input-wrapper input:focus + .input-icon,
+    .input-wrapper select:focus + .input-icon {
+      color: var(--primary);
+    }
+
+    /* Toggle Password Button */
+    .toggle-password {
+      position: absolute;
+      left: 16px;
+      background: none;
+      border: none;
+      color: #6b7280;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0;
+      transition: color 0.3s;
+    }
+
+    .toggle-password:hover {
+      color: var(--text-main);
+    }
+
+    /* ==================== BUTTON & ACTIONS ==================== */
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+      border: none;
+      border-radius: 12px;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px var(--accent-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(59, 130, 246, 0.5);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .card-footer {
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .card-footer a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.3s;
+    }
+
+    .card-footer a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Message Alert */
+    .alert-msg {
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 18px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .alert-msg.error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+    }
+
+    .alert-msg.success {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+    }
+
+    /* Loading Spinner */
+    .spinner {
+      display: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
-<div class="box">
-<img src="1000119623.jpg" class="logo" alt="WALID & SPIDER">
-<h1>إنشاء حساب</h1>
-<div class="sub">سجل حسابك للدخول إلى المنصة</div>
 
-<input id="name" class="input" placeholder="الاسم بالكامل">
-<input id="username" class="input" placeholder="اسم المستخدم" autocomplete="username">
-<input id="password" class="input" type="password" placeholder="كلمة المرور" autocomplete="new-password">
-<input id="confirm" class="input" type="password" placeholder="تأكيد كلمة المرور" autocomplete="new-password">
+  <!-- Ambient Glow Backgrounds -->
+  <div class="glow-sphere sphere-1"></div>
+  <div class="glow-sphere sphere-2"></div>
 
-<select id="level" class="select">
-<option value="">اختر الفرقة الدراسية</option>
-<option value="1">الفرقة الأولى</option>
-<option value="2">الفرقة الثانية</option>
-<option value="3">الفرقة الثالثة</option>
-<option value="4">الفرقة الرابعة</option>
-</select>
+  <div class="register-wrapper">
+    <div class="register-card">
+      
+      <!-- Card Header -->
+      <div class="card-header">
+        <div class="brand-logo">
+          <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <h2>حساب جديد</h2>
+        <p>انضم إلى منصة WALID & SPIDER التعليمية</p>
+      </div>
 
-<button id="registerBtn" class="btn" onclick="registerUser()">إنشاء الحساب</button>
-<div id="message"></div>
-<a class="login" href="login.html">لديك حساب؟ تسجيل الدخول</a>
-</div>
+      <!-- Alert Box -->
+      <div id="alertBox" class="alert-msg"></div>
 
-<script>
-const API_URL = "https://script.google.com/macros/s/AKfycbzXKggpXFg5HmrTfWHP0bPW4gDQfS6pQwyideQ81ESNQraDZ5LrYsyVYfXuT4mxRx0/exec";
+      <!-- Registration Form -->
+      <form id="registerForm" onsubmit="handleRegister(event)">
+        
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="fullName">الاسم الكامل</label>
+          <div class="input-wrapper">
+            <input type="text" id="fullName" placeholder="أدخل اسمك الثلاثي أو الرباعي" required>
+            <i class="fa-solid fa-user input-icon"></i>
+          </div>
+        </div>
 
-function registerUser(){
-    const name=document.getElementById("name").value.trim();
-    const username=document.getElementById("username").value.trim();
-    const password=document.getElementById("password").value;
-    const confirm=document.getElementById("confirm").value;
-    const level=document.getElementById("level").value;
-    const msg=document.getElementById("message");
-    const btn=document.getElementById("registerBtn");
+        <!-- Phone Number / Username -->
+        <div class="form-group">
+          <label for="username">رقم الهاتف (اسم المستخدم)</label>
+          <div class="input-wrapper">
+            <input type="text" id="username" placeholder="01xxxxxxxxx" required pattern="[0-9]+" title="يرجى إدخال أرقام فقط">
+            <i class="fa-solid fa-phone input-icon"></i>
+          </div>
+        </div>
 
-    if(!name || !username || !password || !confirm || !level){
-        msg.style.color="red"; msg.textContent="من فضلك أكمل جميع البيانات."; return;
+        <!-- Academic Level -->
+        <div class="form-group">
+          <label for="level">الفرقة الدراسية</label>
+          <div class="input-wrapper select-wrapper">
+            <select id="level" required>
+              <option value="" disabled selected>اختر الفرقة الدراسية...</option>
+              <option value="1">الفرقة الأولى</option>
+              <option value="2">الفرقة الثانية</option>
+              <option value="3">الفرقة الثالثة</option>
+              <option value="4">الفرقة الرابعة</option>
+            </select>
+            <i class="fa-solid fa-graduation-cap input-icon"></i>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">كلمة المرور</label>
+          <div class="input-wrapper">
+            <input type="password" id="password" placeholder="••••••••" required minlength="6">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">
+              <i class="fa-solid fa-eye" id="toggleIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="btnSubmit" class="btn-submit">
+          <span id="btnText">إنشاء الحساب</span>
+          <div id="btnSpinner" class="spinner"></div>
+        </button>
+
+      </form>
+
+      <!-- Footer Link -->
+      <div class="card-footer">
+        لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // URL الخاصة بـ Google Apps Script
+    const API_URL = "https://script.google.com/macros/s/AKfycbylGT-BhEzFCX772TefCwvqIoY8cerkkcx6vmsth20MRwhHSzq6rbxLZeDRCQJkiQ2a/exec";
+
+    // Toggle Password Visibility
+    function togglePasswordVisibility() {
+      const passwordInput = document.getElementById('password');
+      const toggleIcon = document.getElementById('toggleIcon');
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
+      }
     }
-    if(username.length < 3){
-        msg.style.color="red"; msg.textContent="اسم المستخدم يجب أن يكون 3 أحرف على الأقل."; return;
-    }
-    if(password.length < 6){
-        msg.style.color="red"; msg.textContent="كلمة المرور يجب أن تكون 6 أحرف على الأقل."; return;
-    }
-    if(password !== confirm){
-        msg.style.color="red"; msg.textContent="كلمتا المرور غير متطابقتين."; return;
+
+    // Display Alert Messages
+    function showMessage(msg, isSuccess = false) {
+      const alertBox = document.getElementById('alertBox');
+      alertBox.style.display = 'flex';
+      alertBox.className = 'alert-msg ' + (isSuccess ? 'success' : 'error');
+      
+      const icon = isSuccess ? '<i class="fa-solid fa-circle-check"></i>' : '<i class="fa-solid fa-triangle-exclamation"></i>';
+      alertBox.innerHTML = icon + ' <span>' + msg + '</span>';
     }
 
-    btn.disabled=true;
-    msg.style.color="#555"; msg.textContent="جاري إنشاء الحساب...";
+    // Set Loading State
+    function setLoading(isLoading) {
+      const btn = document.getElementById('btnSubmit');
+      const btnText = document.getElementById('btnText');
+      const btnSpinner = document.getElementById('btnSpinner');
 
-    const callback="registerCallback_"+Date.now();
+      btn.disabled = isLoading;
+      if (isLoading) {
+        btnText.textContent = 'جاري إنشاء الحساب...';
+        btnSpinner.style.display = 'block';
+      } else {
+        btnText.textContent = 'إنشاء الحساب';
+        btnSpinner.style.display = 'none';
+      }
+    }
 
-    window[callback]=function(result){
-        btn.disabled=false;
-        if(result.success){
-            msg.style.color="green";
-            msg.textContent="تم إنشاء الحساب بنجاح ✓";
-            localStorage.setItem("mw_user", JSON.stringify(result));
-            setTimeout(()=>location.href="dashboard.html",700);
-        }else{
-            msg.style.color="red";
-            msg.textContent=result.message || "تعذر إنشاء الحساب.";
+    // Handle Registration Submission
+    function handleRegister(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('fullName').value.trim();
+      const username = document.getElementById('username').value.trim();
+      const level = document.getElementById('level').value;
+      const password = document.getElementById('password').value;
+
+      if (!name || !username || !level || !password) {
+        showMessage('يرجى ملء جميع الحقول المطلوب');
+        return;
+      }
+
+      setLoading(true);
+
+      // استخدام تقنية JSONP لتفادي قيود CORS المعقدة مع Google Apps Script
+      const callbackName = 'registerCallback_' + Math.round(100000 * Math.random());
+      
+      window[callbackName] = function(result) {
+        delete window[callbackName];
+        document.body.removeChild(script);
+        setLoading(false);
+
+        if (result && result.success) {
+          // حفظ بيانات الحساب بالصيغة الموحدة (mw_user) لجميع صفحات المنصة
+          const userData = {
+            success: true,
+            username: username,
+            name: name,
+            level: level
+          };
+          localStorage.setItem("mw_user", JSON.stringify(userData));
+
+          showMessage('تم إنشاء الحساب بنجاح! جاري تحويلك...', true);
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1500);
+        } else {
+          showMessage(result.message || 'حدث خطأ أثناء إنشاء الحساب، يرجى المحاولة لاحقاً');
         }
-        delete window[callback];
-    };
+      };
 
-    const script=document.createElement("script");
-    script.src=API_URL
-        +"?action=register"
-        +"&name="+encodeURIComponent(name)
-        +"&username="+encodeURIComponent(username)
-        +"&password="+encodeURIComponent(password)
-        +"&level="+encodeURIComponent(level)
-        +"&callback="+callback;
-    document.body.appendChild(script);
-}
-</script>
+      const script = document.createElement('script');
+      const queryParams = `?action=register&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&name=${encodeURIComponent(name)}&level=${encodeURIComponent(level)}&callback=${callbackName}`;
+      
+      script.src = API_URL + queryParams;
+      script.onerror = function() {
+        delete window[callbackName];
+        document.body.removeChild(script);
+        setLoading(false);
+        showMessage('تعذر الاتصال بالخادم، يرجى التأكد من الاتصال بالإنترنت');
+      };
+
+      document.body.appendChild(script);
+    }
+  </script>
 </body>
 </html>
