@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOHAMED WALID | آخر الأخبار والإعلانات</title>
+    <!-- استدعاء ملف الـ CSS الخاص بك -->
+    <link rel="stylesheet" href="style.css?v=2">
+    <!-- استدعاء أيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .news-badge {
+            background: #e74c3c;
+            color: white;
+            font-size: 14px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-right: 10px;
+        }
+        .news-date {
+            color: #777;
+            font-size: 14px;
+            display: block;
+            margin-top: 5px;
+        }
+        .news-item {
+            border-right: 5px solid #005aaa;
+            text-align: right;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // حماية الصفحة: التأكد من تسجيل الدخول
+        (function () {
+            const savedUser = localStorage.getItem("mw_user");
+            if (!savedUser) {
+                window.location.replace("login.html");
+                return;
+            }
+            try {
+                const user = JSON.parse(savedUser);
+                if (!user || user.success !== true) {
+                    localStorage.removeItem("mw_user");
+                    window.location.replace("login.html");
+                }
+            } catch (error) {
+                localStorage.removeItem("mw_user");
+                window.location.replace("login.html");
+            }
+        })();
+    </script>
+
+    <!-- شريط العناوين والتنقل -->
+    <header>
+        <h1>📢 مركز الأخبار والتنبيهات</h1>
+        <nav style="margin-top: 15px;">
+            <a href="index.html"><i class="fa-solid fa-house"></i> الرئيسية</a>
+            <a href="Exercise.html"><i class="fa-solid fa-laptop-code"></i> بنك الأسئلة</a>
+            <a href="Reader.html"><i class="fa-solid fa-book-open"></i> الملخصات</a>
+            <a href="news.html" style="text-decoration: underline;"><i class="fa-solid fa-bullhorn"></i> الأخبار</a>
+        </nav>
+    </header>
+
+    <!-- واجهة الصفحة -->
+    <section class="hero">
+        <h2>🚀 متابعة أحدث القرارات والمواعيد</h2>
+        <p>كل الإعلانات المدرسية والمستجدات في مكان واحد</p>
+    </section>
+
+    <!-- قائمة الأخبار -->
+    <section class="container">
+        
+        <!-- خبر 1 -->
+        <div class="card news-item">
+            <h3>
+                <span class="news-badge">عاجل</span>
+                تحديث بنك الأسئلة والمراجعات
+            </h3>
+            <span class="news-date"><i class="fa-regular fa-calendar-alt"></i> اليوم</span>
+            <p>تم إضافة مجموعة جديدة من الأسئلة التفاعلية في قسم بنك الأسئلة لتدريب الطلاب على أنظمة الامتحانات الحديثة.</p>
+            <a href="Exercise.html" class="btn">الانتقال للأسئلة</a>
+        </div>
+
+        <!-- خبر 2 -->
+        <div class="card news-item">
+            <h3>
+                <span class="news-badge" style="background:#28a745;">تنويه</span>
+                جدول رفع الملخصات الذكية
+            </h3>
+            <span class="news-date"><i class="fa-regular fa-calendar-alt"></i> منذ يومين</span>
+            <p>جارٍ رفع الملخصات الخاصة بالقيود المحاسبية وتطبيقاتها بصيغة سهلة وسريعة للمراجعة قبل الامتحانات.</p>
+            <a href="Reader.html" class="btn">تصفح الملخصات</a>
+        </div>
+
+    </section>
+
+</body>
+</html>
