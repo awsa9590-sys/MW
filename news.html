@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOHAMED WALID | آخر الأخبار والإعلانات</title>
-    <!-- استدعاء ملف الـ CSS الخاص بك -->
+    <title>MOHAMED WALID | مركز الأخبار والتنبيهات</title>
     <link rel="stylesheet" href="style.css?v=2">
-    <!-- استدعاء أيقونات FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         .news-badge {
@@ -28,11 +26,16 @@
             text-align: right;
             margin-bottom: 20px;
         }
+        .loading {
+            text-align: center;
+            font-size: 20px;
+            color: #005aaa;
+            padding: 30px;
+        }
     </style>
 </head>
 <body>
     <script>
-        // حماية الصفحة: التأكد من تسجيل الدخول
         (function () {
             const savedUser = localStorage.getItem("mw_user");
             if (!savedUser) {
@@ -52,7 +55,6 @@
         })();
     </script>
 
-    <!-- شريط العناوين والتنقل -->
     <header>
         <h1>📢 مركز الأخبار والتنبيهات</h1>
         <nav style="margin-top: 15px;">
@@ -63,38 +65,62 @@
         </nav>
     </header>
 
-    <!-- واجهة الصفحة -->
     <section class="hero">
         <h2>🚀 متابعة أحدث القرارات والمواعيد</h2>
         <p>كل الإعلانات المدرسية والمستجدات في مكان واحد</p>
     </section>
 
-    <!-- قائمة الأخبار -->
-    <section class="container">
-        
-        <!-- خبر 1 -->
-        <div class="card news-item">
-            <h3>
-                <span class="news-badge">عاجل</span>
-                تحديث بنك الأسئلة والمراجعات
-            </h3>
-            <span class="news-date"><i class="fa-regular fa-calendar-alt"></i> اليوم</span>
-            <p>تم إضافة مجموعة جديدة من الأسئلة التفاعلية في قسم بنك الأسئلة لتدريب الطلاب على أنظمة الامتحانات الحديثة.</p>
-            <a href="Exercise.html" class="btn">الانتقال للأسئلة</a>
+    <!-- حاوية عرض الأخبار -->
+    <section class="container" id="newsContainer">
+        <div class="loading">
+            <i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل أحدث الأخبار...
         </div>
-
-        <!-- خبر 2 -->
-        <div class="card news-item">
-            <h3>
-                <span class="news-badge" style="background:#28a745;">تنويه</span>
-                جدول رفع الملخصات الذكية
-            </h3>
-            <span class="news-date"><i class="fa-regular fa-calendar-alt"></i> منذ يومين</span>
-            <p>جارٍ رفع الملخصات الخاصة بالقيود المحاسبية وتطبيقاتها بصيغة سهلة وسريعة للمراجعة قبل الامتحانات.</p>
-            <a href="Reader.html" class="btn">تصفح الملخصات</a>
-        </div>
-
     </section>
 
+    <script>
+        // 🚨 ضع رابط الـ Apps Script الخاص بك هنا 🚨
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzdUb9zZW7J_KRbEPxVnDoIvs7YgCIrvTxXskOtXQc6iKF2GYdQR_S3lSNeieEI7sQbfQ/exec";
+
+        async function fetchNews() {
+            const container = document.getElementById("newsContainer");
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL);
+                const newsList = await response.json();
+
+                if (newsList.length === 0) {
+                    container.innerHTML = "<p style='text-align:center;'>لا توجد أخبار حالياً.</p>";
+                    return;
+                }
+
+                container.innerHTML = ""; // تفريغ رسالة التحميل
+
+                // العرض بالترتيب العكسي (الخبر الأحدث أولاً)
+                newsList.reverse().forEach(news => {
+                    const card = document.createElement("div");
+                    card.className = "card news-item";
+
+                    let linkBtn = news.link 
+                        ? `<a href="${news.link}" class="btn" target="_blank">الانتقال للرابط</a>` 
+                        : '';
+
+                    card.innerHTML = `
+                        <h3>
+                            <span class="news-badge">${news.badge}</span>
+                            ${news.title}
+                        </h3>
+                        <span class="news-date"><i class="fa-regular fa-calendar-alt"></i> ${news.date}</span>
+                        <p>${news.content}</p>
+                        ${linkBtn}
+                    `;
+                    container.appendChild(card);
+                });
+
+            } catch (error) {
+                container.innerHTML = "<p style='text-align:center; color:red;'>حدث خطأ أثناء تحميل الأخبار، يرجى المحاولة لاحقاً.</p>";
+            }
+        }
+
+        fetchNews();
+    </script>
 </body>
 </html>
