@@ -67,7 +67,7 @@
 
     <section class="hero">
         <h2>🚀 متابعة أحدث القرارات والمواعيد</h2>
-        <p>كل المستجدات في مكان واحد</p>
+        <p>كل الإعلانات المدرسية والمستجدات في مكان واحد</p>
     </section>
 
     <!-- حاوية عرض الأخبار -->
@@ -78,7 +78,6 @@
     </section>
 
     <script>
-        // 🚨 ضع رابط الـ Apps Script الخاص بك هنا 🚨
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzdUb9zZW7J_KRbEPxVnDoIvs7YgCIrvTxXskOtXQc6iKF2GYdQR_S3lSNeieEI7sQbfQ/exec";
 
         async function fetchNews() {
@@ -86,6 +85,9 @@
             try {
                 const response = await fetch(GOOGLE_SCRIPT_URL);
                 const newsList = await response.json();
+
+                // 🔴 حفظ الإجمالي الجديد لتصفير النقطة الحمراء عند الدخول
+                localStorage.setItem("mw_read_news_count", newsList.length.toString());
 
                 if (newsList.length === 0) {
                     container.innerHTML = "<p style='text-align:center;'>لا توجد أخبار حالياً.</p>";

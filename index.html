@@ -90,12 +90,39 @@
         <h1> WALID & SPIDER </h1>
         <div id="accountInfo" style="margin-top:10px;font-size:14px;"></div>
         
-        <nav>
-            <a href="index.html"><i class="fa-solid fa-house"></i> الرئيسية</a>
-            <a href="news.html"><i class="fa-solid fa-bullhorn"></i> الأخبار والإعلانات</a>
-            <a href="Exercise.html"><i class="fa-solid fa-laptop-code"></i> بنك الأسئلة</a>
-            <a href="Reader.html"><i class="fa-solid fa-book-open"></i> الملخصات</a>
-        </nav>
+       <!-- تعديل رابط الأخبار داخل الـ nav -->
+<nav>
+    <a href="index.html"><i class="fa-solid fa-house"></i> الرئيسية</a>
+    <a href="news.html" class="nav-news-link">
+        <i class="fa-solid fa-bullhorn"></i> الأخبار والإعلانات
+        <span id="newsDot" class="notification-dot"></span>
+    </a>
+    <a href="Exercise.html"><i class="fa-solid fa-laptop-code"></i> بنك الأسئلة</a>
+    <a href="Reader.html"><i class="fa-solid fa-book-open"></i> الملخصات</a>
+</nav>
+
+<!-- إضافة السكربت للتحقق من الأخبار قبل نهاية tag الـ </body> -->
+<script>
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzdUb9zZW7J_KRbEPxVnDoIvs7YgCIrvTxXskOtXQc6iKF2GYdQR_S3lSNeieEI7sQbfQ/exec";
+
+    async function checkNewNews() {
+        try {
+            const response = await fetch(GOOGLE_SCRIPT_URL);
+            const newsList = await response.json();
+            
+            const readCount = parseInt(localStorage.getItem("mw_read_news_count") || "0", 10);
+            
+            if (newsList.length > readCount) {
+                const dot = document.getElementById("newsDot");
+                if (dot) dot.classList.add("active");
+            }
+        } catch (e) {
+            console.error("خطأ في جلب التنبيهات:", e);
+        }
+    }
+
+    checkNewNews();
+</script>
 
         <button onclick="logout()" style="margin-top:15px;padding:8px 16px;border:0;border-radius:8px;background:#dc3545;color:#fff;cursor:pointer;font-weight:bold;">تسجيل الخروج</button>
     </header>
