@@ -60,9 +60,12 @@ iframe{width:100%;height:100%;border:0}
     <button class="logout" onclick="logout()">🚪 تسجيل الخروج</button>
   </nav>
 
-  <div class="viewer">
-    <iframe id="pdf-viewer"></iframe>
-  </div>
+ <div class="viewer">
+  <!-- عارض الـ PDF -->
+  <iframe id="pdf-viewer" style="display:none;"></iframe>
+  
+  <!-- مشغل الفيديو -->
+  <video id="video-viewer" controls style="display:none; width:100%; height:100%; background:#000;"></video>
 </div>
 
 <script>
@@ -221,12 +224,29 @@ function renderBooks(level){
 
   document.getElementById("reader").style.display = "flex";
 
+  // استدعاء دالة changeFile لتشغيل أول ملف بالطريقة الصحيحة (سواء فيديو أو PDF) وتنشيط الزر الخاص به
   const firstBook = books[0];
-  document.getElementById("pdf-viewer").src = firstBook.file;
+  const firstButton = document.querySelector("#bookList button");
+  changeFile(firstBook.file, firstButton);
 }
 
 function changeFile(fileName, btn){
-  document.getElementById("pdf-viewer").src = fileName;
+  const pdfViewer = document.getElementById("pdf-viewer");
+  const videoViewer = document.getElementById("video-viewer");
+
+  // التحقق من نوع الملف
+  if (fileName.endsWith(".mp4") || fileName.endsWith(".webm") || fileName.endsWith(".ogg")) {
+    pdfViewer.style.display = "none";
+    videoViewer.style.display = "block";
+    videoViewer.src = fileName;
+    videoViewer.load(); // إعادة تحميل الفيديو الجديد
+  } else {
+    videoViewer.style.display = "none";
+    pdfViewer.style.display = "block";
+    pdfViewer.src = fileName;
+  }
+
+  // تحديث الزر النشط
   document.querySelectorAll("#bookList button").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
 }
