@@ -6,7 +6,7 @@
     <title>MOHAMED WALID | المحاسبة المتوسطة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
     <style>
-        :root { --primary: #0056b3; --secondary: #28a745; --info: #17a2b8; --dark: #1e293b; --warning: #ffc107; --whatsapp: #25d366; }
+        :root { --primary: #0056b3; --secondary: #28a745; --info: #17a2b8; --dark: #1e293b; --warning: #ffc107; --whatsapp: #25d366; --danger: #dc3545; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f8fafc; margin: 0; direction: rtl; }
         header { background: var(--dark); color: white; padding: 20px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         
@@ -46,11 +46,14 @@
         .card.exercise { border-top-color: var(--secondary); }
         .card.summaries { border-top-color: var(--info); }
         .card.news { border-top-color: var(--warning); }
+        .card.admin-panel { border-top-color: var(--danger); display: none; } /* مخفي افتراضياً للمستخدمين */
+        
         .card i { font-size: 3rem; margin-bottom: 20px; }
         .btn { display: inline-block; width: 80%; padding: 12px; margin-top: 20px; border-radius: 10px; text-decoration: none; font-weight: bold; transition: 0.3s; }
         .btn-exercise { background: var(--secondary); color: white; }
         .btn-summaries { background: var(--info); color: white; }
         .btn-news { background: var(--warning); color: #000; }
+        .btn-admin { background: var(--danger); color: white; }
         .btn:hover { opacity: 0.9; transform: scale(1.02); }
 
         /* زر الواتساب العائم */
@@ -101,13 +104,14 @@
         
         <nav>
             <a href="index.html"><i class="fa-solid fa-house"></i> الرئيسية</a>
-            <!-- 🔴 تم إضافة عنصر النقطة الحمراء هنا -->
             <a href="news.html" class="nav-news-link">
                 <i class="fa-solid fa-bullhorn"></i> الأخبار والإعلانات
                 <span id="newsDot" class="notification-dot"></span>
             </a>
             <a href="Exercise.html"><i class="fa-solid fa-laptop-code"></i> بنك الأسئلة</a>
             <a href="Reader.html"><i class="fa-solid fa-book-open"></i> الملخصات</a>
+            <!-- رابط لوحة التحكم في القائمة (يظهر للأدمن فقط) -->
+            <a href="admin.html" id="navAdminLink" style="display: none; background: var(--danger);"><i class="fa-solid fa-gears"></i> لوحة التحكم</a>
         </nav>
 
         <button onclick="logout()" style="margin-top:15px;padding:8px 16px;border:0;border-radius:8px;background:#dc3545;color:#fff;cursor:pointer;font-weight:bold;">تسجيل الخروج</button>
@@ -140,6 +144,14 @@
             <p>تابع أحدث التنبيهات، مواعيد الامتحانات، والتحديثات الجديدة.</p>
             <a href="news.html" class="btn btn-news">عرض مركز الأخبار</a>
         </div>
+
+        <!-- 🛡️ بطاقة إضافة الملخصات والفيديوهات (خاصة بالأدمن) -->
+        <div class="card admin-panel" id="adminCard">
+            <i class="fa-solid fa-cloud-arrow-up" style="color: var(--danger);"></i>
+            <h3>إدارة المحتوى</h3>
+            <p>إضافة وتعديل الملخصات، المحاضرات، والفيديوهات الجديدة للمنصة.</p>
+            <a href="admin.html" class="btn btn-admin">إضافة محتوى جديد</a>
+        </div>
     </section>
 
     <a href="https://chat.whatsapp.com/FnBoSEmgQnCKefqWnzY2Jh" class="whatsapp-float" target="_blank" title="انضم الى جروب الواتساب">
@@ -157,6 +169,14 @@
                     const user = JSON.parse(savedUser);
                     const levels = { "1": "الفرقة الأولى", "2": "الفرقة الثانية", "3": "الفرقة الثالثة", "4": "الفرقة الرابعة" };
                     accountInfo.textContent = "مرحبًا " + (user.name || user.username || "الطالب") + " — " + (levels[String(user.level)] || "");
+
+                    // التحقق من صلاحيات الأدمن (اسم المستخدم Mohamed أو role = admin)
+                    if (user.username === "Mohamed" || user.role === 'admin') {
+                        const adminCard = document.getElementById("adminCard");
+                        const navAdminLink = document.getElementById("navAdminLink");
+                        if (adminCard) adminCard.style.display = "block";
+                        if (navAdminLink) navAdminLink.style.display = "inline-flex";
+                    }
                 } catch (e) {}
             }
         })();
@@ -166,18 +186,14 @@
             window.location.replace("login.html");
         }
 
-        // 🔴 سكربت فحص الأخبار الجديدة وإظهار النقطة
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzdUb9zZW7J_KRbEPxVnDoIvs7YgCIrvTxXskOtXQc6iKF2GYdQR_S3lSNeieEI7sQbfQ/exec";
 
         async function checkNewNews() {
             try {
                 const response = await fetch(GOOGLE_SCRIPT_URL);
                 const newsList = await response.json();
-                
-                // جلب عدد الأخبار المخزنة السابقة
                 const readCount = parseInt(localStorage.getItem("mw_read_news_count") || "0", 10);
                 
-                // إذا كان إجمالي الأخبار أكبر من المقروء يظهر الإشعار
                 if (newsList.length > readCount) {
                     const dot = document.getElementById("newsDot");
                     if (dot) dot.classList.add("active");

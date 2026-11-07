@@ -65,7 +65,7 @@
     }
 
     .password-container input {
-      padding-left: 45px; /* مساحة لزر العين على اليسار */
+      padding-left: 45px;
       margin: 0;
     }
 
@@ -160,6 +160,25 @@
         return;
       }
 
+      // التحقق المباشر من حساب الأدمن الخاص بك
+      if (username === "Mohamed" && password === "Medo@12345") {
+        const adminUser = {
+          success: true,
+          username: "Mohamed",
+          name: "Mohamed",
+          role: "admin",
+          level: "4"
+        };
+        localStorage.setItem("mw_user", JSON.stringify(adminUser));
+        message.style.color = "green";
+        message.textContent = "تم تسجيل الدخول كمسؤول بنجاح ✓";
+
+        setTimeout(function() {
+          window.location.href = "index.html";
+        }, 700);
+        return;
+      }
+
       // تعطيل الزر مؤقتاً لتجنب الضغط المتكرر
       submitBtn.disabled = true;
       message.style.color = "#555";
@@ -171,6 +190,9 @@
         submitBtn.disabled = false;
         
         if (result.success) {
+          if (username === "Mohamed") {
+            result.role = "admin";
+          }
           localStorage.setItem("mw_user", JSON.stringify(result));
           message.style.color = "green";
           message.textContent = "تم تسجيل الدخول بنجاح ✓";
@@ -183,7 +205,6 @@
           message.textContent = result.message || "بيانات الدخول غير صحيحة";
         }
 
-        // تنظيف الكود
         if (document.getElementById(callback)) {
           document.getElementById(callback).remove();
         }
