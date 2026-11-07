@@ -243,7 +243,8 @@ const levels = {
 
 document.getElementById("info").textContent =
 "أنت مسجل في " +
-(levels[user.level] || "غير محددة");
+(levels[user.level] || "غير محددة") +
+(user.specialization === "trade" ? " — تخصص التجارة الخارجية" : "");
 
 function logout(){
 

@@ -374,7 +374,7 @@
         <div class="form-group">
           <label for="level">الفرقة الدراسية</label>
           <div class="input-wrapper select-wrapper">
-            <select id="level" required>
+            <select id="level" required onchange="toggleSpecialization()">
               <option value="" disabled selected>اختر الفرقة الدراسية...</option>
               <option value="1">الفرقة الأولى</option>
               <option value="2">الفرقة الثانية</option>
@@ -382,6 +382,19 @@
               <option value="4">الفرقة الرابعة</option>
             </select>
             <i class="fa-solid fa-graduation-cap input-icon"></i>
+          </div>
+        </div>
+
+        <!-- Specialization (يظهر للفرقة الثالثة والرابعة فقط) -->
+        <div class="form-group" id="specGroup" style="display:none;">
+          <label for="specialization">التخصص</label>
+          <div class="input-wrapper select-wrapper">
+            <select id="specialization">
+              <option value="" disabled selected>اختر التخصص...</option>
+              <option value="accounting">محاسبة</option>
+              <option value="trade">تجارة خارجية</option>
+            </select>
+            <i class="fa-solid fa-briefcase input-icon"></i>
           </div>
         </div>
 
@@ -415,7 +428,16 @@
 
   <script>
     // URL الخاصة بـ Google Apps Script
-    const API_URL = "https://script.google.com/macros/s/AKfycbylGT-BhEzFCX772TefCwvqIoY8cerkkcx6vmsth20MRwhHSzq6rbxLZeDRCQJkiQ2a/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbwIY6Oibqru0rG0CeTHIOaIA3Xbt7xjn1L7FKyPskcUfj7bX-Z1S2jqNs0fAQHFQjsR/exec";
+
+    // إظهار حقل التخصص للفرقة الثالثة والرابعة فقط
+    function toggleSpecialization() {
+      const level = document.getElementById('level').value;
+      const group = document.getElementById('specGroup');
+      const show = (level === '3' || level === '4');
+      group.style.display = show ? 'block' : 'none';
+      if (!show) document.getElementById('specialization').value = '';
+    }
 
     // Toggle Password Visibility
     function togglePasswordVisibility() {
@@ -467,6 +489,12 @@
       const username = document.getElementById('username').value.trim();
       const level = document.getElementById('level').value;
       const password = document.getElementById('password').value;
+      const specialization = document.getElementById('specialization').value;
+
+      if ((level === '3' || level === '4') && !specialization) {
+        showMessage('يرجى اختيار التخصص');
+        return;
+      }
 
       if (!name || !username || !level || !password) {
         showMessage('يرجى ملء جميع الحقول المطلوب');
@@ -486,6 +514,7 @@
         if (result && result.success) {
           // حفظ بيانات الحساب بالصيغة الموحدة (mw_user) لجميع صفحات المنصة
           const userData = {
+            specialization: specialization,
             success: true,
             username: username,
             name: name,
@@ -503,7 +532,7 @@
       };
 
       const script = document.createElement('script');
-      const queryParams = `?action=register&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&name=${encodeURIComponent(name)}&level=${encodeURIComponent(level)}&callback=${callbackName}`;
+      const queryParams = `?action=register&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&name=${encodeURIComponent(name)}&level=${encodeURIComponent(level)}&specialization=${encodeURIComponent(specialization)}&callback=${callbackName}`;
       
       script.src = API_URL + queryParams;
       script.onerror = function() {

@@ -168,7 +168,7 @@
                 try {
                     const user = JSON.parse(savedUser);
                     const levels = { "1": "الفرقة الأولى", "2": "الفرقة الثانية", "3": "الفرقة الثالثة", "4": "الفرقة الرابعة" };
-                    accountInfo.textContent = "مرحبًا " + (user.name || user.username || "الطالب") + " — " + (levels[String(user.level)] || "");
+                    accountInfo.textContent = "مرحبًا " + (user.name || user.username || "الطالب") + " — " + (levels[String(user.level)] || "") + (user.specialization === "trade" ? " — تجارة خارجية" : "");
 
                     // التحقق من صلاحيات الأدمن (اسم المستخدم Mohamed أو role = admin)
                     if (user.username === "Mohamed" || user.role === 'admin') {

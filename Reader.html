@@ -192,6 +192,17 @@ const BOOKS = {
   ]
 };
 
+/* كتب تخصص التجارة الخارجية (المفتاح: رقم الفرقة + _trade) */
+BOOKS["3_trade"] = [
+  // مثال:
+  // {section:"اسم المادة", title:"اسم الكتاب", file:"اسم الملف.pdf"}
+];
+
+BOOKS["4_trade"] = [
+  // مثال:
+  // {section:"اسم المادة", title:"اسم الكتاب", file:"اسم الملف.pdf"}
+];
+
 const LEVEL_NAMES = {
   "1":"الفرقة الأولى",
   "2":"الفرقة الثانية",
@@ -218,6 +229,22 @@ function getLevel(user){
   ).trim();
 }
 
+function getSpec(user){
+  return String(user.specialization ?? user.spec ?? "").trim();
+}
+
+function isTrade(user){
+  return getSpec(user) === "trade";
+}
+
+function specLabel(user){
+  return isTrade(user) ? " — تخصص التجارة الخارجية" : "";
+}
+
+function booksKey(user, level){
+  return isTrade(user) ? level + "_trade" : level;
+}
+
 function addButton(book, isFirst){
   const btn = document.createElement("button");
   btn.textContent = book.title;
@@ -228,11 +255,11 @@ function addButton(book, isFirst){
   return btn;
 }
 
-function renderBooks(level){
+function renderBooks(level, key){
   const list = document.getElementById("bookList");
   list.innerHTML = "";
 
-  const books = BOOKS[level] || [];
+  const books = BOOKS[key] || [];
 
   if(!books.length){
     document.getElementById("reader").style.display = "none";
@@ -297,9 +324,9 @@ function start(){
   document.getElementById("loading").style.display = "none";
   document.getElementById("studentInfo").textContent =
     "👤 " + (user.name || user.username || "الطالب") +
-    " — " + LEVEL_NAMES[level];
+    " — " + LEVEL_NAMES[level] + specLabel(user);
 
-  renderBooks(level);
+  renderBooks(level, booksKey(user, level));
 }
 
 start();

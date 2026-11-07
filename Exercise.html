@@ -494,7 +494,10 @@
         "1": [],
         "2": [],
         "3": ["ch31", "ch32", "ch33", "ch34", "ch35"],
-        "4": ["ch41","ch42","ch43","ch44","ch45"]
+        "4": ["ch41","ch42","ch43","ch44","ch45"],
+        // تخصص التجارة الخارجية: أضف هنا أسماء الفصول (مثل "ch36") بعد تعريف أسئلتها في allQuizzes و chapterNames
+        "3_trade": [],
+        "4_trade": []
     };
 
     const chapterNames = {
@@ -533,6 +536,10 @@
         return String(user.level ?? user.Level ?? user.year ?? user.grade ?? "").trim();
     }
 
+    function isTradeUser(user) {
+        return String(user.specialization ?? user.spec ?? "").trim() === "trade";
+    }
+
     function setupByLevel() {
         const user = getLoggedUser();
 
@@ -555,10 +562,10 @@
         document.getElementById("quizApp").style.display = "block";
         document.getElementById("studentLevel").textContent =
             "👤 " + (user.name || user.username || "الطالب") +
-            " — " + levelNames[level];
+            " — " + levelNames[level] + (isTradeUser(user) ? " — تخصص التجارة الخارجية" : "");
 
         const select = document.getElementById("chapterSelect");
-        const chapters = quizzesByLevel[level] || [];
+        const chapters = quizzesByLevel[isTradeUser(user) ? level + "_trade" : level] || [];
         select.innerHTML = "";
 
         if (!chapters.length) {
