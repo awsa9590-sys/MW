@@ -2,6 +2,10 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src https://script.google.com https://script.googleusercontent.com; frame-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="no-referrer">
+<script src="auth.js"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة التحكم والإدارة | WALID & SPIDER</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -128,8 +132,7 @@
             if (!savedUser) { window.location.replace("login.html"); return; }
             try {
                 const user = JSON.parse(savedUser);
-                if (!user || (user.username !== "Mohamed" && user.role !== 'admin')) {
-                    alert("غير مسموح لك بدخول هذه الصفحة!");
+                if (!user || user.success !== true || user.role !== 'admin') {
                     window.location.replace("index.html");
                 }
             } catch (error) {
@@ -196,17 +199,32 @@
             e.preventDefault();
             const status = document.getElementById("statusMessage");
             
+            // السماح بروابط http/https فقط
+            const rawLink = document.getElementById("link").value.trim();
+            let safeLink = "";
+            try {
+                const u = new URL(rawLink);
+                if (u.protocol === "https:" || u.protocol === "http:") safeLink = u.href;
+            } catch (err) {}
+            if (!safeLink) {
+                status.style.color = "red";
+                status.textContent = "الرابط غير صالح (يجب أن يبدأ بـ http أو https)";
+                return;
+            }
+
             const data = {
                 type: document.getElementById("contentType").value,
                 level: document.getElementById("level").value,
                 subject: document.getElementById("subjectName").value.trim(),
                 title: document.getElementById("title").value.trim(),
-                link: document.getElementById("link").value.trim(),
+                link: safeLink,
                 date: new Date().toLocaleDateString('ar-EG')
             };
 
             // حفظ البيانات محلياً للتجربة (يمكن ربطها مع Google Apps Script لاحقاً)
-            let existingData = JSON.parse(localStorage.getItem("mw_content_list") || "[]");
+            let existingData = [];
+            try { existingData = JSON.parse(localStorage.getItem("mw_content_list") || "[]"); } catch (err) {}
+            if (!Array.isArray(existingData)) existingData = [];
             existingData.push(data);
             localStorage.setItem("mw_content_list", JSON.stringify(existingData));
 

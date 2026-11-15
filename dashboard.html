@@ -4,6 +4,10 @@
 <head>
 
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src https://script.google.com https://script.googleusercontent.com; frame-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="no-referrer">
+<script src="auth.js"></script>
+
 
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
@@ -214,20 +218,20 @@ onclick="logout()">
 
 <script>
 
-const data =
-localStorage.getItem("mw_user");
+let user = null;
 
-if(!data){
+try {
+user = JSON.parse(localStorage.getItem("mw_user") || "null");
+} catch (e) {}
 
-window.location.href="login.html";
-
+if(!user || user.success !== true){
+localStorage.removeItem("mw_user");
+window.location.replace("login.html");
+throw new Error("not authenticated");
 }
 
-const user =
-JSON.parse(data);
-
 document.getElementById("welcome").textContent =
-"مرحبًا " + user.name + " 👋";
+"مرحبًا " + (user.name || user.username || "الطالب") + " 👋";
 
 const levels = {
 

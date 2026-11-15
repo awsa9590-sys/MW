@@ -2,6 +2,10 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src https://script.google.com https://script.googleusercontent.com; frame-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="no-referrer">
+<script src="auth.js"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOHAMED WALID | مركز الأخبار والتنبيهات</title>
     <link rel="stylesheet" href="style.css?v=2">
@@ -85,6 +89,7 @@
             try {
                 const response = await fetch(GOOGLE_SCRIPT_URL);
                 const newsList = await response.json();
+                if (!Array.isArray(newsList)) throw new Error("bad response");
 
                 // 🔴 حفظ الإجمالي الجديد لتصفير النقطة الحمراء عند الدخول
                 localStorage.setItem("mw_read_news_count", newsList.length.toString());
@@ -101,19 +106,42 @@
                     const card = document.createElement("div");
                     card.className = "card news-item";
 
-                    let linkBtn = news.link 
-                        ? `<a href="${news.link}" class="btn" target="_blank">الانتقال للرابط</a>` 
-                        : '';
+                    const h3 = document.createElement("h3");
+                    const badge = document.createElement("span");
+                    badge.className = "news-badge";
+                    badge.textContent = String(news.badge ?? "");
+                    h3.appendChild(badge);
+                    h3.appendChild(document.createTextNode(" " + String(news.title ?? "")));
 
-                    card.innerHTML = `
-                        <h3>
-                            <span class="news-badge">${news.badge}</span>
-                            ${news.title}
-                        </h3>
-                        <span class="news-date"><i class="fa-regular fa-calendar-alt"></i> ${news.date}</span>
-                        <p>${news.content}</p>
-                        ${linkBtn}
-                    `;
+                    const dateEl = document.createElement("span");
+                    dateEl.className = "news-date";
+                    const icon = document.createElement("i");
+                    icon.className = "fa-regular fa-calendar-alt";
+                    dateEl.appendChild(icon);
+                    dateEl.appendChild(document.createTextNode(" " + String(news.date ?? "")));
+
+                    const p = document.createElement("p");
+                    p.textContent = String(news.content ?? "");
+
+                    card.appendChild(h3);
+                    card.appendChild(dateEl);
+                    card.appendChild(p);
+
+                    // السماح بروابط http/https فقط (منع javascript: وغيرها)
+                    if (news.link) {
+                        try {
+                            const u = new URL(String(news.link), location.href);
+                            if (u.protocol === "https:" || u.protocol === "http:") {
+                                const a = document.createElement("a");
+                                a.href = u.href;
+                                a.className = "btn";
+                                a.target = "_blank";
+                                a.rel = "noopener noreferrer";
+                                a.textContent = "الانتقال للرابط";
+                                card.appendChild(a);
+                            }
+                        } catch (e) {}
+                    }
                     container.appendChild(card);
                 });
 

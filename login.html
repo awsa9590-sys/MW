@@ -3,6 +3,9 @@
 
 <head>
   <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src https://script.google.com https://script.googleusercontent.com; frame-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="no-referrer">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>تسجيل الدخول | WALID & SPIDER</title>
 
@@ -127,10 +130,10 @@
     <h1>WALID & SPIDER</h1>
     <p class="subtitle">منصة المحاسبة التعليمية</p>
 
-    <input id="username" class="input" type="text" placeholder="اسم المستخدم" autocomplete="username">
+    <input id="username" class="input" type="text" maxlength="50" placeholder="اسم المستخدم" autocomplete="username">
     
     <div class="password-container">
-      <input type="password" id="password" class="input" placeholder="كلمة المرور" autocomplete="current-password">
+      <input type="password" id="password" class="input" maxlength="128" placeholder="كلمة المرور" autocomplete="current-password">
       <button type="button" onclick="togglePassword()" id="showPasswordBtn" class="toggle-password-btn" title="إظهار كلمة المرور">👁️</button>
     </div>
 
@@ -160,77 +163,48 @@
         return;
       }
 
-      // التحقق المباشر من حساب الأدمن الخاص بك
-      if (username === "Mohamed" && password === "Medo@12345") {
-        const adminUser = {
-          success: true,
-          username: "Mohamed",
-          name: "Mohamed",
-          role: "admin",
-          level: "4"
-        };
-        localStorage.setItem("mw_user", JSON.stringify(adminUser));
-        message.style.color = "green";
-        message.textContent = "تم تسجيل الدخول كمسؤول بنجاح ✓";
-
-        setTimeout(function() {
-          window.location.href = "index.html";
-        }, 700);
-        return;
-      }
-
       // تعطيل الزر مؤقتاً لتجنب الضغط المتكرر
       submitBtn.disabled = true;
       message.style.color = "#555";
       message.textContent = "جاري التحقق...";
 
-      const callback = "loginCallback_" + Date.now();
-
-      window[callback] = function(result) {
-        submitBtn.disabled = false;
-        
-        if (result.success) {
-          if (username === "Mohamed") {
-            result.role = "admin";
+      fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ action: "login", username: username, password: password })
+      })
+        .then(function(r) { return r.json(); })
+        .then(function(result) {
+          submitBtn.disabled = false;
+          if (result && result.success === true && result.user && result.token) {
+            const u = result.user;
+            const safeUser = {
+              success: true,
+              token: String(result.token),
+              username: String(u.username || username),
+              name: String(u.name || ""),
+              level: String(u.level || ""),
+              specialization: String(u.specialization || ""),
+              role: u.role === "admin" ? "admin" : "user"
+            };
+            localStorage.setItem("mw_user", JSON.stringify(safeUser));
+            message.style.color = "green";
+            message.textContent = "تم تسجيل الدخول بنجاح ✓";
+            setTimeout(function() { window.location.href = "index.html"; }, 700);
+          } else {
+            message.style.color = "red";
+            message.textContent = (result && result.message) || "بيانات الدخول غير صحيحة";
           }
-          localStorage.setItem("mw_user", JSON.stringify(result));
-          message.style.color = "green";
-          message.textContent = "تم تسجيل الدخول بنجاح ✓";
-
-          setTimeout(function() {
-            window.location.href = "index.html";
-          }, 700);
-        } else {
+        })
+        .catch(function() {
+          submitBtn.disabled = false;
           message.style.color = "red";
-          message.textContent = result.message || "بيانات الدخول غير صحيحة";
-        }
-
-        if (document.getElementById(callback)) {
-          document.getElementById(callback).remove();
-        }
-        delete window[callback];
-      };
-
-      const script = document.createElement("script");
-      script.id = callback;
-      script.src = API_URL +
-        "?action=login" +
-        "&username=" + encodeURIComponent(username) +
-        "&password=" + encodeURIComponent(password) +
-        "&callback=" + callback;
-
-      script.onerror = function() {
-        submitBtn.disabled = false;
-        message.style.color = "red";
-        message.textContent = "حدث خطأ في الاتصال بالخادم، يرجى المحاولة لاحقاً.";
-        delete window[callback];
-      };
-
-      document.body.appendChild(script);
+          message.textContent = "حدث خطأ في الاتصال بالخادم، يرجى المحاولة لاحقاً.";
+        });
     }
 
     document.addEventListener("keydown", function(e) {
-      if (e.key === "Enter") {
+      if (e.key === "Enter" && !document.getElementById("submitBtn").disabled) {
         login();
       }
     });

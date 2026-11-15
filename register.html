@@ -2,6 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src https://script.google.com https://script.googleusercontent.com; frame-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="no-referrer">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>إنشاء حساب جديد - WALID & SPIDER</title>
 
@@ -356,7 +359,7 @@
         <div class="form-group">
           <label for="fullName">الاسم الكامل</label>
           <div class="input-wrapper">
-            <input type="text" id="fullName" placeholder="أدخل اسمك الثلاثي أو الرباعي" required>
+            <input type="text" id="fullName" maxlength="100" placeholder="أدخل اسمك الثلاثي أو الرباعي" required>
             <i class="fa-solid fa-user input-icon"></i>
           </div>
         </div>
@@ -365,7 +368,7 @@
         <div class="form-group">
           <label for="username">رقم الهاتف (اسم المستخدم)</label>
           <div class="input-wrapper">
-            <input type="text" id="username" placeholder="01xxxxxxxxx" required pattern="[0-9]+" title="يرجى إدخال أرقام فقط">
+            <input type="text" id="username" placeholder="01xxxxxxxxx" required pattern="[0-9]{8,15}" maxlength="15" title="يرجى إدخال أرقام فقط">
             <i class="fa-solid fa-phone input-icon"></i>
           </div>
         </div>
@@ -402,7 +405,7 @@
         <div class="form-group">
           <label for="password">كلمة المرور</label>
           <div class="input-wrapper">
-            <input type="password" id="password" placeholder="••••••••" required minlength="6">
+            <input type="password" id="password" placeholder="••••••••" required minlength="8" maxlength="128">
             <i class="fa-solid fa-lock input-icon"></i>
             <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">
               <i class="fa-solid fa-eye" id="toggleIcon"></i>
@@ -461,8 +464,13 @@
       alertBox.style.display = 'flex';
       alertBox.className = 'alert-msg ' + (isSuccess ? 'success' : 'error');
       
-      const icon = isSuccess ? '<i class="fa-solid fa-circle-check"></i>' : '<i class="fa-solid fa-triangle-exclamation"></i>';
-      alertBox.innerHTML = icon + ' <span>' + msg + '</span>';
+      alertBox.textContent = '';
+      const ic = document.createElement('i');
+      ic.className = isSuccess ? 'fa-solid fa-circle-check' : 'fa-solid fa-triangle-exclamation';
+      const sp = document.createElement('span');
+      sp.textContent = ' ' + String(msg);
+      alertBox.appendChild(ic);
+      alertBox.appendChild(sp);
     }
 
     // Set Loading State
@@ -496,6 +504,11 @@
         return;
       }
 
+      if (!['1','2','3','4'].includes(level) || !/^[0-9]{8,15}$/.test(username) || password.length < 8) {
+        showMessage('تأكد من صحة البيانات (كلمة المرور 8 أحرف على الأقل)');
+        return;
+      }
+
       if (!name || !username || !level || !password) {
         showMessage('يرجى ملء جميع الحقول المطلوب');
         return;
@@ -503,46 +516,35 @@
 
       setLoading(true);
 
-      // استخدام تقنية JSONP لتفادي قيود CORS المعقدة مع Google Apps Script
-      const callbackName = 'registerCallback_' + Math.round(100000 * Math.random());
-      
-      window[callbackName] = function(result) {
-        delete window[callbackName];
-        document.body.removeChild(script);
-        setLoading(false);
-
-        if (result && result.success) {
-          // حفظ بيانات الحساب بالصيغة الموحدة (mw_user) لجميع صفحات المنصة
-          const userData = {
-            specialization: specialization,
-            success: true,
-            username: username,
-            name: name,
-            level: level
-          };
-          localStorage.setItem("mw_user", JSON.stringify(userData));
-
-          showMessage('تم إنشاء الحساب بنجاح! جاري تحويلك...', true);
-          setTimeout(() => {
-            window.location.href = 'index.html';
-          }, 1500);
-        } else {
-          showMessage(result.message || 'حدث خطأ أثناء إنشاء الحساب، يرجى المحاولة لاحقاً');
-        }
-      };
-
-      const script = document.createElement('script');
-      const queryParams = `?action=register&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&name=${encodeURIComponent(name)}&level=${encodeURIComponent(level)}&specialization=${encodeURIComponent(specialization)}&callback=${callbackName}`;
-      
-      script.src = API_URL + queryParams;
-      script.onerror = function() {
-        delete window[callbackName];
-        document.body.removeChild(script);
-        setLoading(false);
-        showMessage('تعذر الاتصال بالخادم، يرجى التأكد من الاتصال بالإنترنت');
-      };
-
-      document.body.appendChild(script);
+      fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ action: "register", username: username, password: password, name: name, level: level, specialization: specialization })
+      })
+        .then(function(r) { return r.json(); })
+        .then(function(result) {
+          setLoading(false);
+          if (result && result.success === true && result.user && result.token) {
+            const u = result.user;
+            localStorage.setItem("mw_user", JSON.stringify({
+              success: true,
+              token: String(result.token),
+              username: String(u.username),
+              name: String(u.name),
+              level: String(u.level),
+              specialization: String(u.specialization || ""),
+              role: "user"
+            }));
+            showMessage('تم إنشاء الحساب بنجاح! جاري تحويلك...', true);
+            setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+          } else {
+            showMessage((result && result.message) || 'حدث خطأ أثناء إنشاء الحساب، يرجى المحاولة لاحقاً');
+          }
+        })
+        .catch(function() {
+          setLoading(false);
+          showMessage('تعذر الاتصال بالخادم، يرجى التأكد من الاتصال بالإنترنت');
+        });
     }
   </script>
 </body>
