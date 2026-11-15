@@ -1,5 +1,5 @@
 (function () {
-  var API = "https://script.google.com/macros/s/AKfycbwIY6Oibqru0rG0CeTHIOaIA3Xbt7xjn1L7FKyPskcUfj7bX-Z1S2jqNs0fAQHFQjsR/exec";
+  var API = "https://script.google.com/macros/s/AKfycbwL5ZNI3IwPp8xCuKIWuXH8OUmeIm4oPdESBz355JAaR9S2dEeDzhQVkN9BXcnzJ764/exec";
   var raw = null;
   try { raw = JSON.parse(localStorage.getItem("mw_user") || "null"); } catch (e) {}
 
