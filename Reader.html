@@ -363,6 +363,33 @@ function renderBooks(level, key){
   document.getElementById("pdf-viewer").src = firstBook.file;
 }
 
+function showFile(fileName){
+  const frame = document.getElementById("pdf-viewer");
+  const video = document.getElementById("video-viewer");
+  const isVideo = /\.mp4$/i.test(fileName);
+
+  if(isVideo){
+    frame.style.display = "none";
+    frame.removeAttribute("src");
+    video.style.display = "block";
+    video.pause();
+    video.innerHTML = "";
+    const source = document.createElement("source");
+    source.src = fileName;
+    source.type = "video/mp4";
+    video.appendChild(source);
+    video.load();
+  }else{
+    video.pause();
+    video.style.display = "none";
+    video.innerHTML = "";
+    video.removeAttribute("src");
+    video.load();
+    frame.style.display = "block";
+    frame.src = fileName;
+  }
+}
+
 function changeFile(fileName, btn){
   document.getElementById("pdf-viewer").src = fileName;
   document.querySelectorAll("#bookList button").forEach(b => b.classList.remove("active"));
