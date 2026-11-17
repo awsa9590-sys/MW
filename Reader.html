@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src https://script.google.com https://script.googleusercontent.com; frame-src 'self' blob:; object-src 'self'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src https://script.google.com https://script.googleusercontent.com; frame-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <script src="auth.js"></script>
 
@@ -18,25 +18,13 @@ nav{width:330px;background:#34495e;padding:18px;display:flex;flex-direction:colu
 nav button{background:#455a64;color:#fff;border:0;padding:12px;cursor:pointer;text-align:right;border-radius:7px;font-size:14px}
 nav button:hover{background:#1abc9c}
 nav button.active{background:#e67e22;font-weight:bold}
-.viewer{flex:1;background:#ecf0f1;display:flex;flex-direction:column;min-width:0}
-.viewer iframe,.viewer video{flex:1;width:100%;min-height:0;border:0}
+.viewer{flex:1;background:#ecf0f1}
 iframe{width:100%;height:100%;border:0}
-#open-link{display:none}
-#open-link.big{flex:1;align-items:center;justify-content:center;background:#e67e22;color:#fff;font-size:20px;font-weight:bold;text-decoration:none;text-align:center;padding:20px}
 #loading,#denied,#empty{display:none;height:100%;align-items:center;justify-content:center;text-align:center;color:#fff;padding:30px}
 .message{max-width:600px;background:#34495e;padding:35px;border-radius:18px;box-shadow:0 10px 30px #0004}
 .message h2{margin-top:0}
 .logout{margin-top:auto;background:#c0392b!important}
 .badge{font-size:13px;color:#dff9f4;margin-bottom:4px;text-align:center}
-
-/* الموبايل */
-@media (max-width:768px){
-  header{font-size:16px;padding:0 10px;text-align:center}
-  .main-container{flex-direction:column;height:calc(100dvh - 60px)}
-  nav{width:100%;max-height:38%;flex:0 0 auto;padding:12px}
-  .viewer{flex:1;min-height:0}
-  #open-link{display:block;background:#e67e22;color:#fff;text-align:center;padding:12px;font-weight:bold;text-decoration:none}
-}
 </style>
 </head>
 
@@ -77,7 +65,6 @@ iframe{width:100%;height:100%;border:0}
   </nav>
 
   <div class="viewer">
-    <a id="open-link" target="_blank" rel="noopener">📄 فتح الملف في صفحة مستقلة</a>
     <iframe id="pdf-viewer"></iframe>
     <video id="video-viewer" controls playsinline preload="metadata" style="display:none;width:100%;height:100%;background:#000"></video>
   </div>
@@ -213,6 +200,11 @@ const BOOKS = {
       file:"محاسبه ماليه متقدمه 2.pdf"
     },
     {
+      section:"المحاسبه الماليه متقدمه",
+      title:"المحاضره الثانيه mp4",
+      file:"اكتب-اسم-الملف-هنا.mp4"
+    },
+    {
       section:"مبادئ الماليه العامه",
       title:"المحاصره الاولى mp4",
       file:"تشريح مالية الدولة.mp4"
@@ -315,8 +307,7 @@ function getSpec(user){
 }
 
 function isTrade(user){
-  const s = getSpec(user).toLowerCase().replace(/\s+/g, "");
-  return s.includes("trade") || s.includes("خارج");
+  return getSpec(user) === "trade";
 }
 
 function specLabel(user){
@@ -341,7 +332,7 @@ function renderBooks(level, key){
   const list = document.getElementById("bookList");
   list.innerHTML = "";
 
-  const books = (BOOKS[key] && BOOKS[key].length) ? BOOKS[key] : (BOOKS[level] || []);
+  const books = BOOKS[key] || [];
 
   if(!books.length){
     document.getElementById("reader").style.display = "none";
@@ -373,21 +364,20 @@ function renderBooks(level, key){
   showFile(firstBook.file);
 }
 
-function showFile(fileName){
+function showFile(rawName){
+  const fileName = encodeURI(rawName);
   const frame = document.getElementById("pdf-viewer");
   const video = document.getElementById("video-viewer");
-  const link = document.getElementById("open-link");
-  const isVideo = /\.mp4$/i.test(fileName);
+  const isVideo = /\.mp4$/i.test(rawName);
 
   if(isVideo){
-    link.style.display = "none";
     frame.style.display = "none";
     frame.removeAttribute("src");
     video.style.display = "block";
     video.pause();
     video.innerHTML = "";
     const source = document.createElement("source");
-    source.src = encodeURI(fileName);
+    source.src = fileName;
     source.type = "video/mp4";
     video.appendChild(source);
     video.load();
@@ -397,20 +387,8 @@ function showFile(fileName){
     video.innerHTML = "";
     video.removeAttribute("src");
     video.load();
-    link.href = encodeURI(fileName);
-    const mobile = window.matchMedia("(max-width:768px)").matches || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if(mobile){
-      /* متصفحات الموبايل لا تعرض PDF داخل iframe: نعرض زر فتح بدلًا منه */
-      frame.style.display = "none";
-      frame.removeAttribute("src");
-      link.style.display = "flex";
-      link.classList.add("big");
-    }else{
-      link.style.display = "none";
-      link.classList.remove("big");
-      frame.style.display = "block";
-      frame.src = encodeURI(fileName);
-    }
+    frame.style.display = "block";
+    frame.src = fileName;
   }
 }
 
